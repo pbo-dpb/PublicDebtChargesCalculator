@@ -1,0 +1,52 @@
+[v-cloak] {
+    display: none
+}
+
+
+.is-print-only {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: landscape
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    .is-hidden-print {
+        display: none !important;
+    }
+
+    .is-print-only {
+        display: inline-block;
+    }
+
+    .table td {
+        border: 1px solid rgb(238, 238, 238);
+    }
+
+    .table-container {
+        overflow-x: hidden;
+    }
+}
+
+.table td {
+    text-align: right;
+}
+
+.table td input {
+    text-align: right;
+}
+
+.table>thead>tr>th:not(:first-child) {
+    text-align: right;
+}
+
+.table>thead:not(:first-child)>tr:first-child>th {
+    padding: 2em 0.5em 1em 0.5em;
+    font-size: 1.25em;
+    text-align: center;
+}

@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        PBO-DPB : Public debt charges calculator / Calculateur des frais sur la dette publique
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+
+    <script src='./epcworksheet-stopie.js'></script>
+    <link rel="stylesheet" type="text/css" href="./epcworksheet-style.css">
+</head>
+
+<body>
+    <main id="app" v-cloak>
+
+        <header class="section is-hidden-print" style="background-color: #EEE;">
+            <div class="container is-fluid">
+                <nav class="level">
+                    <!-- Left side -->
+                    <div class="level-left">
+                        <div class="level-item">
+                            <img style="max-width: 200px;" v-if="selectedLanguage === 'fr'" src="./logo_fr.png"
+                                :alt="localizedStrings.pbo.fr">
+                            <img style="max-width: 200px;" v-else src="./logo_en.png"
+                                :alt="selectedLanguage === 'en' ? localizedStrings.pbo.en : 'PBO-DPB'">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Right side -->
+                    <div class="level-right">
+                        <p class="level-item" v-if="selectedLanguage !== 'fr'"><a class="button"
+                                href="?lang=fr">Français</a></p>
+                        <p class="level-item" v-if="selectedLanguage !== 'en'"><a class="button"
+                                href="?lang=en">English</a>
+                        </p>
+                    </div>
+                </nav>
+
+            </div>
+        </header>
+
+        <header class="is-print-only has-text-centered" style="width: 100%">
+            <h3 class="title is-3">{{ strings.title }}</h3>
+            <h5 class="title is-5">{{ strings.pbo }}</h5>
+        </header>
+
+        <section v-if="selectedLanguage && years" class="section">
+
+            <main class="container is-fluid">
+
+                <div class="content has-text-centered is-hidden-print">
+                    <h1>{{ strings.title }}</h1>
+                    <p>{{ strings.description }}</p>
+                    <p>{{ strings.linkToBlogPostLabel }}<br><a
+                            :href="strings.linkToBlogPostUrl">{{ strings.linkToBlogPostUrl }}</a></p>
+                </div>
+                <!-- Main container -->
+                <nav style="margin: 2em 0.5em;" class="level is-hidden-print">
+                    <!-- Left side -->
+                    <div class="level-left">
+                        <div class="level-item">
+                            <label class="checkbox">
+                                <input type="checkbox" v-model="showBackEnd">
+                                {{ strings.showBackEnd }}
+                            </label>
+                        </div>
+                        <div class="level-item" v-if='false && showBackEnd'>
+                            <label class="checkbox">
+                                <input type="checkbox" v-model="showCalculations">
+                                {{ strings.showCalculations }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Right side -->
+                    <div class="level-right" v-if='true || false'>
+                        <div class="level-item">
+                            <button class="button is-small" @click="print">{{ strings.printPage }}</button>
+                        </div>
+
+                    </div>
+                </nav>
+
+                <figure class="table-container">
+                    <table class="table is-striped is-narrow  is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>{{ strings.fiscalYear }}</th>
+
+                                <th v-for="year in yearsLabels" width="7.145%">{{ year }}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <th>{{ strings.totalRevenuesMeasures }}<br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    <div class="field is-hidden-print ">
+                                        <div class="control">
+                                            <input class="input is-small" type="number"
+                                                v-model="year.totalRevenueMeasures">
+                                        </div>
+                                    </div>
+                                    <span class="is-print-only">{{ year.totalRevenueMeasures }}</span>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <th>{{ strings.totalProgramSpendingMeasures }}<br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    <div class="field is-hidden-print">
+                                        <div class="control">
+                                            <input class="input is-small" type="number"
+                                                v-model="year.totalProgramSpendingMeasures">
+                                        </div>
+                                    </div>
+                                    <span class="is-print-only">{{ year.totalProgramSpendingMeasures }}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.netChangeOnPrimaryBalance }}<br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ year.netChangeOnPrimaryBalance }}
+                                </td>
+                            </tr>
+
+
+
+
+
+                        </tbody>
+
+                        <thead v-if="showBackEnd" style="border-top: 1px solid rgb(219, 219, 219);">
+                            <tr>
+                                <th :colspan='yearsLabels.length+1'>
+                                    {{ strings.backEnd }}</th>
+                            </tr>
+                            <tr>
+                                <th>{{ strings.fiscalYear }}</th>
+
+                                <th v-for="year in yearsLabels">{{ year }}</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody v-if="showBackEnd" style="border-bottom: 1px solid rgb(219, 219, 219)">
+
+
+                            <tr>
+                                <th>{{ strings.ratioOfBondsToTBills }}
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ year.ratioOfBondsToTBills.toFixed(3) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.dayRate90 }}
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ parseFloat(year.dayRate90).toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.yearRate10 }}
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ parseFloat(year.yearRate10).toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.marginalEffectiveInterestRate }}
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ year.marginalEffectiveInterestRate.toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.debtChargesOnPrimaryBalances }}
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ year.debtChargesOnPrimaryBalances.toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.debtChargesOnCumulativePrimaryBalances }}
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ years.debtChargesOnCumulativePrimaryBalances(year).toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.debtChargesOnDebtCharges }}
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ years.debtChargesOnDebtCharges(year) ? years.debtChargesOnDebtCharges(year).toFixed(2) : "&nbsp;" }}
+                                </td>
+                            </tr>
+
+                            <tr class="is-hidden-print">
+                                <td :colspan='yearsLabels.length+1' class="has-text-centered">
+                                    <a
+                                        href="./public_debt_charges_calculator_worksheet.xlsx">{{ strings.downloadWorksheetLabel }}</a>
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+
+                        <thead style="border-top: 1px solid rgb(219, 219, 219);">
+                            <tr>
+                                <th :colspan='yearsLabels.length+1'>
+                                    {{ strings.outputs }}</th>
+                            </tr>
+                            <tr>
+                                <th>{{ strings.fiscalYear }}</th>
+
+                                <th v-for="year in yearsLabels">{{ year }}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid rgb(219, 219, 219)">
+
+                            <tr>
+                                <th>{{ strings.totalDebtCharges }}<br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ years.totalDebtCharges(year).toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.cumulativeSurplus }}<br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ years.cumulativeSurplus(year).toFixed(2) }}
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <th>{{ strings.surplusForTheYear }}<sup>*</sup><br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ years.surplusForTheYear(year).toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.averageEffectiveInterestRate }}<sup>**</sup><br><small
+                                        class="has-text-grey-light">%</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ years.averageEffectiveInterestRate(year) ? years.averageEffectiveInterestRate(year).toFixed(2) : "—" }}
+                                </td>
+                            </tr>
+
+
+
+                        </tbody>
+
+
+                        <tfoot>
+                            <tr>
+                                <td :colspan='yearsLabels.length+1'>
+
+                                    <div><sup>*</sup>{{ strings.surplusOfTheYearWarning }}</div>
+                                    <div><sup>**</sup>{{ strings.averageEffectiveInterestRateWarning }}</div>
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </figure>
+
+
+
+            </main>
+        </section>
+
+
+
+    </main>
+    <script src='./vue.min.js'></script>
+    <script src='./collect.min.js'></script>
+    <script src='./epcworksheet-year.js'></script>
+    <script src='./epcworksheet-years.js'></script>
+
+
+    <script src='./epcworksheet-static-variables.js'></script>
+    <script src='./epcworksheet-static-uistrings.js'></script>
+
+    <script src='./epcworksheet-app.js'></script>
+</body>
+
+</html>
