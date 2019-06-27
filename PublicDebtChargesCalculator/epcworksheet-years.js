@@ -61,15 +61,9 @@ class FiscalYears {
         return this.debtChargesOnCumulativePrimaryBalances(previousYear) * (year.marginalEffectiveInterestRate / 100);
     }
 
-    totalDebtCharges(year) {
-        return this.debtChargesOnCumulativePrimaryBalances(year) + this.debtChargesOnDebtCharges(year);
-    }
 
-    cumulativeSurplus(year) {
-        return this.inclusiveYearsUntilCollection(year).reduce((carry, item) => {
-            return carry + item.netChangeOnPrimaryBalance;
-        }, 0) + this.totalDebtCharges(year);
-    }
+
+
 
     surplusForTheYear(year) {
         return this.totalDebtCharges(year) + year.netChangeOnPrimaryBalance;
@@ -84,6 +78,18 @@ class FiscalYears {
         if (!previousYear) return year.newBorrowing;
 
         return (1 + year.marginalEffectiveInterestRate / 100) * this.stockOfBorrowing(previousYear) + year.newBorrowing;
+    }
+
+    totalDebtCharges(year) {
+
+        let previousYear = this.exclusiveYearsUntilCollection(year).last();
+        if (!previousYear) return year.debtChargesOnPrimaryBalances;
+
+        return year.debtChargesOnPrimaryBalances + (year.marginalEffectiveInterestRate / 100) * this.cumulativeSurplus(previousYear);
+    }
+
+    cumulativeSurplus(year) {
+        return -this.stockOfBorrowing(year);
     }
 
 }
