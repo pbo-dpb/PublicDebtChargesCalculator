@@ -122,4 +122,14 @@ const localizedStrings = {
         fr: "Le taux d’intérêt effectif moyen est calculé en divisant les frais d’intérêt totaux par le surplus cumulatif."
     },
 
+    newBorrowing: {
+        en: "New borrowing",
+        fr: "Obligations supplémentaires"
+    },
+
+    stockOfBorrowing: {
+        en: "Stock of borrowing",
+        fr: "Stock des obligations"
+    }
+
 }

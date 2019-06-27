@@ -148,6 +148,8 @@
 
 
 
+
+
                         </tbody>
 
                         <thead v-if="showBackEnd" style="border-top: 1px solid rgb(219, 219, 219);">
@@ -219,6 +221,24 @@
                                 </th>
                                 <td v-for="year in years.years">
                                     {{ years.debtChargesOnDebtCharges(year) ? years.debtChargesOnDebtCharges(year).toFixed(2) : "&nbsp;" }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.newBorrowing }}<br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ year.newBorrowing.toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.stockOfBorrowing }}<br><small
+                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                </th>
+                                <td v-for="year in years.years">
+                                    {{ years.stockOfBorrowing(year) ? years.stockOfBorrowing(year).toFixed(2) : "&nbsp;" }}
                                 </td>
                             </tr>
 

@@ -79,4 +79,11 @@ class FiscalYears {
         return this.totalDebtCharges(year) / this.cumulativeSurplus(year) * 100;
     }
 
+    stockOfBorrowing(year) {
+        let previousYear = this.exclusiveYearsUntilCollection(year).last();
+        if (!previousYear) return year.newBorrowing;
+
+        return (1 + year.marginalEffectiveInterestRate / 100) * this.stockOfBorrowing(previousYear) + year.newBorrowing;
+    }
+
 }

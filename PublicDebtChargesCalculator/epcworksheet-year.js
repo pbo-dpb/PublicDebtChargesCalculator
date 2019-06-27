@@ -23,5 +23,10 @@ class Year {
     }
 
 
+    get newBorrowing() {
+        return -(this.netChangeOnPrimaryBalance + this.debtChargesOnPrimaryBalances);
+    }
+
+
 
 }
