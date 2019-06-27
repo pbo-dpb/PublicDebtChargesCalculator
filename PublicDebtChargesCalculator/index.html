@@ -112,7 +112,7 @@
                                     <div class="field is-hidden-print ">
                                         <div class="control">
                                             <input class="input is-small" type="number"
-                                                v-model="year.totalRevenueMeasures">
+                                                v-model.number="year.totalRevenueMeasures">
                                         </div>
                                     </div>
                                     <span class="is-print-only">{{ year.totalRevenueMeasures }}</span>
@@ -128,7 +128,7 @@
                                     <div class="field is-hidden-print">
                                         <div class="control">
                                             <input class="input is-small" type="number"
-                                                v-model="year.totalProgramSpendingMeasures">
+                                                v-model.number="year.totalProgramSpendingMeasures">
                                         </div>
                                     </div>
                                     <span class="is-print-only">{{ year.totalProgramSpendingMeasures }}</span>
@@ -143,10 +143,6 @@
                                     {{ year.netChangeOnPrimaryBalance }}
                                 </td>
                             </tr>
-
-
-
-
 
 
 
@@ -208,25 +204,10 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <th>{{ strings.debtChargesOnCumulativePrimaryBalances }}
-                                </th>
-                                <td v-for="year in years.years">
-                                    {{ years.debtChargesOnCumulativePrimaryBalances(year).toFixed(2) }}
-                                </td>
-                            </tr>
+
 
                             <tr>
-                                <th>{{ strings.debtChargesOnDebtCharges }}
-                                </th>
-                                <td v-for="year in years.years">
-                                    {{ years.debtChargesOnDebtCharges(year) ? years.debtChargesOnDebtCharges(year).toFixed(2) : "&nbsp;" }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.newBorrowing }}<br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.newBorrowing }}
                                 </th>
                                 <td v-for="year in years.years">
                                     {{ year.newBorrowing.toFixed(2) }}
@@ -234,11 +215,10 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.stockOfBorrowing }}<br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.stockOfBorrowing }}
                                 </th>
                                 <td v-for="year in years.years">
-                                    {{ years.stockOfBorrowing(year) ? years.stockOfBorrowing(year).toFixed(2) : "&nbsp;" }}
+                                    {{ years.stockOfBorrowing(year).toFixed(2) }}
                                 </td>
                             </tr>
 

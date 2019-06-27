@@ -75,14 +75,6 @@ const localizedStrings = {
         en: "Debt charges on primary balances",
         fr: "Frais d'intérêt sur la balance primaire"
     },
-    debtChargesOnCumulativePrimaryBalances: {
-        en: "Debt charges on cumulative primary balances",
-        fr: "Frais d'intérêt sur les balances primaires cumulés",
-    },
-    debtChargesOnDebtCharges: {
-        en: "Debt charges on debt charges",
-        fr: "Intérêts sur les intérêts"
-    },
 
     downloadWorksheetLabel: {
         en: "To see the detailed calculations for this tool, download the spreadsheet in Microsoft Excel.",

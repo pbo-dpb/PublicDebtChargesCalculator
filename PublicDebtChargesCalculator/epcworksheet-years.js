@@ -47,24 +47,6 @@ class FiscalYears {
                                                 
     */
 
-    debtChargesOnCumulativePrimaryBalances(year) {
-        return this.inclusiveYearsUntilCollection(year).reduce((carry, item) => {
-            return carry + item.debtChargesOnPrimaryBalances;
-        }, 0);
-    }
-
-    debtChargesOnDebtCharges(year) {
-
-        let previousYear = this.exclusiveYearsUntilCollection(year).last();
-        if (!previousYear) return 0;
-
-        return this.debtChargesOnCumulativePrimaryBalances(previousYear) * (year.marginalEffectiveInterestRate / 100);
-    }
-
-
-
-
-
     surplusForTheYear(year) {
         return this.totalDebtCharges(year) + year.netChangeOnPrimaryBalance;
     }
