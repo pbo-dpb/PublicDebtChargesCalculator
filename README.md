@@ -1,6 +1,4 @@
-# English
-
-## Public Debt Charges Calculator
+# Public Debt Charges Calculator
 
 Within the framework of the next electoral campaign, the PBO developed a tool allowing political parties to estimate the interest charges from their new proposals.
 
@@ -19,9 +17,7 @@ To use the tool, the user must only enter in the appropriate boxes the expected 
 
 Before submitting a pull request, please note that this tool was created in an environment with no pre-processor support. Feel free to fork this repo if you'd like to use one. Also note that our infrastructure only supports static files; only client side interactivity is allowed.
 
-# Français
-
-## Calculateur des frais sur la dette publique
+# Calculateur des frais sur la dette publique
 
 Dans le cadre de la prochaine campagne électorale, le DPB a développé un outil permettant aux partis politiques d’estimer les frais en intérêts de leurs nouvelles propositions.
 
