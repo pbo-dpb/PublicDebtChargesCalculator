@@ -1,5 +1,5 @@
 class Year {
-    constructor(label, dayRate90, yearRate10) {
+    constructor(label, dayRate90, yearRate10, ratioOfBondsToTBills) {
 
         this.label = label;
         this.dayRate90 = dayRate90;
