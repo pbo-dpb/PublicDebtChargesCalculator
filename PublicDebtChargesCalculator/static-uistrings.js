@@ -12,8 +12,8 @@ const localizedStrings = {
         fr: "Afin d’utiliser l’outil, vous n'avez qu'à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont vous désirez estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 10 ans."
     },
     updatedOn: {
-        en: "Updated June 27, 2019",
-        fr: "Mis à jour le 27 juin 2019"
+        en: "Updated December 2020",
+        fr: "Mis à jour en décembre 2020"
     },
     linkToBlogPostLabel: {
         en: "For further information please visit this link:",

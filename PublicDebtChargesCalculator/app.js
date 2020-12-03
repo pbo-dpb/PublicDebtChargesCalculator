@@ -29,7 +29,7 @@ var app = new Vue({
 
         /**
          * Return a nicely formatted list of years. Extracted using variable `dayRate90` defined
-         * in `epcworksheet-static-variables.js`.
+         * in `static-variables.js`.
          */
         yearsLabels() {
             return collect(this.years.years).pluck("label").toArray();
