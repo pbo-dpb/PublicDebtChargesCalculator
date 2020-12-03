@@ -1,4 +1,10 @@
 /**
+ * Last update. Is used to update user facing label. 
+ * YYYY-MM-DD
+ */
+const lastUpdated = "2020-12-03";
+
+/**
  * Declaration of all years in table.
  * Year(label, dayRate90, yearRate10, ratioOfBondsToTBills)
  */

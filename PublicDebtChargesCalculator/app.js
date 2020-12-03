@@ -5,6 +5,7 @@ var app = new Vue({
             years: new FiscalYears(),
             showBackEnd: false,
             showCalculations: false,
+            lastUpdated: lastUpdated
         };
 
     },
