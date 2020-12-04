@@ -36,10 +36,13 @@
                     <!-- Left side -->
                     <div class="level-left">
                         <div class="level-item">
-                            <img style="max-width: 200px;" v-if="selectedLanguage === 'fr'" src="./logo_fr.png"
-                                :alt="localizedStrings.pbo.fr">
-                            <img style="max-width: 200px;" v-else src="./logo_en.png"
-                                :alt="selectedLanguage === 'en' ? localizedStrings.pbo.en : 'PBO-DPB'">
+                            <figure style="max-width:200px;max-height:80px;">
+                                <a href="https://www.pbo-dpb.gc.ca"><img style="width: 100%"
+                                        v-if="selectedLanguage === 'fr'" src="./assets/2019-08-19_Full_logo_f-01.svg"
+                                        :alt="localizedStrings.pbo.fr">
+                                    <img style="width: 100%" v-else src="./assets/2019-08-19_Full_logo_e-01.svg"
+                                        :alt="selectedLanguage === 'en' ? localizedStrings.pbo.en : 'PBO-DPB'"></a>
+                            </figure>
 
                         </div>
 
@@ -48,10 +51,10 @@
 
                     <!-- Right side -->
                     <div class="level-right">
-                        <p class="level-item" v-if="selectedLanguage !== 'fr'"><a class="button"
-                                href="?lang=fr">Français</a></p>
                         <p class="level-item" v-if="selectedLanguage !== 'en'"><a class="button"
                                 href="?lang=en">English</a>
+                        <p class="level-item" v-if="selectedLanguage !== 'fr'"><a class="button"
+                                href="?lang=fr">Français</a></p>
                         </p>
                     </div>
                 </nav>
