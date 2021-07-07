@@ -116,9 +116,35 @@ class FiscalYears {
 
     shareOfBondsWhichAreLongTermForYear(year) {
         const incrementalLongTermBondStock = this.incrementalLongTermBondStockForYear(year);
-
         return incrementalLongTermBondStock > 0 ? (incrementalLongTermBondStock / this.cumulativeIncrementalBorrowingForYear(year)) : 0;
     }
+
+    /**
+     * Share new * new rate + share old * old rate
+     */
+    runningApplicableInterestRateLongTermForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearRunningApplicableInterestRateLongTerm = previousYear ? this.runningApplicableInterestRateLongTermForYear(previousYear) : 0;
+        const shareOfLongTermBondsNewlyIssued = this.shareOfLongTermBondsNewlyIssuedForYear(year);
+
+        return this.cumulativeIncrementalBorrowingForYear(year) > 0 ?
+            shareOfLongTermBondsNewlyIssued * year.longTermBondRate + (1 - shareOfLongTermBondsNewlyIssued) * previousYearRunningApplicableInterestRateLongTerm :
+            year.longTermBondRate;
+    }
+
+    /**
+     * Share new * new rate + share old * old rate
+     */
+    runningApplicableInterestRateMediumTermForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearRunningApplicableInterestRateMediumTermForYear = previousYear ? this.runningApplicableInterestRateMediumTermForYear(previousYear) : 0;
+        const shareOfMediumTermBondsNewlyIssued = this.shareOfMediumTermBondsNewlyIssuedForYear(year);
+
+        return this.cumulativeIncrementalBorrowingForYear(year) > 0 ?
+            shareOfMediumTermBondsNewlyIssued * year.effectiveInterestRateOnNewMediumTermDebt + (1 - shareOfMediumTermBondsNewlyIssued) * previousYearRunningApplicableInterestRateMediumTermForYear :
+            year.effectiveInterestRateOnNewMediumTermDebt;
+    }
+
 
 
     totalDebtChargesForYear(year) {

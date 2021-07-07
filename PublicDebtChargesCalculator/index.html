@@ -280,6 +280,21 @@
                                 </td>
                             </tr>
 
+                            <tr>
+                                <th>{{ strings.runningApplicableInterestRateLongTerm }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ years.runningApplicableInterestRateLongTermForYear(year).toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.runningApplicableInterestRateMediumTerm }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ years.runningApplicableInterestRateMediumTermForYear(year).toFixed(2) }}
+                                </td>
+                            </tr>
 
 
                         </tbody>

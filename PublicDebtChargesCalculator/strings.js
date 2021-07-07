@@ -153,7 +153,19 @@ const localizedStrings = {
     shareOfBondsWhichAreLongTerm: {
         en: "Share of bonds which are long-term",
         fr: ""
-    }
+    },
+
+
+    runningApplicableInterestRateLongTerm: {
+        en: "Running Applicable Interest Rate - Long-Term",
+        fr: ""
+    },
+
+
+    runningApplicableInterestRateMediumTerm: {
+        en: "Running Applicable Interest Rate - Medium-Term",
+        fr: ""
+    },
 
 
 
