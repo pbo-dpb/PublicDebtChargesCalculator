@@ -99,13 +99,22 @@ class FiscalYears {
         const previousYearincrementalMediumTermBondStock = previousYear ? this.incrementalMediumTermBondStockForYear(previousYear) : 0;
         const incrementalMediumTermBondStock = this.incrementalMediumTermBondStockForYear(year);
         return Math.min(1,
-            ((incrementalMediumTermBondStock > 0)
-                ?
-                1 - Math.pow((1 - 0.08), 4) + (incrementalMediumTermBondStock - previousYearincrementalMediumTermBondStock) / incrementalMediumTermBondStock
-                :
-                0)
+            ((incrementalMediumTermBondStock > 0) ? 1 - Math.pow((1 - 0.08), 4) + (incrementalMediumTermBondStock - previousYearincrementalMediumTermBondStock) / incrementalMediumTermBondStock : 0)
         );
     }
+
+    /**
+     * (Turnover + New issuances)/Prior Stock
+     */
+    shareOfLongTermBondsNewlyIssuedForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearincrementalLongTermBondStock = previousYear ? this.incrementalLongTermBondStockForYear(previousYear) : 0;
+        const incrementalLongTermBondStock = this.incrementalLongTermBondStockForYear(year);
+
+        return Math.min(1, (incrementalLongTermBondStock > 0 ? 1 - Math.pow((1 - 0.015), 4) + (incrementalLongTermBondStock - previousYearincrementalLongTermBondStock) / incrementalLongTermBondStock : 0))
+
+    }
+
 
     totalDebtChargesForYear(year) {
         return 0;
