@@ -9,6 +9,7 @@ class Year {
 
         this.totalRevenueMeasures = 0;
         this.totalProgramSpendingMeasures = 0;
+        this.previousYearId = null;
 
 
         // DEBUG - TODO REMOVE
@@ -28,7 +29,7 @@ class Year {
     }
 
     previousYear(years) {
-        return years.exclusiveYearsUntilCollection(this).last();
+        return years.years[this.previousYearId];
     }
 
     get netChangeOnPrimaryBalance() {
