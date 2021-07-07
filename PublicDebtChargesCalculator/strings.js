@@ -27,10 +27,6 @@ const localizedStrings = {
         en: "Show Back-end",
         fr: "Montrer l'arrière-plan",
     },
-    showCalculations: {
-        en: "Show Calculations",
-        fr: "Montrer les calculs",
-    },
     printPage: {
         en: "Print",
         fr: "Imprimer"
@@ -59,26 +55,7 @@ const localizedStrings = {
         en: "Back-end",
         fr: "Arrière-plan"
     },
-    ratioOfBondsToTBills: {
-        en: "Ratio of bonds to T-bills",
-        fr: "Ratio des obligation sur les bonds du trésor"
-    },
-    dayRate90: {
-        en: "90-day rate",
-        fr: "Taux 90-jours"
-    },
-    yearRate10: {
-        en: "10-year rate",
-        fr: "Taux 10 ans"
-    },
-    marginalEffectiveInterestRate: {
-        en: "Marginal effective interest rate",
-        fr: "Taux d'intérêt effectif marginal"
-    },
-    debtChargesOnPrimaryBalances: {
-        en: "Debt charges on primary balances",
-        fr: "Frais d'intérêt sur la balance primaire"
-    },
+
 
     downloadWorksheetLabel: {
         en: "To see the detailed calculations for this tool, download the spreadsheet in Microsoft Excel.",
@@ -100,10 +77,6 @@ const localizedStrings = {
         fr: "Surplus cumulatif"
     },
 
-    surplusForTheYear: {
-        en: "Surplus for the year",
-        fr: "Surplus pour l'année"
-    },
 
     averageEffectiveInterestRate: {
         en: "Average effective interest rate",
@@ -118,14 +91,29 @@ const localizedStrings = {
         fr: "Le taux d’intérêt effectif moyen est calculé en divisant les frais d’intérêt totaux par le surplus cumulatif."
     },
 
-    newBorrowing: {
-        en: "New borrowing",
-        fr: "Obligations supplémentaires"
+    day90TreasuryBillRate: {
+        en: "90-day treasury bill rate",
+        fr: ""
     },
 
-    stockOfBorrowing: {
-        en: "Stock of borrowing",
-        fr: "Stock des obligations"
-    }
+    year10BondRate: {
+        en: "10-year bond rate",
+        fr: ""
+    },
+
+
+    longTermBondRate: {
+        en: "Long-term bond rate",
+        fr: ""
+    },
+
+
+    effectiveInterestRateOnNewMediumTermDebt: {
+        en: "Effective interest rate on new medium term debt",
+        fr: ""
+    },
+
+
+
 
 }

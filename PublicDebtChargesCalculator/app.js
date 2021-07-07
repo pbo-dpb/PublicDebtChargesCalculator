@@ -3,8 +3,7 @@ var app = new Vue({
     data() {
         return {
             years: new FiscalYears(),
-            showBackEnd: false,
-            showCalculations: false,
+            showBackEnd: true,
             lastUpdated: lastUpdated
         };
 
@@ -33,7 +32,7 @@ var app = new Vue({
          * in `static-variables.js`.
          */
         yearsLabels() {
-            return collect(this.years.years).pluck("label").toArray();
+            return collect(this.years.displayYears).pluck("label").toArray();
         },
 
         /**

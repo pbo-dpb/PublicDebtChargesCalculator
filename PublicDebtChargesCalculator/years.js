@@ -3,6 +3,10 @@ class FiscalYears {
         this.years = staticYears;
     }
 
+    get displayYears() {
+        return collect(this.years).reject(year => year.hidden).items;
+    }
+
     /**
      * Return an ordered list of years up to the provided year, including it as
      * the last item.
@@ -67,5 +71,8 @@ class FiscalYears {
         }
     
     */
+
+
+
 
 }
