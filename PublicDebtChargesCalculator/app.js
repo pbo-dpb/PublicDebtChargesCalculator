@@ -51,6 +51,14 @@ var app = new Vue({
             window.print();
         }
     }
+    ,
+
+    filters: {
+        percentage: function (percentage) {
+            percentage = Math.round(percentage * 100);
+            return this.selectedLanguage === "fr" ? `${percentage} %` : `${percentage}%`;
+        }
+    }
 
 
 })

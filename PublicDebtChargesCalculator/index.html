@@ -255,6 +255,16 @@
                                 </td>
                             </tr>
 
+                            <tr>
+                                <th>{{ strings.shareOfMediumTermBondsNewlyIssued }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ years.shareOfMediumTermBondsNewlyIssuedForYear(year) | percentage }}
+                                </td>
+                            </tr>
+
+
+
                         </tbody>
 
 

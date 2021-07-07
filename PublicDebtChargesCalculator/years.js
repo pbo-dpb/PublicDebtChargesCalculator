@@ -91,6 +91,21 @@ class FiscalYears {
         return this.cumulativeIncrementalBorrowingForYear(year) - this.incrementalLongTermBondStockForYear(year);
     }
 
+    /**
+     * (Turnover + New issuances)/Prior Stock
+     */
+    shareOfMediumTermBondsNewlyIssuedForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearincrementalMediumTermBondStock = previousYear ? this.incrementalMediumTermBondStockForYear(previousYear) : 0;
+        const incrementalMediumTermBondStock = this.incrementalMediumTermBondStockForYear(year);
+        return Math.min(1,
+            ((incrementalMediumTermBondStock > 0)
+                ?
+                1 - Math.pow((1 - 0.08), 4) + (incrementalMediumTermBondStock - previousYearincrementalMediumTermBondStock) / incrementalMediumTermBondStock
+                :
+                0)
+        );
+    }
 
     totalDebtChargesForYear(year) {
         return 0;

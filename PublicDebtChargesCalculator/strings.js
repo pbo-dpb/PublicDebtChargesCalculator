@@ -137,7 +137,12 @@ const localizedStrings = {
     incrementalMediumTermBondStock: {
         en: "Incremental medium-term bond stock",
         fr: ""
-    }
+    },
+
+    shareOfMediumTermBondsNewlyIssued: {
+        en: "Share of medium-term bonds newly issued",
+        fr: ""
+    },
 
 
 
