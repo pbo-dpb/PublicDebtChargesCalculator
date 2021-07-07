@@ -13,7 +13,7 @@ class Year {
 
         // DEBUG - TODO REMOVE
         switch (label) {
-            case '2019-2020':
+            case '2021-2022':
                 this.totalProgramSpendingMeasures = 100;
                 break;
             case '2023-2024':
@@ -27,21 +27,30 @@ class Year {
         // ENDDEBUG
     }
 
+    previousYear(years) {
+        return years.exclusiveYearsUntilCollection(this).last();
+    }
+
     get netChangeOnPrimaryBalance() {
         return this.totalRevenueMeasures - this.totalProgramSpendingMeasures;
     }
 
+    /**
+     * This 60:40 blend reflects average PDC's on medium-term bonds historicly
+     */
+    get effectiveInterestRateOnNewMediumTermDebt() {
+        return 0.6 * this.year10BondRate + 0.4 * this.day90TreasuryBillRate;
+    }
 
+    /**
+     * Within a year, new debt will be held as treasury bills, for an average of two quarters.
+     */
     get debtChargesOnPrimaryBalance() {
-        // Within a year, new debt will be held as treasury bills, for an average of two quarters.
         return (Math.pow(Math.pow(this.day90TreasuryBillRate, (1 / 4)), 2) / 100) * this.netChangeOnPrimaryBalance;
     }
 
 
-    get effectiveInterestRateOnNewMediumTermDebt() {
-        // This 60:40 blend reflects average PDC's on medium-term bonds historicly
-        return 0.6 * this.year10BondRate + 0.4 * this.day90TreasuryBillRate;
-    }
+
 
 
 }

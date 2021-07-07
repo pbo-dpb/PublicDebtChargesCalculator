@@ -223,6 +223,23 @@
                             </tr>
 
 
+                            <tr>
+                                <th>{{ strings.newIncrementalBorrowing }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ years.newIncrementalBorrowingForYear(year).toFixed(2) }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ strings.cumulativeIncrementalBorrowing }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ years.cumulativeIncrementalBorrowingForYear(year).toFixed(2) }}
+                                </td>
+                            </tr>
+
+
                         </tbody>
 
 

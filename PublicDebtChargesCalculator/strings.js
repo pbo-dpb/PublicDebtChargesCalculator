@@ -119,6 +119,16 @@ const localizedStrings = {
         fr: ""
     },
 
+    newIncrementalBorrowing: {
+        en: "New incremental borrowing",
+        fr: ""
+    },
+
+    cumulativeIncrementalBorrowing: {
+        en: "Cumulative incremental borrowing",
+        fr: ""
+    }
+
 
 
 

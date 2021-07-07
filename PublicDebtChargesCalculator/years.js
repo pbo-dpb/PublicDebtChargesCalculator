@@ -3,6 +3,10 @@ class FiscalYears {
         this.years = staticYears;
     }
 
+    /**
+     * Array of user visible years.
+     * @returb {array}
+     */
     get displayYears() {
         return collect(this.years).reject(year => year.hidden).items;
     }
@@ -42,6 +46,36 @@ class FiscalYears {
     }
 
 
+    /*
+      _____  _____   _____ _____       _____ ______ _____  _____  
+     |  __ \|  __ \ / ____/ ____|     / ____|  ____|  __ \|  __ \ 
+     | |__) | |  | | |   | |   ______| |    | |__  | |  | | |__) |
+     |  ___/| |  | | |   | |  |______| |    |  __| | |  | |  ___/ 
+     | |    | |__| | |___| |____     | |____| |    | |__| | |     
+     |_|    |_____/ \_____\_____|     \_____|_|    |_____/|_|     
+                                                                  
+    */
+
+    /**
+     * New borrowing is primary balance + public debt charges on existing debt + public debt charages on new debt
+     */
+    newIncrementalBorrowingForYear(year) {
+        const previousYear = year.previousYear(this);
+        return -year.netChangeOnPrimaryBalance - (previousYear ? this.totalDebtChargesForYear(previousYear) : 0) - year.debtChargesOnPrimaryBalance
+    }
+
+    /**
+     * The sum of all prior new borrowing
+     */
+    cumulativeIncrementalBorrowingForYear(year) {
+        const previousYear = year.previousYear(this);
+        return (previousYear ? this.cumulativeIncrementalBorrowingForYear(previousYear) : 0) + this.newIncrementalBorrowingForYear(year);
+    }
+
+
+    totalDebtChargesForYear(year) {
+        return 0;
+    }
 
 
 
