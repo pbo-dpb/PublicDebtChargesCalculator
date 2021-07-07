@@ -98,8 +98,7 @@ class FiscalYears {
         const previousYear = year.previousYear(this);
         const previousYearincrementalMediumTermBondStock = previousYear ? this.incrementalMediumTermBondStockForYear(previousYear) : 0;
         const incrementalMediumTermBondStock = this.incrementalMediumTermBondStockForYear(year);
-        return Math.min(1,
-            ((incrementalMediumTermBondStock > 0) ? 1 - Math.pow((1 - 0.08), 4) + (incrementalMediumTermBondStock - previousYearincrementalMediumTermBondStock) / incrementalMediumTermBondStock : 0)
+        return Math.min(1, ((incrementalMediumTermBondStock > 0) ? 1 - Math.pow((1 - 0.08), 4) + (incrementalMediumTermBondStock - previousYearincrementalMediumTermBondStock) / incrementalMediumTermBondStock : 0)
         );
     }
 
@@ -112,7 +111,14 @@ class FiscalYears {
         const incrementalLongTermBondStock = this.incrementalLongTermBondStockForYear(year);
 
         return Math.min(1, (incrementalLongTermBondStock > 0 ? 1 - Math.pow((1 - 0.015), 4) + (incrementalLongTermBondStock - previousYearincrementalLongTermBondStock) / incrementalLongTermBondStock : 0))
+    }
 
+
+    shareOfBondsWhichAreLongTermForYear(year) {
+        const cumulativeIncrementalBorrowing = this.cumulativeIncrementalBorrowingForYear(year);
+        const incrementalLongTermBondStock = this.incrementalLongTermBondStockForYear(year);
+
+        return (incrementalLongTermBondStock > 0 && cumulativeIncrementalBorrowing) ? (incrementalLongTermBondStock / cumulativeIncrementalBorrowing) : 0;
     }
 
 

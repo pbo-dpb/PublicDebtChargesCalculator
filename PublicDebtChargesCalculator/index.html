@@ -272,6 +272,14 @@
                                 </td>
                             </tr>
 
+                            <tr>
+                                <th>{{ strings.shareOfBondsWhichAreLongTerm }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ years.shareOfBondsWhichAreLongTermForYear(year) | percentage }}
+                                </td>
+                            </tr>
+
 
 
                         </tbody>

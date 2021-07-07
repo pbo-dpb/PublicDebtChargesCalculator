@@ -148,6 +148,11 @@ const localizedStrings = {
     shareOfLongTermBondsNewlyIssued: {
         en: "Share of long-term bonds newly issued",
         fr: ""
+    },
+
+    shareOfBondsWhichAreLongTerm: {
+        en: "Share of bonds which are long-term",
+        fr: ""
     }
 
 
