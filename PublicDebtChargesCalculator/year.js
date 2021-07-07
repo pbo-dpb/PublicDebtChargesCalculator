@@ -35,15 +35,19 @@ class Year {
             return this.yearRate10 * this.ratioOfBondsToTBills + this.dayRate90 * (1 - this.ratioOfBondsToTBills);
         }
     
-        get debtChargesOnPrimaryBalances() {
-            return (this.marginalEffectiveInterestRate / 100) * this.netChangeOnPrimaryBalance;
-        }
+        
     
     
         get newBorrowing() {
             return -(this.netChangeOnPrimaryBalance + this.debtChargesOnPrimaryBalances);
         }
     */
+
+
+    get debtChargesOnPrimaryBalance() {
+        // Within a year, new debt will be held as treasury bills, for an average of two quarters.
+        return (Math.pow(Math.pow(this.day90TreasuryBillRate, (1 / 4)), 2) / 100) * this.netChangeOnPrimaryBalance;
+    }
 
 
     get effectiveInterestRateOnNewMediumTermDebt() {

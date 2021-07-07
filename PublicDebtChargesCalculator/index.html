@@ -213,6 +213,16 @@
                             </tr>
 
 
+
+                            <tr>
+                                <th>{{ strings.debtChargesOnPrimaryBalance }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ year.debtChargesOnPrimaryBalance.toFixed(2) }}
+                                </td>
+                            </tr>
+
+
                         </tbody>
 
 

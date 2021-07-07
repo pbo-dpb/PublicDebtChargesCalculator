@@ -114,6 +114,12 @@ const localizedStrings = {
     },
 
 
+    debtChargesOnPrimaryBalance: {
+        en: "Debt charges on primary balance ",
+        fr: ""
+    },
+
+
 
 
 }
