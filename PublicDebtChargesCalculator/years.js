@@ -115,10 +115,9 @@ class FiscalYears {
 
 
     shareOfBondsWhichAreLongTermForYear(year) {
-        const cumulativeIncrementalBorrowing = this.cumulativeIncrementalBorrowingForYear(year);
         const incrementalLongTermBondStock = this.incrementalLongTermBondStockForYear(year);
 
-        return (incrementalLongTermBondStock > 0 && cumulativeIncrementalBorrowing) ? (incrementalLongTermBondStock / cumulativeIncrementalBorrowing) : 0;
+        return incrementalLongTermBondStock > 0 ? (incrementalLongTermBondStock / this.cumulativeIncrementalBorrowingForYear(year)) : 0;
     }
 
 
