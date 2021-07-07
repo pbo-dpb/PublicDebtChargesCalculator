@@ -82,8 +82,8 @@
                     <h1>{{ strings.title }}</h1>
                     <p>{{ strings.description }}</p>
                     <p><small>{{ strings.updatedOn }} {{ lastUpdated }}</small></p>
-                    <p>{{ strings.linkToBlogPostLabel }}<br><a
-                            :href="strings.linkToBlogPostUrl">{{ strings.linkToBlogPostUrl }}</a></p>
+                    <p>{{ strings.linkToBlogPostLabel }}<br><a :href="strings.linkToBlogPostUrl">{{
+                            strings.linkToBlogPostUrl }}</a></p>
                 </div>
                 <!-- Main container -->
                 <nav style="margin: 2em 0.5em;" class="level is-hidden-print">
@@ -125,8 +125,8 @@
                         <tbody>
 
                             <tr>
-                                <th>{{ strings.totalRevenuesMeasures }}<br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.totalRevenuesMeasures }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.years">
                                     <div class="field is-hidden-print ">
@@ -141,8 +141,8 @@
 
 
                             <tr>
-                                <th>{{ strings.totalProgramSpendingMeasures }}<br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.totalProgramSpendingMeasures }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.years">
                                     <div class="field is-hidden-print">
@@ -156,8 +156,8 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.netChangeOnPrimaryBalance }}<br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.netChangeOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.years">
                                     {{ year.netChangeOnPrimaryBalance }}
@@ -242,13 +242,13 @@
                                 </td>
                             </tr>
 
-                            <tr class="is-hidden-print">
+                            <!--<tr class="is-hidden-print">
                                 <td :colspan='yearsLabels.length+1' class="has-text-centered">
                                     <a
                                         href="./public_debt_charges_calculator_worksheet.xlsx">{{ strings.downloadWorksheetLabel }}</a>
                                 </td>
 
-                            </tr>
+                            </tr>-->
 
 
                         </tbody>
@@ -269,8 +269,8 @@
                         <tbody style="border-bottom: 1px solid rgb(219, 219, 219)">
 
                             <tr>
-                                <th>{{ strings.totalDebtCharges }}<br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.totalDebtCharges }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.years">
                                     {{ years.totalDebtCharges(year).toFixed(2) }}
@@ -278,8 +278,8 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.cumulativeSurplus }}<br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.cumulativeSurplus }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.years">
                                     {{ years.cumulativeSurplus(year).toFixed(2) }}
@@ -288,8 +288,8 @@
 
 
                             <tr>
-                                <th>{{ strings.surplusForTheYear }}<sup>*</sup><br><small
-                                        class="has-text-grey-light">{{ strings.inMillions }}</small>
+                                <th>{{ strings.surplusForTheYear }}<sup>*</sup><br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.years">
                                     {{ years.surplusForTheYear(year).toFixed(2) }}
@@ -301,7 +301,8 @@
                                         class="has-text-grey-light">%</small>
                                 </th>
                                 <td v-for="year in years.years">
-                                    {{ years.averageEffectiveInterestRate(year) ? years.averageEffectiveInterestRate(year).toFixed(2) : "—" }}
+                                    {{ years.averageEffectiveInterestRate(year) ?
+                                    years.averageEffectiveInterestRate(year).toFixed(2) : "—" }}
                                 </td>
                             </tr>
 

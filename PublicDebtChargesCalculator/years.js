@@ -38,40 +38,34 @@ class FiscalYears {
     }
 
     /*
-    _____  ____   ____    ______ _____   _____ 
-    |  __ \|  _ \ / __ \  |  ____|  __ \ / ____|
-    | |__) | |_) | |  | | | |__  | |__) | |     
-    |  ___/|  _ <| |  | | |  __| |  ___/| |     
-    | |    | |_) | |__| | | |____| |    | |____ 
-    |_|    |____/ \____/  |______|_|     \_____|
-                                                
+    
+        surplusForTheYear(year) {
+            return this.totalDebtCharges(year) + year.netChangeOnPrimaryBalance;
+        }
+    
+        averageEffectiveInterestRate(year) {
+            return this.totalDebtCharges(year) / this.cumulativeSurplus(year) * 100;
+        }
+    
+        stockOfBorrowing(year) {
+            let previousYear = this.exclusiveYearsUntilCollection(year).last();
+            if (!previousYear) return year.newBorrowing;
+    
+            return (1 + year.marginalEffectiveInterestRate / 100) * this.stockOfBorrowing(previousYear) + year.newBorrowing;
+        }
+    
+        totalDebtCharges(year) {
+    
+            let previousYear = this.exclusiveYearsUntilCollection(year).last();
+            if (!previousYear) return year.debtChargesOnPrimaryBalances;
+    
+            return year.debtChargesOnPrimaryBalances + (year.marginalEffectiveInterestRate / 100) * this.cumulativeSurplus(previousYear);
+        }
+    
+        cumulativeSurplus(year) {
+            return -this.stockOfBorrowing(year);
+        }
+    
     */
-
-    surplusForTheYear(year) {
-        return this.totalDebtCharges(year) + year.netChangeOnPrimaryBalance;
-    }
-
-    averageEffectiveInterestRate(year) {
-        return this.totalDebtCharges(year) / this.cumulativeSurplus(year) * 100;
-    }
-
-    stockOfBorrowing(year) {
-        let previousYear = this.exclusiveYearsUntilCollection(year).last();
-        if (!previousYear) return year.newBorrowing;
-
-        return (1 + year.marginalEffectiveInterestRate / 100) * this.stockOfBorrowing(previousYear) + year.newBorrowing;
-    }
-
-    totalDebtCharges(year) {
-
-        let previousYear = this.exclusiveYearsUntilCollection(year).last();
-        if (!previousYear) return year.debtChargesOnPrimaryBalances;
-
-        return year.debtChargesOnPrimaryBalances + (year.marginalEffectiveInterestRate / 100) * this.cumulativeSurplus(previousYear);
-    }
-
-    cumulativeSurplus(year) {
-        return -this.stockOfBorrowing(year);
-    }
 
 }
