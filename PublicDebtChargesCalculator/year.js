@@ -30,18 +30,6 @@ class Year {
     get netChangeOnPrimaryBalance() {
         return this.totalRevenueMeasures - this.totalProgramSpendingMeasures;
     }
-    /*
-        get marginalEffectiveInterestRate() {
-            return this.yearRate10 * this.ratioOfBondsToTBills + this.dayRate90 * (1 - this.ratioOfBondsToTBills);
-        }
-    
-        
-    
-    
-        get newBorrowing() {
-            return -(this.netChangeOnPrimaryBalance + this.debtChargesOnPrimaryBalances);
-        }
-    */
 
 
     get debtChargesOnPrimaryBalance() {
@@ -54,7 +42,6 @@ class Year {
         // This 60:40 blend reflects average PDC's on medium-term bonds historicly
         return 0.6 * this.year10BondRate + 0.4 * this.day90TreasuryBillRate;
     }
-
 
 
 }
