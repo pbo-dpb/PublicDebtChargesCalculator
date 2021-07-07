@@ -72,6 +72,17 @@ class FiscalYears {
         return (previousYear ? this.cumulativeIncrementalBorrowingForYear(previousYear) : 0) + this.newIncrementalBorrowingForYear(year);
     }
 
+    /**
+     * An approximation towards 40% of bonds, the share observed historicly
+     */
+    incrementalLongTermBondStockForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearIncrementalLongTermBondStock = previousYear ? this.incrementalLongTermBondStockForYear(previousYear) : 0;
+        const previousYearCumulativeIncrementalBorrowing = previousYear ? this.cumulativeIncrementalBorrowingForYear(previousYear) : 0;
+        const newIncrementalBorrowing = this.newIncrementalBorrowingForYear(year);
+
+        return (((previousYearIncrementalLongTermBondStock * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 1 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 2 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 3 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 4 / 4) * 0.4 * 0.1;
+    }
 
 
     totalDebtChargesForYear(year) {

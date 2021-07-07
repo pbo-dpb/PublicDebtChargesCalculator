@@ -127,7 +127,14 @@ const localizedStrings = {
     cumulativeIncrementalBorrowing: {
         en: "Cumulative incremental borrowing",
         fr: ""
-    }
+    },
+
+    incrementalLongTermBondStock: {
+        en: "Incremental long-term bond stock",
+        fr: ""
+    },
+
+
 
 
 
