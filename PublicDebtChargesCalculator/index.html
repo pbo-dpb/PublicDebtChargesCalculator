@@ -314,12 +314,12 @@
                         </thead>
                         <tbody style="border-bottom: 1px solid rgb(219, 219, 219)">
 
-                            <!--<tr>
+                            <tr>
                                 <th>{{ strings.totalDebtCharges }}<br><small class="has-text-grey-light">{{
                                         strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears">
-                                    {{ years.totalDebtCharges(year).toFixed(2) }}
+                                    {{ years.totalDebtChargesForYear(year).toFixed(2) }}
                                 </td>
                             </tr>
 
@@ -328,31 +328,18 @@
                                         strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears">
-                                    {{ years.cumulativeSurplus(year).toFixed(2) }}
+                                    {{ years.cumulativeSurplusForYear(year).toFixed(2) }}
                                 </td>
                             </tr>
-
-
                             <tr>
-                                <th>{{ strings.surplusForTheYear }}<sup>*</sup><br><small class="has-text-grey-light">{{
+                                <th>{{ strings.cumulativePublicDebtCharges }}<br><small class="has-text-grey-light">{{
                                         strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears">
-                                    {{ years.surplusForTheYear(year).toFixed(2) }}
+                                    {{ years.cumulativePublicDebtChargesForYear(year).toFixed(2) }}
                                 </td>
                             </tr>
 
-                            <tr>
-                                <th>{{ strings.averageEffectiveInterestRate }}<sup>**</sup><br><small
-                                        class="has-text-grey-light">%</small>
-                                </th>
-                                <td v-for="year in years.displayYears">
-                                    {{ years.averageEffectiveInterestRate(year) ?
-                                    years.averageEffectiveInterestRate(year).toFixed(2) : "—" }}
-                                </td>
-                            </tr>
-
-                        -->
 
                         </tbody>
 
@@ -362,7 +349,6 @@
                                 <td :colspan='yearsLabels.length+1'>
 
                                     <div><sup>*</sup>{{ strings.surplusOfTheYearWarning }}</div>
-                                    <div><sup>**</sup>{{ strings.averageEffectiveInterestRateWarning }}</div>
                                 </td>
                             </tr>
                         </tfoot>

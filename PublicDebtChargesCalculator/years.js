@@ -148,9 +148,23 @@ class FiscalYears {
 
 
     totalDebtChargesForYear(year) {
-        return 0;
+        const previousYear = year.previousYear(this);
+        const previousYearincrementalMediumTermBondStock = previousYear ? this.incrementalMediumTermBondStockForYear(previousYear) : 0; // F20
+        const previousYearRunningApplicableInterestRateMediumTerm = previousYear ? this.runningApplicableInterestRateMediumTermForYear(previousYear) : 0; //F27
+        const previousYearIncrementalLongTermBondStock = previousYear ? this.incrementalLongTermBondStockForYear(previousYear) : 0; //F19
+        const previousYearRunningApplicableInterestRateLongTerm = previousYear ? this.runningApplicableInterestRateLongTermForYear(previousYear) : 0; //F26
+
+        return -previousYearincrementalMediumTermBondStock * (previousYearRunningApplicableInterestRateMediumTerm / 100) - previousYearIncrementalLongTermBondStock * (previousYearRunningApplicableInterestRateLongTerm / 100) + year.debtChargesOnPrimaryBalance;
     }
 
+    cumulativeSurplusForYear(year) {
+        return -this.cumulativeIncrementalBorrowingForYear(year) + this.totalDebtChargesForYear(year);
+    }
 
+    cumulativePublicDebtChargesForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearTotalDebtCharges = previousYear ? this.totalDebtChargesForYear(previousYear) : 0;
+        return previousYearTotalDebtCharges + this.totalDebtChargesForYear(year);
+    }
 
 }

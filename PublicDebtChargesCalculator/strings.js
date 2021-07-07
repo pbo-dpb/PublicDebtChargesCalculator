@@ -167,7 +167,10 @@ const localizedStrings = {
         fr: ""
     },
 
-
+    cumulativePublicDebtCharges: {
+        en: "Cumulative public debt charges",
+        fr: ""
+    }
 
 
 }
