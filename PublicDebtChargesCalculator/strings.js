@@ -134,7 +134,10 @@ const localizedStrings = {
         fr: ""
     },
 
-
+    incrementalMediumTermBondStock: {
+        en: "Incremental medium-term bond stock",
+        fr: ""
+    }
 
 
 

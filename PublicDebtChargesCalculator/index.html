@@ -247,7 +247,13 @@
                                 </td>
                             </tr>
 
-
+                            <tr>
+                                <th>{{ strings.incrementalMediumTermBondStock }}
+                                </th>
+                                <td v-for="year in years.displayYears">
+                                    {{ years.incrementalMediumTermBondStockForYear(year).toFixed(2) }}
+                                </td>
+                            </tr>
 
                         </tbody>
 

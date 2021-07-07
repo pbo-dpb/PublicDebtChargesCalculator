@@ -84,6 +84,13 @@ class FiscalYears {
         return (((previousYearIncrementalLongTermBondStock * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 1 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 2 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 3 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 4 / 4) * 0.4 * 0.1;
     }
 
+    /**
+     * Calculated as residual bond stock
+     */
+    incrementalMediumTermBondStockForYear(year) {
+        return this.cumulativeIncrementalBorrowingForYear(year) - this.incrementalLongTermBondStockForYear(year);
+    }
+
 
     totalDebtChargesForYear(year) {
         return 0;
