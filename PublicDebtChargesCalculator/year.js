@@ -13,7 +13,7 @@ class Year {
 
 
         // DEBUG - TODO REMOVE
-        switch (label) {
+        /*switch (label) {
             case '2021-2022':
                 this.totalProgramSpendingMeasures = 100;
                 break;
@@ -24,7 +24,7 @@ class Year {
             case '2026-2027':
                 this.totalProgramSpendingMeasures = 300;
                 break;
-        }
+        }*/
         // ENDDEBUG
     }
 
