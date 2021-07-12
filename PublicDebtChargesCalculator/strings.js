@@ -93,83 +93,83 @@ const localizedStrings = {
 
     day90TreasuryBillRate: {
         en: "90-day treasury bill rate",
-        fr: ""
+        fr: "Taux des bons du Trésor à 90 jours"
     },
 
     year10BondRate: {
         en: "10-year bond rate",
-        fr: ""
+        fr: "Taux des obligations sur 10 ans"
     },
 
 
     longTermBondRate: {
         en: "Long-term bond rate",
-        fr: ""
+        fr: "Taux des obligations à long terme"
     },
 
 
     effectiveInterestRateOnNewMediumTermDebt: {
         en: "Effective interest rate on new medium term debt",
-        fr: ""
+        fr: "Taux d'intérêt effectif de la nouvelle dette à moyen terme"
     },
 
 
     debtChargesOnPrimaryBalance: {
         en: "Debt charges on primary balance ",
-        fr: ""
+        fr: "Frais de la dette au solde primaire"
     },
 
     newIncrementalBorrowing: {
         en: "New incremental borrowing",
-        fr: ""
+        fr: "Nouveaux emprunts supplémentaires"
     },
 
     cumulativeIncrementalBorrowing: {
         en: "Cumulative incremental borrowing",
-        fr: ""
+        fr: "Emprunts supplémentaires cumulatifs"
     },
 
     incrementalLongTermBondStock: {
         en: "Incremental long-term bond stock",
-        fr: ""
+        fr: "Encours des obligations à long terme supplémentaires"
     },
 
     incrementalMediumTermBondStock: {
         en: "Incremental medium-term bond stock",
-        fr: ""
+        fr: "Encours des obligations à à moyen terme supplémentaires"
     },
 
     shareOfMediumTermBondsNewlyIssued: {
         en: "Share of medium-term bonds newly issued",
-        fr: ""
+        fr: "Part des obligations à moyen terme nouvellement émises"
     },
 
 
     shareOfLongTermBondsNewlyIssued: {
         en: "Share of long-term bonds newly issued",
-        fr: ""
+        fr: "Part des obligations à long terme nouvellement émises"
     },
 
     shareOfBondsWhichAreLongTerm: {
         en: "Share of bonds which are long-term",
-        fr: ""
+        fr: "Part des obligations à long terme"
     },
 
 
     runningApplicableInterestRateLongTerm: {
         en: "Running Applicable Interest Rate - Long-Term",
-        fr: ""
+        fr: "Taux d'intérêt en vigueur applicable - Long terme"
     },
 
 
     runningApplicableInterestRateMediumTerm: {
         en: "Running Applicable Interest Rate - Medium-Term",
-        fr: ""
+        fr: "Taux d'intérêt en vigueur applicable - Moyen terme"
     },
 
     cumulativePublicDebtCharges: {
         en: "Cumulative public debt charges",
-        fr: ""
+        fr: "Frais de la dette publique cumulatifs"
     }
 
 
