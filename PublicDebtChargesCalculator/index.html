@@ -202,17 +202,14 @@
                                 </td>
                             </tr>
 
-
                             <tr>
-                                <th>{{ strings.effectiveInterestRateOnNewMediumTermDebt }}
+                                <th>{{ strings.averageEffectiveInterestRate }}
                                 </th>
                                 <td v-for="year in years.displayYears"
-                                    :key="'effectiveInterestRateOnNewMediumTermDebt'+year.label">
-                                    {{ year.effectiveInterestRateOnNewMediumTermDebt.toFixed(2) }}
+                                    :key="'averageEffectiveInterestRateForYear'+year.label">
+                                    {{ years.averageEffectiveInterestRateForYear(year).toFixed(2) }}
                                 </td>
                             </tr>
-
-
 
                             <tr>
                                 <th>{{ strings.debtChargesOnPrimaryBalance }}
@@ -259,51 +256,9 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <th>{{ strings.shareOfMediumTermBondsNewlyIssued }}
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'shareOfMediumTermBondsNewlyIssuedForYear'+year.label">
-                                    {{ years.shareOfMediumTermBondsNewlyIssuedForYear(year) | percentage }}
-                                </td>
-                            </tr>
 
 
-                            <tr>
-                                <th>{{ strings.shareOfLongTermBondsNewlyIssued }}
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'shareOfLongTermBondsNewlyIssuedForYear'+year.label">
-                                    {{ years.shareOfLongTermBondsNewlyIssuedForYear(year) | percentage }}
-                                </td>
-                            </tr>
 
-                            <!--<tr>
-                                <th>{{ strings.shareOfBondsWhichAreLongTerm }}
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'shareOfBondsWhichAreLongTermForYear'+year.label">
-                                    {{ years.shareOfBondsWhichAreLongTermForYear(year) | percentage }}
-                                </td>
-                            </tr>-->
-
-                            <tr>
-                                <th>{{ strings.runningApplicableInterestRateLongTerm }}
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'runningApplicableInterestRateLongTermForYear'+year.label">
-                                    {{ years.runningApplicableInterestRateLongTermForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.runningApplicableInterestRateMediumTerm }}
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'runningApplicableInterestRateMediumTermForYear'+year.label">
-                                    {{ years.runningApplicableInterestRateMediumTermForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
 
 
                         </tbody>

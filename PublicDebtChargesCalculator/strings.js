@@ -8,8 +8,8 @@ const localizedStrings = {
         fr: "Calculateur des frais sur la dette publique"
     },
     description: {
-        en: "To use the tool, only enter in the appropriate boxes the expected revenue and spending associated with the measure(s) for which you want to estimate the cost in interest. Interest rates projected by the PBO are then applied to the difference between the revenue and the spending. As a result, you'll be able to see the cumulative surplus/deficit including public debt charges associated with one or more measures. The results are displayed over a 10-year horizon.",
-        fr: "Afin d’utiliser l’outil, vous n'avez qu'à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont vous désirez estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 10 ans."
+        en: "To use the tool, only enter in the appropriate boxes the expected revenue and spending associated with the measure(s) for which you want to estimate the cost in interest. Interest rates projected by the PBO are then applied to the difference between the revenue and the spending. As a result, you'll be able to see the cumulative surplus/deficit including public debt charges associated with one or more measures. The results are displayed over a 5-year horizon.",
+        fr: "Afin d’utiliser l’outil, vous n'avez qu'à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont vous désirez estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans."
     },
     updatedOn: {
         en: "Updated:",

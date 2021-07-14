@@ -143,4 +143,10 @@ class FiscalYears {
         return previousYearTotalDebtCharges + this.totalDebtChargesForYear(year);
     }
 
+    averageEffectiveInterestRateForYear(year) {
+        const cumulativeSurplus = this.cumulativeSurplusForYear(year);
+        if (!cumulativeSurplus) return 0;
+        return this.totalDebtChargesForYear(year) / cumulativeSurplus * 100;
+    }
+
 }
