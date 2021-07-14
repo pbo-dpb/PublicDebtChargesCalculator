@@ -6,7 +6,7 @@ For example, if a party wants to implement a measure and its cost is financed by
 
 To use the tool, the user must only enter in the appropriate boxes the expected revenue and spending associated with the measure(s) for which they want to estimate the cost in interest. Interest rates projected by the PBO are then applied to the difference between the revenue and the spending. As a result, the user will be able to see the cumulative surplus/deficit including public debt charges associated with one or more measures. The results are displayed over a 5-year horizon.
 
-[Live version](https://www.pbo-dpb.gc.ca/en/blog/news/public_debt_calculator)
+[Live version](https://pdcc-staging.albert-io.com/?lang=en)
 
 ## Credits
 
@@ -25,7 +25,7 @@ Par exemple, si une mesure est proposée et son coût est financé par la dette 
 
 Afin d’utiliser l’outil, l’usager n’a qu’à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont il/elle désire estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. L’usager pourra ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans.
 
-[Version en ligne](https://www.pbo-dpb.gc.ca/en/blog/news/public_debt_calculator)
+[Version en ligne](https://pdcc-staging.albert-io.com/?lang=fr)
 
 ## Crédits
 

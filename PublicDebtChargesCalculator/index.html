@@ -179,7 +179,7 @@
 
 
                             <tr>
-                                <th>{{ strings.day90TreasuryBillRate }}
+                                <th>{{ strings.day90TreasuryBillRate }}<br><small class="has-text-grey-light">%</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'day90TreasuryBillRate'+year.label">
                                     {{ year.day90TreasuryBillRate.toFixed(2) }}
@@ -187,7 +187,7 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.year10BondRate }}
+                                <th>{{ strings.year10BondRate }}<br><small class="has-text-grey-light">%</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'year10BondRate'+year.label">
                                     {{ parseFloat(year.year10BondRate).toFixed(2) }}
@@ -195,7 +195,7 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.longTermBondRate }}
+                                <th>{{ strings.longTermBondRate }}<br><small class="has-text-grey-light">%</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'longTermBondRate'+year.label">
                                     {{ parseFloat(year.longTermBondRate).toFixed(2) }}
@@ -203,7 +203,8 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.averageEffectiveInterestRate }}
+                                <th>{{ strings.averageEffectiveInterestRate }}<br><small
+                                        class="has-text-grey-light">%</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'averageEffectiveInterestRateForYear'+year.label">
@@ -212,7 +213,8 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.debtChargesOnPrimaryBalance }}
+                                <th>{{ strings.debtChargesOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'debtChargesOnPrimaryBalance'+year.label">
                                     {{ year.debtChargesOnPrimaryBalance.toFixed(2) }}
@@ -221,7 +223,8 @@
 
 
                             <tr>
-                                <th>{{ strings.newIncrementalBorrowing }}
+                                <th>{{ strings.newIncrementalBorrowing }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'newIncrementalBorrowingForYear'+year.label">
@@ -230,7 +233,9 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.cumulativeIncrementalBorrowing }}
+                                <th>{{ strings.cumulativeIncrementalBorrowing }}<br><small
+                                        class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'cumulativeIncrementalBorrowingForYear'+year.label">
@@ -239,7 +244,8 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.incrementalLongTermBondStock }}
+                                <th>{{ strings.incrementalLongTermBondStock }}<br><small class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'incrementalLongTermBondStockForYear'+year.label">
@@ -248,7 +254,9 @@
                             </tr>
 
                             <tr>
-                                <th>{{ strings.incrementalMediumTermBondStock }}
+                                <th>{{ strings.incrementalMediumTermBondStock }}<br><small
+                                        class="has-text-grey-light">{{
+                                        strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'incrementalMediumTermBondStockForYear'+year.label">
