@@ -139,7 +139,7 @@ class FiscalYears {
 
     cumulativePublicDebtChargesForYear(year) {
         const previousYear = year.previousYear(this);
-        const previousYearTotalDebtCharges = previousYear ? this.totalDebtChargesForYear(previousYear) : 0;
+        const previousYearTotalDebtCharges = previousYear ? this.cumulativePublicDebtChargesForYear(previousYear) : 0;
         return previousYearTotalDebtCharges + this.totalDebtChargesForYear(year);
     }
 
