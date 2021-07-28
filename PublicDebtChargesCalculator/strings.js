@@ -20,8 +20,8 @@ const localizedStrings = {
         fr: "Pour plus d'informations, visitez le lien suivant:"
     },
     linkToBlogPostUrl: {
-        en: "https://www.pbo-dpb.gc.ca/en/blog/news/public_debt_calculator",
-        fr: "https://www.pbo-dpb.gc.ca/fr/blog/news/public_debt_calculator"
+        en: "https://www.pbo-dpb.gc.ca/en/blog/news/BLOG-2122-003--public-debt-charges-calculator-update--calculateur-frais-dette-publique-mise-jour",
+        fr: "https://www.pbo-dpb.gc.ca/fr/blog/news/BLOG-2122-003--public-debt-charges-calculator-update--calculateur-frais-dette-publique-mise-jour"
     },
     showBackEnd: {
         en: "Show Back-end",

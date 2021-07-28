@@ -2,7 +2,7 @@
  * Last update. Is used to update user facing label. 
  * YYYY-MM-DD
  */
-const lastUpdated = "2021-07";
+const lastUpdated = "2021-07-28";
 
 /**
  * Declaration of all years in table.
