@@ -8,8 +8,8 @@ const localizedStrings = {
         fr: "Calculateur des frais sur la dette publique"
     },
     description: {
-        en: "To use the tool, only enter in the appropriate boxes the expected revenue and spending associated with the measure(s) for which you want to estimate the cost in interest. Interest rates projected by the PBO are then applied to the difference between the revenue and the spending. As a result, you'll be able to see the cumulative surplus/deficit including public debt charges associated with one or more measures. The results are displayed over a 10-year horizon.",
-        fr: "Afin d’utiliser l’outil, vous n'avez qu'à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont vous désirez estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 10 ans."
+        en: "To use the tool, only enter in the appropriate boxes the expected revenue and spending associated with the measure(s) for which you want to estimate the cost in interest. Interest rates projected by the PBO are then applied to the difference between the revenue and the spending. As a result, you'll be able to see the cumulative surplus/deficit including public debt charges associated with one or more measures. The results are displayed over a 5-year horizon.",
+        fr: "Afin d’utiliser l’outil, vous n'avez qu'à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont vous désirez estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans."
     },
     updatedOn: {
         en: "Updated:",
@@ -20,16 +20,12 @@ const localizedStrings = {
         fr: "Pour plus d'informations, visitez le lien suivant:"
     },
     linkToBlogPostUrl: {
-        en: "https://www.pbo-dpb.gc.ca/en/blog/news/public_debt_calculator",
-        fr: "https://www.pbo-dpb.gc.ca/fr/blog/news/public_debt_calculator"
+        en: "https://www.pbo-dpb.gc.ca/en/blog/news/BLOG-2122-003--public-debt-charges-calculator-update--calculateur-frais-dette-publique-mise-jour",
+        fr: "https://www.pbo-dpb.gc.ca/fr/blog/news/BLOG-2122-003--public-debt-charges-calculator-update--calculateur-frais-dette-publique-mise-jour"
     },
     showBackEnd: {
         en: "Show Back-end",
         fr: "Montrer l'arrière-plan",
-    },
-    showCalculations: {
-        en: "Show Calculations",
-        fr: "Montrer les calculs",
     },
     printPage: {
         en: "Print",
@@ -59,26 +55,7 @@ const localizedStrings = {
         en: "Back-end",
         fr: "Arrière-plan"
     },
-    ratioOfBondsToTBills: {
-        en: "Ratio of bonds to T-bills",
-        fr: "Ratio des obligation sur les bonds du trésor"
-    },
-    dayRate90: {
-        en: "90-day rate",
-        fr: "Taux 90-jours"
-    },
-    yearRate10: {
-        en: "10-year rate",
-        fr: "Taux 10 ans"
-    },
-    marginalEffectiveInterestRate: {
-        en: "Marginal effective interest rate",
-        fr: "Taux d'intérêt effectif marginal"
-    },
-    debtChargesOnPrimaryBalances: {
-        en: "Debt charges on primary balances",
-        fr: "Frais d'intérêt sur la balance primaire"
-    },
+
 
     downloadWorksheetLabel: {
         en: "To see the detailed calculations for this tool, download the spreadsheet in Microsoft Excel.",
@@ -100,10 +77,6 @@ const localizedStrings = {
         fr: "Surplus cumulatif"
     },
 
-    surplusForTheYear: {
-        en: "Surplus for the year",
-        fr: "Surplus pour l'année"
-    },
 
     averageEffectiveInterestRate: {
         en: "Average effective interest rate",
@@ -118,14 +91,86 @@ const localizedStrings = {
         fr: "Le taux d’intérêt effectif moyen est calculé en divisant les frais d’intérêt totaux par le surplus cumulatif."
     },
 
-    newBorrowing: {
-        en: "New borrowing",
-        fr: "Obligations supplémentaires"
+    day90TreasuryBillRate: {
+        en: "90-day treasury bill rate",
+        fr: "Taux des bons du Trésor à 90 jours"
     },
 
-    stockOfBorrowing: {
-        en: "Stock of borrowing",
-        fr: "Stock des obligations"
+    year10BondRate: {
+        en: "10-year bond rate",
+        fr: "Taux des obligations sur 10 ans"
+    },
+
+
+    longTermBondRate: {
+        en: "Long-term bond rate",
+        fr: "Taux des obligations à long terme"
+    },
+
+
+    effectiveInterestRateOnNewMediumTermDebt: {
+        en: "Effective interest rate on new medium term debt",
+        fr: "Taux d'intérêt effectif de la nouvelle dette à moyen terme"
+    },
+
+
+    debtChargesOnPrimaryBalance: {
+        en: "Debt charges on primary balance ",
+        fr: "Frais de la dette au solde primaire"
+    },
+
+    newIncrementalBorrowing: {
+        en: "New incremental borrowing",
+        fr: "Nouveaux emprunts supplémentaires"
+    },
+
+    cumulativeIncrementalBorrowing: {
+        en: "Cumulative incremental borrowing",
+        fr: "Emprunts supplémentaires cumulatifs"
+    },
+
+    incrementalLongTermBondStock: {
+        en: "Incremental long-term bond stock",
+        fr: "Encours des obligations à long terme supplémentaires"
+    },
+
+    incrementalMediumTermBondStock: {
+        en: "Incremental medium-term bond stock",
+        fr: "Encours des obligations à à moyen terme supplémentaires"
+    },
+
+    shareOfMediumTermBondsNewlyIssued: {
+        en: "Share of medium-term bonds newly issued",
+        fr: "Part des obligations à moyen terme nouvellement émises"
+    },
+
+
+    shareOfLongTermBondsNewlyIssued: {
+        en: "Share of long-term bonds newly issued",
+        fr: "Part des obligations à long terme nouvellement émises"
+    },
+
+    shareOfBondsWhichAreLongTerm: {
+        en: "Share of bonds which are long-term",
+        fr: "Part des obligations à long terme"
+    },
+
+
+    runningApplicableInterestRateLongTerm: {
+        en: "Running Applicable Interest Rate - Long-Term",
+        fr: "Taux d'intérêt en vigueur applicable - Long terme"
+    },
+
+
+    runningApplicableInterestRateMediumTerm: {
+        en: "Running Applicable Interest Rate - Medium-Term",
+        fr: "Taux d'intérêt en vigueur applicable - Moyen terme"
+    },
+
+    cumulativePublicDebtCharges: {
+        en: "Cumulative public debt charges",
+        fr: "Frais de la dette publique cumulatifs"
     }
+
 
 }

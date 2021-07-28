@@ -1,77 +1,152 @@
 class FiscalYears {
     constructor() {
-        this.years = staticYears;
+        let previousYear = null;
+        let counter = 0;
+        this.years = collect(staticYears).mapWithKeys(yr => {
+            yr.previousYearId = previousYear ? ("" + previousYear.label) : null;
+            yr.counter = counter;
+            previousYear = yr;
+            counter++;
+            return [yr.label, yr];
+        }).all();
     }
 
     /**
-     * Return an ordered list of years up to the provided year, including it as
-     * the last item.
-     * @param {Year} limitYear
-     * @returns {collection} 
+     * Array of user visible years.
+     * @returb {array}
      */
-    inclusiveYearsUntilCollection(limitYear) {
-        let limitYearIndex;
-        return collect(this.years).map((year, index) => {
-            return {
-                year: year,
-                index: index
-            }
-        }).pipe((collection) => {
-            limitYearIndex = collection.first((year) => {
-                return year.year.label === limitYear.label
-            }).index;
-            return collection;
-        }).filter((year) => {
-            return year.index <= limitYearIndex;
-        }).map((year) => {
-            return year.year;
-        })
+    get displayYears() {
+        return collect(this.years).reject(year => year.hidden).items;
     }
 
-    /**
-     * Return an ordered list of years up to the provided year, excluding it.
-     * @param {Year} limitYear 
-     * @returns {collection}
-     */
-    exclusiveYearsUntilCollection(limitYear) {
-        return this.inclusiveYearsUntilCollection(limitYear).slice(0, -1);
-    }
+
+
 
     /*
-    _____  ____   ____    ______ _____   _____ 
-    |  __ \|  _ \ / __ \  |  ____|  __ \ / ____|
-    | |__) | |_) | |  | | | |__  | |__) | |     
-    |  ___/|  _ <| |  | | |  __| |  ___/| |     
-    | |    | |_) | |__| | | |____| |    | |____ 
-    |_|    |____/ \____/  |______|_|     \_____|
-                                                
+      _____  _____   _____ _____       _____ ______ _____  _____  
+     |  __ \|  __ \ / ____/ ____|     / ____|  ____|  __ \|  __ \ 
+     | |__) | |  | | |   | |   ______| |    | |__  | |  | | |__) |
+     |  ___/| |  | | |   | |  |______| |    |  __| | |  | |  ___/ 
+     | |    | |__| | |___| |____     | |____| |    | |__| | |     
+     |_|    |_____/ \_____\_____|     \_____|_|    |_____/|_|     
+                                                                  
     */
 
-    surplusForTheYear(year) {
-        return this.totalDebtCharges(year) + year.netChangeOnPrimaryBalance;
+    /**
+     * New borrowing is primary balance + public debt charges on existing debt + public debt charages on new debt
+     */
+    newIncrementalBorrowingForYear(year) {
+        const previousYear = year.previousYear(this);
+        return -year.netChangeOnPrimaryBalance - (previousYear ? this.totalDebtChargesForYear(previousYear) : 0) - year.debtChargesOnPrimaryBalance
     }
 
-    averageEffectiveInterestRate(year) {
-        return this.totalDebtCharges(year) / this.cumulativeSurplus(year) * 100;
+    /**
+     * The sum of all prior new borrowing
+     */
+    cumulativeIncrementalBorrowingForYear(year) {
+        const previousYear = year.previousYear(this);
+        return (previousYear ? this.cumulativeIncrementalBorrowingForYear(previousYear) : 0) + this.newIncrementalBorrowingForYear(year);
     }
 
-    stockOfBorrowing(year) {
-        let previousYear = this.exclusiveYearsUntilCollection(year).last();
-        if (!previousYear) return year.newBorrowing;
+    /**
+     * An approximation towards 40% of bonds, the share observed historicly
+     */
+    incrementalLongTermBondStockForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearIncrementalLongTermBondStock = previousYear ? this.incrementalLongTermBondStockForYear(previousYear) : 0;
+        const previousYearCumulativeIncrementalBorrowing = previousYear ? this.cumulativeIncrementalBorrowingForYear(previousYear) : 0;
+        const newIncrementalBorrowing = this.newIncrementalBorrowingForYear(year);
 
-        return (1 + year.marginalEffectiveInterestRate / 100) * this.stockOfBorrowing(previousYear) + year.newBorrowing;
+        return (((previousYearIncrementalLongTermBondStock * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 1 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 2 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 3 / 4) * 0.4 * 0.1) * 0.9 + (previousYearCumulativeIncrementalBorrowing + newIncrementalBorrowing * 4 / 4) * 0.4 * 0.1;
     }
 
-    totalDebtCharges(year) {
-
-        let previousYear = this.exclusiveYearsUntilCollection(year).last();
-        if (!previousYear) return year.debtChargesOnPrimaryBalances;
-
-        return year.debtChargesOnPrimaryBalances + (year.marginalEffectiveInterestRate / 100) * this.cumulativeSurplus(previousYear);
+    /**
+     * Calculated as residual bond stock
+     */
+    incrementalMediumTermBondStockForYear(year) {
+        return this.cumulativeIncrementalBorrowingForYear(year) - this.incrementalLongTermBondStockForYear(year);
     }
 
-    cumulativeSurplus(year) {
-        return -this.stockOfBorrowing(year);
+    /**
+     * (Turnover + New issuances)/Prior Stock
+     */
+    shareOfMediumTermBondsNewlyIssuedForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearincrementalMediumTermBondStock = previousYear ? this.incrementalMediumTermBondStockForYear(previousYear) : 0;
+        const incrementalMediumTermBondStock = this.incrementalMediumTermBondStockForYear(year);
+        return Math.min(1, ((incrementalMediumTermBondStock > 0) ? 1 - Math.pow((1 - 0.08), 4) + (incrementalMediumTermBondStock - previousYearincrementalMediumTermBondStock) / incrementalMediumTermBondStock : 0)
+        );
+    }
+
+    /**
+     * (Turnover + New issuances)/Prior Stock
+     */
+    shareOfLongTermBondsNewlyIssuedForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearincrementalLongTermBondStock = previousYear ? this.incrementalLongTermBondStockForYear(previousYear) : 0;
+        const incrementalLongTermBondStock = this.incrementalLongTermBondStockForYear(year);
+
+        return Math.min(1, (incrementalLongTermBondStock > 0 ? 1 - Math.pow((1 - 0.015), 4) + (incrementalLongTermBondStock - previousYearincrementalLongTermBondStock) / incrementalLongTermBondStock : 0))
+    }
+
+
+    shareOfBondsWhichAreLongTermForYear(year) {
+        const incrementalLongTermBondStock = this.incrementalLongTermBondStockForYear(year);
+        return incrementalLongTermBondStock > 0 ? (incrementalLongTermBondStock / this.cumulativeIncrementalBorrowingForYear(year)) : 0;
+    }
+
+    /**
+     * Share new * new rate + share old * old rate
+     */
+    runningApplicableInterestRateLongTermForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearRunningApplicableInterestRateLongTerm = previousYear ? this.runningApplicableInterestRateLongTermForYear(previousYear) : 0;
+        const shareOfLongTermBondsNewlyIssued = this.shareOfLongTermBondsNewlyIssuedForYear(year);
+
+        return this.cumulativeIncrementalBorrowingForYear(year) > 0 ?
+            shareOfLongTermBondsNewlyIssued * year.longTermBondRate + (1 - shareOfLongTermBondsNewlyIssued) * previousYearRunningApplicableInterestRateLongTerm :
+            year.longTermBondRate;
+    }
+
+    /**
+     * Share new * new rate + share old * old rate
+     */
+    runningApplicableInterestRateMediumTermForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearRunningApplicableInterestRateMediumTermForYear = previousYear ? this.runningApplicableInterestRateMediumTermForYear(previousYear) : 0;
+        const shareOfMediumTermBondsNewlyIssued = this.shareOfMediumTermBondsNewlyIssuedForYear(year);
+
+        return this.cumulativeIncrementalBorrowingForYear(year) > 0 ?
+            shareOfMediumTermBondsNewlyIssued * year.effectiveInterestRateOnNewMediumTermDebt + (1 - shareOfMediumTermBondsNewlyIssued) * previousYearRunningApplicableInterestRateMediumTermForYear :
+            year.effectiveInterestRateOnNewMediumTermDebt;
+    }
+
+
+
+    totalDebtChargesForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearincrementalMediumTermBondStock = previousYear ? this.incrementalMediumTermBondStockForYear(previousYear) : 0; // F20
+        const previousYearRunningApplicableInterestRateMediumTerm = previousYear ? this.runningApplicableInterestRateMediumTermForYear(previousYear) : 0; //F27
+        const previousYearIncrementalLongTermBondStock = previousYear ? this.incrementalLongTermBondStockForYear(previousYear) : 0; //F19
+        const previousYearRunningApplicableInterestRateLongTerm = previousYear ? this.runningApplicableInterestRateLongTermForYear(previousYear) : 0; //F26
+
+        return -previousYearincrementalMediumTermBondStock * (previousYearRunningApplicableInterestRateMediumTerm / 100) - previousYearIncrementalLongTermBondStock * (previousYearRunningApplicableInterestRateLongTerm / 100) + year.debtChargesOnPrimaryBalance;
+    }
+
+    cumulativeSurplusForYear(year) {
+        return -this.cumulativeIncrementalBorrowingForYear(year) + this.totalDebtChargesForYear(year);
+    }
+
+    cumulativePublicDebtChargesForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearTotalDebtCharges = previousYear ? this.cumulativePublicDebtChargesForYear(previousYear) : 0;
+        return previousYearTotalDebtCharges + this.totalDebtChargesForYear(year);
+    }
+
+    averageEffectiveInterestRateForYear(year) {
+        const cumulativeSurplus = this.cumulativeSurplusForYear(year);
+        if (!cumulativeSurplus) return 0;
+        return this.totalDebtChargesForYear(year) / cumulativeSurplus * 100;
     }
 
 }

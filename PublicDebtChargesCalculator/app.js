@@ -4,7 +4,6 @@ var app = new Vue({
         return {
             years: new FiscalYears(),
             showBackEnd: false,
-            showCalculations: false,
             lastUpdated: lastUpdated
         };
 
@@ -33,7 +32,7 @@ var app = new Vue({
          * in `static-variables.js`.
          */
         yearsLabels() {
-            return collect(this.years.years).pluck("label").toArray();
+            return collect(this.years.displayYears).pluck("label").toArray();
         },
 
         /**
@@ -50,6 +49,14 @@ var app = new Vue({
     methods: {
         print() {
             window.print();
+        }
+    }
+    ,
+
+    filters: {
+        percentage: function (percentage) {
+            percentage = Math.round(percentage * 100);
+            return this.selectedLanguage === "fr" ? `${percentage} %` : `${percentage}%`;
         }
     }
 
