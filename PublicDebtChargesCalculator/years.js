@@ -48,6 +48,12 @@ class FiscalYears {
         return (previousYear ? this.cumulativeIncrementalBorrowingForYear(previousYear) : 0) + this.newIncrementalBorrowingForYear(year);
     }
 
+
+    cumulativeNetChangeOnPrimaryBalanceForYear(year) {
+        const previousYear = year.previousYear(this);
+        return (previousYear ? this.cumulativeNetChangeOnPrimaryBalanceForYear(previousYear) : 0) + year.netChangeOnPrimaryBalance;
+    }
+
     /**
      * An approximation towards 40% of bonds, the share observed historicly
      */
@@ -134,12 +140,12 @@ class FiscalYears {
     }
 
     /**
-     * After
+     * 
      * @param {string} year a given year
      * @returns {int}
      */
     cumulativeSurplusForYear(year) {
-        return this.cumulativeIncrementalBorrowingForYear(year);
+        return this.cumulativePublicDebtChargesForYear(year) + this.cumulativeNetChangeOnPrimaryBalanceForYear(year);
     }
 
 
