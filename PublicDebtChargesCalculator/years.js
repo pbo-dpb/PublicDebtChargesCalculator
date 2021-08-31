@@ -133,9 +133,16 @@ class FiscalYears {
         return -previousYearincrementalMediumTermBondStock * (previousYearRunningApplicableInterestRateMediumTerm / 100) - previousYearIncrementalLongTermBondStock * (previousYearRunningApplicableInterestRateLongTerm / 100) + year.debtChargesOnPrimaryBalance;
     }
 
+    /**
+     * After
+     * @param {string} year a given year
+     * @returns {int}
+     */
     cumulativeSurplusForYear(year) {
-        return -this.cumulativeIncrementalBorrowingForYear(year) + this.totalDebtChargesForYear(year);
+        return this.cumulativeIncrementalBorrowingForYear(year);
     }
+
+
 
     cumulativePublicDebtChargesForYear(year) {
         const previousYear = year.previousYear(this);
