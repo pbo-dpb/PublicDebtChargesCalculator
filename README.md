@@ -8,6 +8,23 @@ To use the tool, the user must only enter in the appropriate boxes the expected 
 
 [Live version](https://pdcc-cfdp.pbo-dpb.ca/?lang=en)
 
+---
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run dev
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
 # Calculateur des frais sur la dette publique
 
 Dans le cadre de la campagne électorale de 2019, le DPB a développé un outil permettant aux partis politiques d’estimer les frais en intérêts de leurs nouvelles propositions.
@@ -17,3 +34,20 @@ Par exemple, si une mesure est proposée et son coût est financé par la dette 
 Afin d’utiliser l’outil, l’usager n’a qu’à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont il/elle désire estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. L’usager pourra ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans.
 
 [Version en ligne](https://pdcc-cfdp.pbo-dpb.ca/?lang=fr)
+
+---
+
+## Installation du projet
+```
+npm install
+```
+
+### Compilations et recharges à chaud pour le développement
+```
+npm run dev
+```
+
+### Compilation et miniaturisation pour la production
+```
+npm run build
+```
