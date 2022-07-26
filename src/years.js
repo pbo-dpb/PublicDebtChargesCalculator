@@ -1,4 +1,6 @@
-class FiscalYears {
+import collect from "collect.js";
+import {staticYears} from './static-variables'
+export class FiscalYears {
     constructor() {
         let previousYear = null;
         let counter = 0;

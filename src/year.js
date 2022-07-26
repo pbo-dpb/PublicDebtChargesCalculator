@@ -1,4 +1,4 @@
-class Year {
+export class Year {
     constructor(label, hidden, day90TreasuryBillRate, year10BondRate, longTermBondRate) {
 
         this.label = label;

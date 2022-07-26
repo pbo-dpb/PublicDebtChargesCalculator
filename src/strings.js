@@ -1,4 +1,4 @@
-const localizedStrings = {
+export const localizedStrings = {
     pbo: {
         en: "Office of the Parliamentary Budget Officer",
         fr: "Bureau du directeur parlementaire du budget"
