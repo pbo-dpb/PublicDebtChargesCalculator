@@ -8,9 +8,9 @@
             <h5 class="title is-5">{{ strings.pbo }}</h5>
         </header>
 
-        <section v-if="selectedLanguage && years" class="section">
+        <section v-if="selectedLanguage && years">
 
-            <main class="container is-fluid">
+            <main class="">
 
                 <div class="content has-text-centered is-hidden-print">
                     <h1>{{ strings.title }}</h1>
