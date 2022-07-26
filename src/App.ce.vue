@@ -1,5 +1,5 @@
 <template>
-<div class="flex flex-col justify-center items-center gap-8">
+<div>
   <img alt="Vue logo" :src="logoUrl" class="w-64" />
   <ToolSplash />
   </div>
@@ -30,5 +30,5 @@ export default {
 };
 </script>
 <style>
-@import "./index.css";
+@import 'bulma/css/bulma.css'
 </style>
