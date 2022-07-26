@@ -10,6 +10,7 @@
   "dependencies": {
     "bulma": "^0.9.4",
     "collect.js": "^4.34.3",
+    "marked": "^4.0.18",
     "vue": "^3.2.25"
   },
   "devDependencies": {

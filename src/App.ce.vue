@@ -12,12 +12,11 @@
 
             <main class="">
 
-                <div class="content has-text-centered is-hidden-print">
-                    <h1>{{ strings.title }}</h1>
-                    <p>{{ strings.description }}</p>
-                    <p><small>{{ strings.updatedOn }} {{ lastUpdated }}</small></p>
-                    <p>{{ strings.linkToBlogPostLabel }}<br><a :href="strings.linkToBlogPostUrl">{{
-                            strings.linkToBlogPostUrl }}</a></p>
+                <div class="content is-hidden-print">
+                    <h1 style="line-height: 1;font-weight: 100;    font-size: 2.25rem;">{{ strings.title }}</h1>
+                    <div v-html="descriptionHtml"></div>
+                    <p style="margin-top:1em;"><small>{{ strings.updatedOn }} {{ lastUpdated }}</small></p>
+                    
                 </div>
                 <!-- Main container -->
                 <nav style="margin: 2em 0.5em;" class="level is-hidden-print">
@@ -281,6 +280,7 @@ import {Year} from "./year.js"
 import {FiscalYears} from "./years.js"
 import {lastUpdated, staticYears} from "./static-variables.js"
 import {localizedStrings} from "./strings.js"
+import {marked} from "marked"
 
 export default {
   
@@ -297,9 +297,7 @@ export default {
     },
 
     mounted() {
-        if (this.selectedLanguage) {
-            document.title = this.strings.title + " - " + this.strings.pbo;
-        }
+        
     },
 
 
@@ -311,6 +309,13 @@ export default {
          */
         selectedLanguage() {
             return document.documentElement.lang;
+        },
+
+        /**
+         * Retrieve a localized description for the tool. This markdown content is parsed to HTML.
+         */
+        descriptionHtml() {
+            return marked.parse(this.strings.description);
         },
 
         /**
