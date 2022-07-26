@@ -394,7 +394,7 @@ h1 {
 }
 
 .table td {
-    text-align: right;
+    text-align: right !important;
 }
 
 .table td input {
