@@ -57,7 +57,7 @@ export const localizedStrings = {
 
     outputs: {
         en: "Outputs",
-        fr: "Outputs"
+        fr: "Sorties"
     },
 
     totalDebtCharges: {
