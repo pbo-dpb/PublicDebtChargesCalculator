@@ -1,8 +1,8 @@
 <template>
 
-<main id="app" v-cloak>
+    <main id="app" v-cloak>
 
-        
+
         <header class="is-print-only has-text-centered" style="width: 100%">
             <h3 class="title is-3">{{ strings.title }}</h3>
             <h5 class="title is-5">{{ strings.pbo }}</h5>
@@ -13,10 +13,9 @@
             <main class="">
 
                 <div class="content is-hidden-print">
-                    <h1 style="line-height: 1;font-weight: 100;    font-size: 2.25rem;">{{ strings.title }}</h1>
                     <div v-html="descriptionHtml"></div>
                     <p style="margin-top:1em;"><small>{{ strings.updatedOn }} {{ lastUpdated }}</small></p>
-                    
+
                 </div>
                 <!-- Main container -->
                 <nav style="margin: 2em 0.5em;" class="level is-hidden-print">
@@ -54,7 +53,7 @@
 
                             <tr>
                                 <th>{{ strings.totalRevenuesMeasures }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'totalRevenueMeasures'+year.label">
                                     <div class="field is-hidden-print ">
@@ -70,7 +69,7 @@
 
                             <tr>
                                 <th>{{ strings.totalProgramSpendingMeasures }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'totalProgramSpendingMeasures'+year.label">
                                     <div class="field is-hidden-print">
@@ -85,7 +84,7 @@
 
                             <tr>
                                 <th>{{ strings.netChangeOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance'+year.label"
                                     v-text="year.netChangeOnPrimaryBalance"></td>
@@ -147,7 +146,7 @@
 
                             <tr>
                                 <th>{{ strings.debtChargesOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'debtChargesOnPrimaryBalance'+year.label">
                                     {{ year.debtChargesOnPrimaryBalance.toFixed(2) }}
@@ -157,7 +156,7 @@
 
                             <tr>
                                 <th>{{ strings.newIncrementalBorrowing }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'newIncrementalBorrowingForYear'+year.label">
@@ -178,7 +177,7 @@
 
                             <tr>
                                 <th>{{ strings.incrementalLongTermBondStock }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'incrementalLongTermBondStockForYear'+year.label">
@@ -221,7 +220,7 @@
 
                             <tr>
                                 <th>{{ strings.totalDebtCharges }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'totalDebtChargesForYear'+year.label">
                                     {{ years.totalDebtChargesForYear(year).toFixed(2) }}
@@ -230,7 +229,7 @@
 
                             <tr>
                                 <th>{{ strings.cumulativeSurplus }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears" :key="'cumulativeSurplusForYear'+year.label">
                                     {{ years.cumulativeSurplusForYear(year).toFixed(2) }}
@@ -238,7 +237,7 @@
                             </tr>
                             <tr>
                                 <th>{{ strings.cumulativePublicDebtCharges }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
+                                strings.inMillions }}</small>
                                 </th>
                                 <td v-for="year in years.displayYears"
                                     :key="'cumulativePublicDebtChargesForYear'+year.label">
@@ -276,18 +275,18 @@
 
 <script>
 import collect from "collect.js";
-import {Year} from "./year.js"
-import {FiscalYears} from "./years.js"
-import {lastUpdated, staticYears} from "./static-variables.js"
-import {localizedStrings} from "./strings.js"
-import {marked} from "marked"
+import { Year } from "./year.js"
+import { FiscalYears } from "./years.js"
+import { lastUpdated, staticYears } from "./static-variables.js"
+import { localizedStrings } from "./strings.js"
+import { marked } from "marked"
 
 export default {
-  
-  props: {
-    publicPath: String
-  },
-  data() {
+
+    props: {
+        publicPath: String
+    },
+    data() {
         return {
             years: new FiscalYears(),
             showBackEnd: false,
@@ -297,7 +296,7 @@ export default {
     },
 
     mounted() {
-        
+
     },
 
 
@@ -356,11 +355,11 @@ export default {
 @import 'bulma/css/bulma.css';
 
 [v-cloak] {
-  display: none
+    display: none
 }
 
 h1 {
-  color: #2F4858;
+    color: #2F4858;
 }
 
 [v-cloak] {
