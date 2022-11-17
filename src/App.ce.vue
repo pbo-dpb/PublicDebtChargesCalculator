@@ -53,9 +53,10 @@
 
                             <tr>
                                 <th>{{ strings.totalRevenuesMeasures }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
+                                        strings.inMillions
+                                }}</small>
                                 </th>
-                                <td v-for="year in years.displayYears" :key="'totalRevenueMeasures'+year.label">
+                                <td v-for="year in years.displayYears" :key="'totalRevenueMeasures' + year.label">
                                     <div class="field is-hidden-print ">
                                         <div class="control">
                                             <input class="input is-small" type="number"
@@ -69,9 +70,11 @@
 
                             <tr>
                                 <th>{{ strings.totalProgramSpendingMeasures }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
+                                        strings.inMillions
+                                }}</small>
                                 </th>
-                                <td v-for="year in years.displayYears" :key="'totalProgramSpendingMeasures'+year.label">
+                                <td v-for="year in years.displayYears"
+                                    :key="'totalProgramSpendingMeasures' + year.label">
                                     <div class="field is-hidden-print">
                                         <div class="control">
                                             <input class="input is-small" type="number"
@@ -84,9 +87,10 @@
 
                             <tr>
                                 <th>{{ strings.netChangeOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
+                                        strings.inMillions
+                                }}</small>
                                 </th>
-                                <td v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance'+year.label"
+                                <td v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance' + year.label"
                                     v-text="year.netChangeOnPrimaryBalance"></td>
                             </tr>
 
@@ -96,7 +100,7 @@
 
                         <thead v-if="showBackEnd" style="border-top: 1px solid rgb(219, 219, 219);">
                             <tr>
-                                <th :colspan='yearsLabels.length+1'>
+                                <th :colspan='yearsLabels.length + 1'>
                                     {{ strings.backEnd }}</th>
                             </tr>
                             <tr>
@@ -110,91 +114,7 @@
                         <tbody v-if="showBackEnd" style="border-bottom: 1px solid rgb(219, 219, 219)">
 
 
-                            <tr>
-                                <th>{{ strings.day90TreasuryBillRate }}<br><small class="has-text-grey-light">%</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'day90TreasuryBillRate'+year.label">
-                                    {{ year.day90TreasuryBillRate.toFixed(2) }}
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <th>{{ strings.year10BondRate }}<br><small class="has-text-grey-light">%</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'year10BondRate'+year.label">
-                                    {{ parseFloat(year.year10BondRate).toFixed(2) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.longTermBondRate }}<br><small class="has-text-grey-light">%</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'longTermBondRate'+year.label">
-                                    {{ parseFloat(year.longTermBondRate).toFixed(2) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.averageEffectiveInterestRate }}<br><small
-                                        class="has-text-grey-light">%</small>
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'averageEffectiveInterestRateForYear'+year.label">
-                                    {{ years.averageEffectiveInterestRateForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.debtChargesOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'debtChargesOnPrimaryBalance'+year.label">
-                                    {{ year.debtChargesOnPrimaryBalance.toFixed(2) }}
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <th>{{ strings.newIncrementalBorrowing }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'newIncrementalBorrowingForYear'+year.label">
-                                    {{ years.newIncrementalBorrowingForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.cumulativeIncrementalBorrowing }}<br><small
-                                        class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'cumulativeIncrementalBorrowingForYear'+year.label">
-                                    {{ years.cumulativeIncrementalBorrowingForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.incrementalLongTermBondStock }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'incrementalLongTermBondStockForYear'+year.label">
-                                    {{ years.incrementalLongTermBondStockForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.incrementalMediumTermBondStock }}<br><small
-                                        class="has-text-grey-light">{{
-                                        strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'incrementalMediumTermBondStockForYear'+year.label">
-                                    {{ years.incrementalMediumTermBondStockForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
 
 
 
@@ -206,7 +126,7 @@
 
                         <thead style="border-top: 1px solid rgb(219, 219, 219);">
                             <tr>
-                                <th :colspan='yearsLabels.length+1'>
+                                <th :colspan='yearsLabels.length + 1'>
                                     {{ strings.outputs }}</th>
                             </tr>
                             <tr>
@@ -218,32 +138,7 @@
                         </thead>
                         <tbody style="border-bottom: 1px solid rgb(219, 219, 219)">
 
-                            <tr>
-                                <th>{{ strings.totalDebtCharges }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'totalDebtChargesForYear'+year.label">
-                                    {{ years.totalDebtChargesForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <th>{{ strings.cumulativeSurplus }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'cumulativeSurplusForYear'+year.label">
-                                    {{ years.cumulativeSurplusForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{{ strings.cumulativePublicDebtCharges }}<br><small class="has-text-grey-light">{{
-                                strings.inMillions }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'cumulativePublicDebtChargesForYear'+year.label">
-                                    {{ years.cumulativePublicDebtChargesForYear(year).toFixed(2) }}
-                                </td>
-                            </tr>
 
 
                         </tbody>
@@ -251,7 +146,7 @@
 
                         <tfoot>
                             <tr>
-                                <td :colspan='yearsLabels.length+1'>
+                                <td :colspan='yearsLabels.length + 1'>
 
                                     <div><sup>*</sup>{{ strings.surplusOfTheYearWarning }}</div>
                                 </td>
@@ -289,7 +184,7 @@ export default {
     data() {
         return {
             years: new FiscalYears(),
-            showBackEnd: false,
+            showBackEnd: true,
             lastUpdated: lastUpdated
         };
 
@@ -318,7 +213,7 @@ export default {
         },
 
         /**
-         * Return a nicely formatted list of years. Extracted using variable `dayRate90` defined
+         * Return a nicely formatted list of years.
          * in `static-variables.js`.
          */
         yearsLabels() {
