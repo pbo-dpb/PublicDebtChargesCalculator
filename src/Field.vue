@@ -32,8 +32,6 @@ export default {
                 classes = classes.concat(['dark:bg-blue-900', 'border-blue-800', 'dark:border-blue-200', 'hover:border-blue-700', 'dark:hover-border-blue-300', 'text-blue-800', 'dark:text-blue-200', 'outline-blue-600', 'dark:outline-blue-400', 'outline-offset-1']);
             }
 
-
-
             return classes.join(" ");
         }
     }
