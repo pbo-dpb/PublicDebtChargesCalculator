@@ -62,10 +62,7 @@ export class FiscalYears {
     }
 
 
-    // From fiscal model import
-    mediumTermBondRateForYear(year) {
-        return year.mediumTermBondRate;
-    }
+
 
     // Sum of previous new borrowings
     debtStockForYear(year) {
@@ -102,7 +99,6 @@ export class FiscalYears {
     longTermBondsStockForYear(year) {
         return fiscalModelStatics.assumedMarketDebtShared.longTermBonds * this.debtStockForYear(year);
     }
-
 
 
     // Turnover 2Y ago + (MT borrowed 2Y ago/cumulative MT borrowed)*current MT stock * share of 2Y bonds in MT
@@ -143,6 +139,23 @@ export class FiscalYears {
         return this.year2BondTurnoverForYear(year) + this.year3BondTurnoverForYear(year) + this.year5BondTurnoverForYear(year)
     }
 
+
+
+    // From fiscal model import
+    mediumTermBondRateForYear(year) {
+        return year.mediumTermBondRate;
+    }
+
+    // (Turnover + new issuances)/Current stock
+    shareOfMediumTermBondsNewlyIssuedForYear(year) {
+        let i = 0;
+        const sumOfturnOverAndNewIssuance = this.totalMediumTermBondTurnoverForYear(year) + this.mediumTermBondsNewborrowingForYear(year);
+        const mediumTermBondsStock = this.mediumTermBondsStockForYear(year);
+        if (mediumTermBondsStock > 0 && sumOfturnOverAndNewIssuance > 0) {
+            i = sumOfturnOverAndNewIssuance / mediumTermBondsStock;
+        }
+        return Math.min(1, i);
+    }
 
 
 

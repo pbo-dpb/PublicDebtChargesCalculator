@@ -226,6 +226,15 @@ export const localizedStrings = {
         }
     },
 
+    shareOfMediumTermBondsNewlyIssued: {
+        en: {
+            label: "Share of medium-term bonds newly issued",
+        },
+        fr: {
+            label: "Part des obligations à moyen terme nouvellement émises",
+        }
+    },
+
     longTermBondRate: {
         en: {
             label: "Long-term bond rate (new borrowing)",

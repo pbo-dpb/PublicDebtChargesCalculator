@@ -34,14 +34,13 @@ export const backendOutputs = [
     new Output("longTermBondsStock", 'governmentBondsComposition', null),
 
 
-
-
-
     new Output("year2BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
     new Output("year3BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
     new Output("year5BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
     new Output("totalMediumTermBondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
     new Output("mediumTermBondRate", 'mediumTermBondsTurnoverAndNewIssuances', null, true),
+    new Output("shareOfMediumTermBondsNewlyIssued", 'mediumTermBondsTurnoverAndNewIssuances', null),
+
 
     new Output("longTermBondRate", 'longTermBondsNewIssuances', null, true)
 ]
