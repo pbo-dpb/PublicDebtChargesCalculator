@@ -1,8 +1,8 @@
 <template>
 
-    <div class="grid gap-4 grid-cols-12 items-center even:bg-gray-100 dark:even:bg-gray-800 p-2 -mx-2">
+    <div class="flex flex-col lg:grid gap-4 grid-cols-12 items-center even:bg-gray-100 dark:even:bg-gray-800 p-2 -mx-2">
 
-        <div class="col-span-4">
+        <div class="w-full col-span-4">
             <slot name="title"></slot>
         </div>
 

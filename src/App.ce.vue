@@ -38,8 +38,8 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears" :key="'totalRevenueMeasures' + year.label">
-                        <InputField v-model.number="year.totalRevenueMeasures">
-                        </InputField>
+                        <Field v-model.number="year.totalRevenueMeasures">
+                        </Field>
 
                     </div>
                 </template>
@@ -54,8 +54,8 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears" :key="'totalProgramSpendingMeasures' + year.label">
-                        <InputField v-model.number="year.totalProgramSpendingMeasures">
-                        </InputField>
+                        <Field v-model.number="year.totalProgramSpendingMeasures">
+                        </Field>
 
                     </div>
                 </template>
@@ -69,8 +69,8 @@
                     }}</small>
                 </template>
                 <template #years>
-                    <OutputField v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance' + year.label"
-                        v-model="year.netChangeOnPrimaryBalance"></OutputField>
+                    <Field v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance' + year.label"
+                        v-model="year.netChangeOnPrimaryBalance" readonly></Field>
                 </template>
             </FlexibleRow>
 
@@ -108,15 +108,13 @@ import { lastUpdated, staticYears } from "./static-variables.js"
 import { localizedStrings } from "./strings.js"
 import { marked } from "marked"
 import FlexibleRow from "./FlexibleRow.vue"
-import InputField from "./InputField.vue"
-import OutputField from "./OutputField.vue"
+import Field from "./Field.vue"
 
 export default {
 
     components: {
         FlexibleRow,
-        InputField,
-        OutputField
+        Field,
     },
 
     props: {
