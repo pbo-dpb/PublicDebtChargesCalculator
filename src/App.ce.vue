@@ -2,7 +2,7 @@
 
     <main id="app" class="flex flex-col gap-4" v-cloak>
 
-        <header class="print:hidden prose max-w-none flex flex-col gap-4">
+        <header class="print:hidden prose dark:prose-invert max-w-none flex flex-col gap-4">
             <div v-html="descriptionHtml"></div>
             <small>{{ strings.updatedOn }} {{ lastUpdated }}</small>
         </header>
@@ -12,20 +12,19 @@
                 {{ strings.showBackEnd }}
             </label>
             <button
-                class="text-sm font-semibold p-2 text-blue-800 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded"
+                class="text-sm font-semibold px-4 py-2 text-blue-800 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
                 @click="print">{{ strings.printPage
                 }}</button>
         </nav>
 
 
         <section class="flex flex-col divide-y divide-gray-300">
-            <FlexibleRow class="hidden md:grid">
+            <FlexibleRow class="hidden md:grid" aria-hidden="true">
                 <template #title>
 
                 </template>
                 <template #years>
-                    <div v-for="year in yearsLabels" :key="year.label" v-text="year"
-                        class="text-sm font-semibold text-right">
+                    <div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
                     </div>
                 </template>
             </FlexibleRow>
@@ -37,8 +36,8 @@
                     }}</small>
                 </template>
                 <template #years>
-                    <div v-for="year in years.displayYears" :key="'totalRevenueMeasures' + year.label">
-                        <Field v-model.number="year.totalRevenueMeasures">
+                    <div v-for="year in years.displayYears">
+                        <Field v-model.number="year.totalRevenueMeasures" :label="year.label">
                         </Field>
 
                     </div>
@@ -53,8 +52,8 @@
                     }}</small>
                 </template>
                 <template #years>
-                    <div v-for="year in years.displayYears" :key="'totalProgramSpendingMeasures' + year.label">
-                        <Field v-model.number="year.totalProgramSpendingMeasures">
+                    <div v-for="year in years.displayYears">
+                        <Field v-model.number="year.totalProgramSpendingMeasures" :label="year.label">
                         </Field>
 
                     </div>
@@ -69,11 +68,10 @@
                     }}</small>
                 </template>
                 <template #years>
-                    <Field v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance' + year.label"
-                        v-model="year.netChangeOnPrimaryBalance" readonly></Field>
+                    <Field v-for="year in years.displayYears" v-model="year.netChangeOnPrimaryBalance"
+                        :label="year.label" readonly></Field>
                 </template>
             </FlexibleRow>
-
 
 
 
@@ -87,10 +85,7 @@
         </template>
 
 
-
-
-
-        <footer class="prose prose-sm max-w-none">
+        <footer class="prose dark:prose-invert prose-sm max-w-none">
             <sup>*</sup>{{ strings.surplusOfTheYearWarning }}
         </footer>
 

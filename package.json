@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "collect.js": "^4.34.3",
+    "lodash.uniqueid": "^4.0.1",
     "marked": "^4.2.2",
     "vue": "^3.2.45"
   },
