@@ -43,11 +43,13 @@ export const localizedStrings = {
     groups: {
         en: {
             overallNewDebt: "Overall New Debt",
+            governmentBondsComposition: "Government Bonds Composition",
             mediumTermBondsTurnoverAndNewIssuances: "Medium-term bonds turnover & New Issuances",
             longTermBondsNewIssuances: "Long-Term Bonds New Issuances",
         },
         fr: {
             overallNewDebt: "Nouvelle dette totale",
+            governmentBondsComposition: "Composition des obligations gouvernementales",
             mediumTermBondsTurnoverAndNewIssuances: "Rotation des obligations à moyen terme et nouvelles émissions",
             longTermBondsNewIssuances: "Nouvelles émissions d'obligations à long terme",
         },
@@ -117,7 +119,7 @@ export const localizedStrings = {
             label: "New borrowing",
         },
         fr: {
-            label: "Nouvel emprunt",
+            label: "Nouveaux emprunts",
         }
     },
 
@@ -127,6 +129,16 @@ export const localizedStrings = {
         },
         fr: {
             label: "Stock de dettes",
+        }
+    },
+
+
+    mediumTermBondsNewborrowing: {
+        en: {
+            label: "Medium-term bonds: New borrowing",
+        },
+        fr: {
+            label: "Obligations à moyen terme : Nouveaux emprunts",
         }
     },
 

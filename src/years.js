@@ -1,5 +1,5 @@
 import collect from "collect.js";
-import { staticYears } from './static-variables'
+import { staticYears, fiscalModelStatics } from './static-variables'
 
 export class FiscalYears {
     constructor() {
@@ -74,6 +74,10 @@ export class FiscalYears {
         return cumulativeDebtStock + this.newBorrowingForYear(year);
     }
 
+    // New borrowing * share of MT bonds 
+    mediumTermBondsNewborrowingForYear(year) {
+        return this.newBorrowingForYear(year) * fiscalModelStatics.assumedMarketDebtShared.mediumTermBonds;
+    }
 
 
     // Turnover 2Y ago + (MT borrowed 2Y ago/cumulative MT borrowed)*current MT stock * share of 2Y bonds in MT
