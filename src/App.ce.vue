@@ -6,13 +6,10 @@
             <div v-html="descriptionHtml"></div>
             <small>{{ strings.updatedOn }} {{ lastUpdated }}</small>
         </header>
-        <nav class="flex print:hidden flex-row justify-between items-center">
-            <label class="checkbox">
-                <input type="checkbox" v-model="showBackEnd">
-                {{ strings.showBackEnd }}
-            </label>
+        <nav class="flex print:hidden flex-row justify-end items-center">
+
             <button
-                class="text-sm font-semibold px-4 py-2 text-blue-800 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
+                class="text-sm font-semibold px-4 py-2 text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
                 @click="print">{{ strings.printPage
                 }}</button>
         </nav>
@@ -78,10 +75,14 @@
 
         </section>
 
+        <div class="flex flex-row justify-center">
+            <BackendToggle :label="strings.showBackEnd" v-model="showBackEnd"></BackendToggle>
+        </div>
+
 
         <template v-if="showBackEnd">
 
-
+            BACKEND!
         </template>
 
 
@@ -104,12 +105,14 @@ import { localizedStrings } from "./strings.js"
 import { marked } from "marked"
 import FlexibleRow from "./FlexibleRow.vue"
 import Field from "./Field.vue"
+import BackendToggle from "./BackendToggle.vue"
 
 export default {
 
     components: {
         FlexibleRow,
         Field,
+        BackendToggle
     },
 
     props: {
