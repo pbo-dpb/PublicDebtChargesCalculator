@@ -46,6 +46,16 @@ export class FiscalYears {
     }
 
 
+    debtChargesOnExistingDebtStockForYear(year) {
+
+        const previousYear = year.previousYear(this);
+        const runningApplicableInterestRateAllDebt = previousYear ? this.runningApplicableInterestRateAllDebtForYear(previousYear) : 0;
+        const cumulativeSurplus = previousYear ? this.cumulativeSurplusForYear(year) : 0;
+
+        return (runningApplicableInterestRateAllDebt / 100) * cumulativeSurplus;
+    }
+
+
 
 
     // From fiscal model import
@@ -103,9 +113,18 @@ export class FiscalYears {
 
 
 
-
+    runningApplicableInterestRateAllDebtForYear(year) {
+        //TODO Implement
+        return 0;
+    }
 
     annualPublicDebtChargeForYear(year) {
+        //TODO Implement
+        return 0;
+    }
 
+    cumulativeSurplusForYear(year) {
+        //TODO Implement
+        return 0;
     }
 }

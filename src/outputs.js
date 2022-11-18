@@ -24,6 +24,7 @@ export const backendOutputs = [
     new Output("day90TreasuryBillsRate", 'overallNewDebt', null, true),
     new Output("marginalEffectiveInterestRate", 'overallNewDebt', null, true),
     new Output("debtChargesOnPrimaryBalances", 'overallNewDebt', null),
+    new Output("debtChargesOnExistingDebtStock", 'overallNewDebt', null),
 
 
     new Output("year2BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),

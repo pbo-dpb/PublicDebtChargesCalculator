@@ -103,6 +103,15 @@ export const localizedStrings = {
         }
     },
 
+    debtChargesOnExistingDebtStock: {
+        en: {
+            label: "Debt charges on existing debt stock",
+        },
+        fr: {
+            label: "Charges de la dette sur le stock de la dette existante",
+        }
+    },
+
 
     year2BondTurnover: {
         en: {
