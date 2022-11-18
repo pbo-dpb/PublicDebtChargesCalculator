@@ -16,12 +16,15 @@ class Output {
 }
 
 export const generalOutputs = [
+    new Output("netChangeOnPrimaryBalance", null, UNIT_MILLIONS)
     //new Output("annualPublicDebtCharge", null, UNIT_MILLIONS),
 ]
 
 export const backendOutputs = [
     new Output("day90TreasuryBillsRate", 'overallNewDebt', null, true),
     new Output("marginalEffectiveInterestRate", 'overallNewDebt', null, true),
+    new Output("debtChargesOnExistingDebtStock", 'overallNewDebt', null),
+
     new Output("mediumTermBondRate", 'mediumTermBondsTurnoverAndNewIssuances', null, true),
     new Output("longTermBondRate", 'longTermBondsNewIssuances', null, true)
 ]

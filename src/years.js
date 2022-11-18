@@ -24,14 +24,11 @@ export class FiscalYears {
 
 
     /**
-    *  Dynamically called functions
+    *  Dynamic getters called by UI render
     */
-
-
-    annualPublicDebtChargeForYear(year) {
-
+    netChangeOnPrimaryBalanceForYear(year) {
+        return year.netChangeOnPrimaryBalance;
     }
-
 
     // Imported from econ outlook
     day90TreasuryBillsRateForYear(year) {
@@ -43,6 +40,14 @@ export class FiscalYears {
         return year.marginalEffectiveInterestRate;
     }
 
+    // Primary balance * marginal eff. Int. rate
+    debtChargesOnExistingDebtStockForYear(year) {
+        return year.debtChargesOnExistingDebtStock;
+    }
+
+
+
+
     // From fiscal model import
     mediumTermBondRateForYear(year) {
         return year.mediumTermBondRate;
@@ -53,4 +58,11 @@ export class FiscalYears {
         return year.longTermBondRate;
     }
 
+
+
+
+
+    annualPublicDebtChargeForYear(year) {
+
+    }
 }

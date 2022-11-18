@@ -17,7 +17,7 @@
         <!-- 
             Inputs
         -->
-        <section class="flex flex-col divide-y divide-gray-300">
+        <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800">
             <FlexibleRow class="hidden md:grid" aria-hidden="true">
                 <template #title>
 
@@ -28,7 +28,7 @@
                 </template>
             </FlexibleRow>
 
-            <FlexibleRow>
+            <FlexibleRow :editable="true">
                 <template #title>
                     {{ strings.totalRevenuesMeasures }}
                     <Unit>{{ strings.units.millions }}</Unit>
@@ -43,7 +43,7 @@
             </FlexibleRow>
 
 
-            <FlexibleRow>
+            <FlexibleRow :editable="true">
                 <template #title>
                     {{ strings.totalProgramSpendingMeasures }}
                     <Unit>{{ strings.units.millions }}</Unit>
@@ -58,17 +58,6 @@
             </FlexibleRow>
 
 
-            <FlexibleRow>
-                <template #title>
-                    {{ strings.netChangeOnPrimaryBalance }}
-                    <Unit>{{ strings.units.millions }}</Unit>
-                </template>
-                <template #years>
-                    <Field v-for="year in years.displayYears" v-model="year.netChangeOnPrimaryBalance"
-                        :label="year.label" readonly></Field>
-                </template>
-            </FlexibleRow>
-
         </section>
 
         <!-- 
@@ -76,8 +65,10 @@
         -->
 
 
-        <section class="flex flex-col divide-y divide-gray-300">
+        <section class="flex flex-col divide-y divide-gray-300 ">
 
+
+            <h3 class="p-2 -mx-2 text-xl font-light">{{ strings.ouputsTitle }}</h3>
 
             <FlexibleRow v-for="output in generalOutputs">
                 <template #title>

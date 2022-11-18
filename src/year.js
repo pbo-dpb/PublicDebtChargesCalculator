@@ -8,11 +8,19 @@ export class Year {
         this.mediumTermBondRate = mediumTermBondRate;
         this.longTermBondRate = longTermBondRate
 
-        // Dynamic
+        // User inputs
         this.totalRevenueMeasures = 0;
         this.totalProgramSpendingMeasures = 0;
-        this.previousYearId = null;
 
+        /// ### DEBUG
+        if (label == "2023-2024") {
+            this.totalRevenueMeasures = 123;
+            this.totalProgramSpendingMeasures = 456;
+        }
+        /// ### /DEBUG
+
+        // Set via years.js
+        this.previousYearId = null;
 
     }
 
@@ -20,12 +28,22 @@ export class Year {
         return years.years[this.previousYearId];
     }
 
+
+
+
+    /**
+     * Dynamic variables
+     */
+
     get netChangeOnPrimaryBalance() {
         return this.totalRevenueMeasures - this.totalProgramSpendingMeasures;
     }
 
 
 
+    get debtChargesOnExistingDebtStock() {
+        return (this.marginalEffectiveInterestRate / 100) * this.netChangeOnPrimaryBalance;
+    }
 
 
 
