@@ -62,11 +62,16 @@ export class FiscalYears {
     }
 
 
-
-
     // From fiscal model import
     mediumTermBondRateForYear(year) {
         return year.mediumTermBondRate;
+    }
+
+    // Sum of previous new borrowings
+    debtStockForYear(year) {
+        const previousYear = year.previousYear(this);
+        const cumulativeDebtStock = previousYear ? this.debtStockForYear(previousYear) : 0;
+        return cumulativeDebtStock + this.newBorrowingForYear(year);
     }
 
 

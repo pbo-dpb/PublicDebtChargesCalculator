@@ -121,6 +121,15 @@ export const localizedStrings = {
         }
     },
 
+    debtStock: {
+        en: {
+            label: "Debt Stock",
+        },
+        fr: {
+            label: "Stock de dettes",
+        }
+    },
+
 
     year2BondTurnover: {
         en: {
