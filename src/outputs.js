@@ -25,6 +25,12 @@ export const backendOutputs = [
     new Output("marginalEffectiveInterestRate", 'overallNewDebt', null, true),
     new Output("debtChargesOnExistingDebtStock", 'overallNewDebt', null),
 
+
+    new Output("year2BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
+    new Output("year3BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
+    new Output("year5BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
+    new Output("totalMediumTermBondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
     new Output("mediumTermBondRate", 'mediumTermBondsTurnoverAndNewIssuances', null, true),
+
     new Output("longTermBondRate", 'longTermBondsNewIssuances', null, true)
 ]

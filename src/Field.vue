@@ -2,7 +2,7 @@
     <div class="flex flex-col">
         <label :for="uuid" class="lg:sr-only print:hidden text-xs text-center text-gray-700 dark:text-gray-300">{{ label
         }}</label>
-        <input :id="uuid" :class="classes" type="number" step="1" :value="modelValue"
+        <input :id="uuid" :class="classes" type="number" step="1" :value="modelValue === false ? '' : modelValue"
             @input="$emit('update:modelValue', $event.target.value)" :readonly="readonly" v-bind="$attrs" />
     </div>
 </template>
@@ -32,7 +32,8 @@ export default {
                 classes = classes.concat(['dark:bg-blue-900', 'border-blue-800', 'dark:border-blue-200', 'hover:border-blue-700', 'dark:hover-border-blue-300', 'text-blue-800', 'dark:text-blue-200', 'outline-blue-600', 'dark:outline-blue-400', 'outline-offset-1']);
             }
 
-
+            if (this.modelValue === false)
+                classes = classes.concat('invisible')
 
             return classes.join(" ");
         }

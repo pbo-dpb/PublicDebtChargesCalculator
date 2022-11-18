@@ -103,6 +103,43 @@ export const localizedStrings = {
         }
     },
 
+
+    year2BondTurnover: {
+        en: {
+            label: "2-Year bond turnover",
+        },
+        fr: {
+            label: "Rotation des obligations à 2 ans",
+        }
+    },
+
+    year3BondTurnover: {
+        en: {
+            label: "3-Year bond turnover",
+        },
+        fr: {
+            label: "Rotation des obligations à 3 ans",
+        }
+    },
+
+    year5BondTurnover: {
+        en: {
+            label: "5-Year bond turnover",
+        },
+        fr: {
+            label: "Rotation des obligations à 5 ans",
+        }
+    },
+
+    totalMediumTermBondTurnover: {
+        en: {
+            label: "Total medium-term bond turnover",
+        },
+        fr: {
+            label: "Rotation totale des obligations à moyen terme",
+        }
+    },
+
     mediumTermBondRate: {
         en: {
             label: "Medium-term bond rate (new borrowing)",

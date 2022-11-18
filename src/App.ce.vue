@@ -200,7 +200,6 @@ export default {
 
 
         backendOutputs() {
-            console.log(collect(backendOutputs).groupBy('group').items);
             return collect(backendOutputs).groupBy('group').items;
         }
 
@@ -215,8 +214,7 @@ export default {
             const outVal = this.years[output.id + 'ForYear'](year);
             if (typeof outVal === "number")
                 return outVal.toFixed(2)
-            if (outVal === false)
-                return ""
+            
             return outVal;
         }
     }

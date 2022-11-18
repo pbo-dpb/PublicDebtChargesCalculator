@@ -53,6 +53,49 @@ export class FiscalYears {
         return year.mediumTermBondRate;
     }
 
+
+
+    // Turnover 2Y ago + (MT borrowed 2Y ago/cumulative MT borrowed)*current MT stock * share of 2Y bonds in MT
+    year2BondTurnoverForYear(year) {
+
+        if (year.rawFirstYear - Object.values(this.years)[0].rawFirstYear < 2) {
+            return false;
+        }
+
+        //TODO Implement
+        return 0;
+    }
+
+    // Turnover 3Y ago + (MT borrowed 3Y ago/cumulative MT borrowed)*current MT stock * share of 3Y bonds in MT
+    year3BondTurnoverForYear(year) {
+
+        if (year.rawFirstYear - Object.values(this.years)[0].rawFirstYear < 3) {
+            return false;
+        }
+
+        //TODO Implement
+        return 0;
+    }
+
+    // Turnover 5Y ago + (MT borrowed 5Y ago/cumulative MT borrowed)*current MT stock * share of 5Y bonds in MT
+    year5BondTurnoverForYear(year) {
+
+        if (year.rawFirstYear - Object.values(this.years)[0].rawFirstYear < 5) {
+            return false;
+        }
+
+        //TODO Implement
+        return 0;
+    }
+
+    // Sum of 2Y, 3Y, 5Y bond turnovers
+    totalMediumTermBondTurnoverForYear(year) {
+        return this.year2BondTurnoverForYear(year) + this.year3BondTurnoverForYear(year) + this.year5BondTurnoverForYear(year)
+    }
+
+
+
+
     // From fiscal model import
     longTermBondRateForYear(year) {
         return year.longTermBondRate;

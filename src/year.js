@@ -24,6 +24,11 @@ export class Year {
 
     }
 
+
+    get rawFirstYear() {
+        return this.label.split("-")[0];
+    }
+
     previousYear(years) {
         return years.years[this.previousYearId];
     }
