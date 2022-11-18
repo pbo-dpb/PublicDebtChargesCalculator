@@ -30,7 +30,10 @@ export const backendOutputs = [
 
     new Output("mediumTermBondsNewborrowing", 'governmentBondsComposition', null),
     new Output("mediumTermBondsCumulativeBorrowing", 'governmentBondsComposition', null),
-    new Output("longTermBondsNewborrowing", 'governmentBondsComposition', null),
+    new Output("mediumTermBondsStock", 'governmentBondsComposition', null),
+    new Output("longTermBondsStock", 'governmentBondsComposition', null),
+
+
 
 
 

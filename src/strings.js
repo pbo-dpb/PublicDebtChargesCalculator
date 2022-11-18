@@ -161,6 +161,25 @@ export const localizedStrings = {
         }
     },
 
+    mediumTermBondsStock: {
+        en: {
+            label: "Medium-term bond stock",
+        },
+        fr: {
+            label: "Stock d'obligations à moyen terme",
+        }
+    },
+
+
+    longTermBondsStock: {
+        en: {
+            label: "Long-term bond stock",
+        },
+        fr: {
+            label: "Stock d'obligations à long terme",
+        }
+    },
+
 
     year2BondTurnover: {
         en: {
