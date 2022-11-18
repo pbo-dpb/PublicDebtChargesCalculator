@@ -1,10 +1,10 @@
 export class Year {
-    constructor(label, hidden, day90TreasuryBillsRate, marginalEffectiveInterestRateAllNewDebt, mediumTermBondRate, longTermBondRate) {
+    constructor(label, hidden, day90TreasuryBillsRate, marginalEffectiveInterestRate, mediumTermBondRate, longTermBondRate) {
 
         this.label = label;
         this.hidden = hidden;
         this.day90TreasuryBillsRate = day90TreasuryBillsRate;
-        this.marginalEffectiveInterestRateAllNewDebt = marginalEffectiveInterestRateAllNewDebt;
+        this.marginalEffectiveInterestRate = marginalEffectiveInterestRate;
         this.mediumTermBondRate = mediumTermBondRate;
         this.longTermBondRate = longTermBondRate
 

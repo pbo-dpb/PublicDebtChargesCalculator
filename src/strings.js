@@ -87,7 +87,7 @@ export const localizedStrings = {
     },
 
 
-    marginalEffectiveInterestRateAllNewDebt: {
+    marginalEffectiveInterestRate: {
         en: {
             label: "Marginal effective interest rate (all new debt)",
         },

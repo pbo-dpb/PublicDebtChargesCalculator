@@ -39,8 +39,8 @@ export class FiscalYears {
     }
 
     // Calculated from fiscal model import
-    marginalEffectiveInterestRateAllNewDebtForYear(year) {
-        return year.marginalEffectiveInterestRateAllNewDebt;
+    marginalEffectiveInterestRateForYear(year) {
+        return year.marginalEffectiveInterestRate;
     }
 
     // From fiscal model import

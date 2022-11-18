@@ -30,9 +30,8 @@
 
             <FlexibleRow>
                 <template #title>
-                    {{ strings.totalRevenuesMeasures }}<br><small class="has-text-grey-light">{{
-                            strings.units.millions
-                    }}</small>
+                    {{ strings.totalRevenuesMeasures }}
+                    <Unit>{{ strings.units.millions }}</Unit>
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
@@ -46,9 +45,8 @@
 
             <FlexibleRow>
                 <template #title>
-                    {{ strings.totalProgramSpendingMeasures }}<br><small class="has-text-grey-light">{{
-                            strings.units.millions
-                    }}</small>
+                    {{ strings.totalProgramSpendingMeasures }}
+                    <Unit>{{ strings.units.millions }}</Unit>
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
@@ -62,9 +60,8 @@
 
             <FlexibleRow>
                 <template #title>
-                    {{ strings.netChangeOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
-                            strings.units.millions
-                    }}</small>
+                    {{ strings.netChangeOnPrimaryBalance }}
+                    <Unit>{{ strings.units.millions }}</Unit>
                 </template>
                 <template #years>
                     <Field v-for="year in years.displayYears" v-model="year.netChangeOnPrimaryBalance"
@@ -84,9 +81,7 @@
 
             <FlexibleRow v-for="output in generalOutputs">
                 <template #title>
-                    {{ output.label }}<br><small class="has-text-grey-light">{{
-                            output.unit
-                    }}</small>
+                    {{ output.label }}<Unit>{{ output.unit }}</Unit>
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
@@ -115,9 +110,9 @@
 
             <FlexibleRow v-for="output in outputGroup">
                 <template #title>
-                    {{ output.label }}<br><small class="has-text-grey-light">{{
-                            output.unit
-                    }}</small>
+                    {{ output.label }}
+                    <Unit>{{ output.unit }}</Unit>
+
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
@@ -151,13 +146,15 @@ import { marked } from "marked"
 import FlexibleRow from "./FlexibleRow.vue"
 import Field from "./Field.vue"
 import BackendToggle from "./BackendToggle.vue"
+import Unit from "./Unit.vue"
 
 export default {
 
     components: {
         FlexibleRow,
         Field,
-        BackendToggle
+        BackendToggle,
+        Unit
     },
 
     props: {
