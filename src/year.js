@@ -46,7 +46,7 @@ export class Year {
 
 
 
-    get debtChargesOnExistingDebtStock() {
+    get debtChargesOnPrimaryBalances() {
         return (this.marginalEffectiveInterestRate / 100) * this.netChangeOnPrimaryBalance;
     }
 

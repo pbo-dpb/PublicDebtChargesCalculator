@@ -94,7 +94,7 @@ export const localizedStrings = {
         }
     },
 
-    debtChargesOnExistingDebtStock: {
+    debtChargesOnPrimaryBalances: {
         en: {
             label: "Debt charges on primary balances",
         },

@@ -41,8 +41,8 @@ export class FiscalYears {
     }
 
     // Primary balance * marginal eff. Int. rate
-    debtChargesOnExistingDebtStockForYear(year) {
-        return year.debtChargesOnExistingDebtStock;
+    debtChargesOnPrimaryBalancesForYear(year) {
+        return year.debtChargesOnPrimaryBalances;
     }
 
 
