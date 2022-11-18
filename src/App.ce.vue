@@ -1,166 +1,98 @@
 <template>
 
-    <main id="app" v-cloak>
+    <main id="app" class="flex flex-col gap-4" v-cloak>
 
-
-        <header class="is-print-only has-text-centered" style="width: 100%">
-            <h3 class="title is-3">{{ strings.title }}</h3>
-            <h5 class="title is-5">{{ strings.pbo }}</h5>
+        <header class="print:hidden prose max-w-none flex flex-col gap-4">
+            <div v-html="descriptionHtml"></div>
+            <small>{{ strings.updatedOn }} {{ lastUpdated }}</small>
         </header>
+        <nav class="flex print:hidden flex-row justify-between items-center">
+            <label class="checkbox">
+                <input type="checkbox" v-model="showBackEnd">
+                {{ strings.showBackEnd }}
+            </label>
+            <button
+                class="text-sm font-semibold p-2 text-blue-800 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded"
+                @click="print">{{ strings.printPage
+                }}</button>
+        </nav>
 
-        <section v-if="selectedLanguage && years">
 
-            <main class="">
+        <section class="flex flex-col divide-y divide-gray-300">
+            <FlexibleRow class="hidden md:grid">
+                <template #title>
 
-                <div class="content is-hidden-print">
-                    <div v-html="descriptionHtml"></div>
-                    <p style="margin-top:1em;"><small>{{ strings.updatedOn }} {{ lastUpdated }}</small></p>
+                </template>
+                <template #years>
+                    <div v-for="year in yearsLabels" :key="year.label" v-text="year"
+                        class="text-sm font-semibold text-right">
+                    </div>
+                </template>
+            </FlexibleRow>
 
-                </div>
-                <!-- Main container -->
-                <nav style="margin: 2em 0.5em;" class="level is-hidden-print">
-                    <!-- Left side -->
-                    <div class="level-left">
-                        <div class="level-item">
-                            <label class="checkbox">
-                                <input type="checkbox" v-model="showBackEnd">
-                                {{ strings.showBackEnd }}
-                            </label>
-                        </div>
+            <FlexibleRow>
+                <template #title>
+                    {{ strings.totalRevenuesMeasures }}<br><small class="has-text-grey-light">{{
+                            strings.inMillions
+                    }}</small>
+                </template>
+                <template #years>
+                    <div v-for="year in years.displayYears" :key="'totalRevenueMeasures' + year.label">
+                        <InputField v-model.number="year.totalRevenueMeasures">
+                        </InputField>
 
                     </div>
+                </template>
+            </FlexibleRow>
 
-                    <!-- Right side -->
-                    <div class="level-right" v-if='true || false'>
-                        <div class="level-item">
-                            <button class="button is-small" @click="print">{{ strings.printPage }}</button>
-                        </div>
+
+            <FlexibleRow>
+                <template #title>
+                    {{ strings.totalProgramSpendingMeasures }}<br><small class="has-text-grey-light">{{
+                            strings.inMillions
+                    }}</small>
+                </template>
+                <template #years>
+                    <div v-for="year in years.displayYears" :key="'totalProgramSpendingMeasures' + year.label">
+                        <InputField v-model.number="year.totalProgramSpendingMeasures">
+                        </InputField>
 
                     </div>
-                </nav>
-
-                <figure class="table-container">
-                    <table class="table is-striped is-narrow is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th>{{ strings.fiscalYear }}</th>
-
-                                <th v-for="year in yearsLabels" width="7.145%" :key="year.label" v-text="year"></th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr>
-                                <th>{{ strings.totalRevenuesMeasures }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions
-                                }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'totalRevenueMeasures' + year.label">
-                                    <div class="field is-hidden-print ">
-                                        <div class="control">
-                                            <input class="input is-small" type="number"
-                                                v-model.number="year.totalRevenueMeasures">
-                                        </div>
-                                    </div>
-                                    <span class="is-print-only">{{ year.totalRevenueMeasures }}</span>
-                                </td>
-                            </tr>
+                </template>
+            </FlexibleRow>
 
 
-                            <tr>
-                                <th>{{ strings.totalProgramSpendingMeasures }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions
-                                }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears"
-                                    :key="'totalProgramSpendingMeasures' + year.label">
-                                    <div class="field is-hidden-print">
-                                        <div class="control">
-                                            <input class="input is-small" type="number"
-                                                v-model.number="year.totalProgramSpendingMeasures">
-                                        </div>
-                                    </div>
-                                    <span class="is-print-only">{{ year.totalProgramSpendingMeasures }}</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>{{ strings.netChangeOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
-                                        strings.inMillions
-                                }}</small>
-                                </th>
-                                <td v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance' + year.label"
-                                    v-text="year.netChangeOnPrimaryBalance"></td>
-                            </tr>
-
-
-
-                        </tbody>
-
-                        <thead v-if="showBackEnd" style="border-top: 1px solid rgb(219, 219, 219);">
-                            <tr>
-                                <th :colspan='yearsLabels.length + 1'>
-                                    {{ strings.backEnd }}</th>
-                            </tr>
-                            <tr>
-                                <th>{{ strings.fiscalYear }}</th>
-
-                                <th v-for="year in yearsLabels" :key="year.label">{{ year }}</th>
-
-                            </tr>
-
-                        </thead>
-                        <tbody v-if="showBackEnd" style="border-bottom: 1px solid rgb(219, 219, 219)">
+            <FlexibleRow>
+                <template #title>
+                    {{ strings.netChangeOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
+                            strings.inMillions
+                    }}</small>
+                </template>
+                <template #years>
+                    <OutputField v-for="year in years.displayYears" :key="'netChangeOnPrimaryBalance' + year.label"
+                        v-model="year.netChangeOnPrimaryBalance"></OutputField>
+                </template>
+            </FlexibleRow>
 
 
 
 
 
-
-
-
-
-                        </tbody>
-
-
-                        <thead style="border-top: 1px solid rgb(219, 219, 219);">
-                            <tr>
-                                <th :colspan='yearsLabels.length + 1'>
-                                    {{ strings.outputs }}</th>
-                            </tr>
-                            <tr>
-                                <th>{{ strings.fiscalYear }}</th>
-
-                                <th v-for="year in yearsLabels" :key="year.label">{{ year }}</th>
-
-                            </tr>
-                        </thead>
-                        <tbody style="border-bottom: 1px solid rgb(219, 219, 219)">
-
-
-
-
-                        </tbody>
-
-
-                        <tfoot>
-                            <tr>
-                                <td :colspan='yearsLabels.length + 1'>
-
-                                    <div><sup>*</sup>{{ strings.surplusOfTheYearWarning }}</div>
-                                </td>
-                            </tr>
-                        </tfoot>
-
-                    </table>
-                </figure>
-
-
-
-            </main>
         </section>
 
+
+        <template v-if="showBackEnd">
+
+
+        </template>
+
+
+
+
+
+        <footer class="prose prose-sm max-w-none">
+            <sup>*</sup>{{ strings.surplusOfTheYearWarning }}
+        </footer>
 
 
     </main>
@@ -175,8 +107,17 @@ import { FiscalYears } from "./years.js"
 import { lastUpdated, staticYears } from "./static-variables.js"
 import { localizedStrings } from "./strings.js"
 import { marked } from "marked"
+import FlexibleRow from "./FlexibleRow.vue"
+import InputField from "./InputField.vue"
+import OutputField from "./OutputField.vue"
 
 export default {
+
+    components: {
+        FlexibleRow,
+        InputField,
+        OutputField
+    },
 
     props: {
         publicPath: String
@@ -190,9 +131,6 @@ export default {
 
     },
 
-    mounted() {
-
-    },
 
 
     computed: {
@@ -247,66 +185,5 @@ export default {
 };
 </script>
 <style>
-@import 'bulma/css/bulma.css';
-
-[v-cloak] {
-    display: none
-}
-
-h1 {
-    color: #2F4858;
-}
-
-[v-cloak] {
-    display: none
-}
-
-
-.is-print-only {
-    display: none;
-}
-
-@media print {
-    @page {
-        size: landscape
-    }
-
-    body {
-        font-size: 12px;
-    }
-
-    .is-hidden-print {
-        display: none !important;
-    }
-
-    .is-print-only {
-        display: inline-block;
-    }
-
-    .table td {
-        border: 1px solid rgb(238, 238, 238);
-    }
-
-    .table-container {
-        overflow-x: hidden;
-    }
-}
-
-.table td {
-    text-align: right !important;
-}
-
-.table td input {
-    text-align: right;
-}
-
-.table>thead>tr>th:not(:first-child) {
-    text-align: right;
-}
-
-.table>thead:not(:first-child)>tr:first-child>th {
-    padding: 2em 0.5em 1em 0.5em;
-    font-size: 1.25em;
-    text-align: center;
-}
+@import "./index.css";
 </style>

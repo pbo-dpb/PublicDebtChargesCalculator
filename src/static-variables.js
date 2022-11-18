@@ -17,5 +17,9 @@ export const staticYears = [
     new Year('2026-2027', false, 2.2,	        3,	            3.25),*/
     new Year('2022-2023', true),
     new Year('2023-2024', false),
+    new Year('2024-2025', false),
+    new Year('2025-2026', false),
+    new Year('2026-2027', false),
+    new Year('2027-2028', false),
 
 ];
