@@ -121,7 +121,8 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
-                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly>
+                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly
+                            :is-static="output.isStatic">
                         </Field>
                     </div>
                 </template>
@@ -223,7 +224,12 @@ export default {
         },
 
         retrieveValueForOutputYear(output, year) {
-            return this.years[output.id + 'ForYear'](year)
+            const outVal = this.years[output.id + 'ForYear'](year);
+            if (typeof outVal === "number")
+                return outVal.toFixed(2)
+            if (outVal === false)
+                return ""
+            return outVal;
         }
     }
     ,

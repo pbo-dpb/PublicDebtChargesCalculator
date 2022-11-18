@@ -5,8 +5,9 @@ const strings = collect(localizedStrings).map((s) => s[document.documentElement.
 const UNIT_MILLIONS = "millions"
 
 class Output {
-    constructor(id, group, unit) {
+    constructor(id, group, unit, isStatic) {
         this.id = id;
+        this.isStatic = isStatic;
         this.group = group ? strings.groups[group] : null;
         this.unit = unit ? strings.units[unit] : '';
         this.label = strings[id].label;
@@ -19,5 +20,8 @@ export const generalOutputs = [
 ]
 
 export const backendOutputs = [
-    new Output("day90TreasuryBillsRate", 'overallNewDebt', null),
+    new Output("day90TreasuryBillsRate", 'overallNewDebt', null, true),
+    new Output("marginalEffectiveInterestRateAllNewDebt", 'overallNewDebt', null, true),
+    new Output("mediumTermBondRate", 'mediumTermBondsTurnoverAndNewIssuances', null, true),
+    new Output("longTermBondRate", 'longTermBondsNewIssuances', null, true)
 ]

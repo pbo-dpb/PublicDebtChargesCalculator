@@ -22,16 +22,35 @@ export class FiscalYears {
         return collect(this.years).reject(year => year.hidden).items;
     }
 
+
     /**
-     *  Dynamically called functions
-     */
+    *  Dynamically called functions
+    */
+
 
     annualPublicDebtChargeForYear(year) {
 
     }
 
+
+    // Imported from econ outlook
     day90TreasuryBillsRateForYear(year) {
-        return year.netChangeOnPrimaryBalance;
+        return year.day90TreasuryBillsRate;
+    }
+
+    // Calculated from fiscal model import
+    marginalEffectiveInterestRateAllNewDebtForYear(year) {
+        return year.marginalEffectiveInterestRateAllNewDebt;
+    }
+
+    // From fiscal model import
+    mediumTermBondRateForYear(year) {
+        return year.mediumTermBondRate;
+    }
+
+    // From fiscal model import
+    longTermBondRateForYear(year) {
+        return year.longTermBondRate;
     }
 
 }

@@ -53,9 +53,13 @@ export const localizedStrings = {
     groups: {
         en: {
             overallNewDebt: "Overall New Debt",
+            mediumTermBondsTurnoverAndNewIssuances: "Medium-term bonds turnover & New Issuances",
+            longTermBondsNewIssuances: "Long-Term Bonds New Issuances",
         },
         fr: {
             overallNewDebt: "Nouvelle dette totale",
+            mediumTermBondsTurnoverAndNewIssuances: "Rotation des obligations à moyen terme et nouvelles émissions",
+            longTermBondsNewIssuances: "Nouvelles émissions d'obligations à long terme",
         },
     },
 
@@ -80,6 +84,35 @@ export const localizedStrings = {
         fr: {
             label: "Frais annuels de la dette publique",
         }
-    }
+    },
+
+
+    marginalEffectiveInterestRateAllNewDebt: {
+        en: {
+            label: "Marginal effective interest rate (all new debt)",
+        },
+        fr: {
+            label: "Taux d'intérêt effectif marginal (toute nouvelle dette)",
+        }
+    },
+
+    mediumTermBondRate: {
+        en: {
+            label: "Medium-term bond rate (new borrowing)",
+        },
+        fr: {
+            label: "Taux des obligations à moyen terme (nouveaux emprunts)",
+        }
+    },
+
+    longTermBondRate: {
+        en: {
+            label: "Long-term bond rate (new borrowing)",
+        },
+        fr: {
+            label: "Taux des obligations à long terme (nouveaux emprunts)",
+        }
+    },
+
 
 }
