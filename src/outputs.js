@@ -29,6 +29,8 @@ export const backendOutputs = [
     new Output("debtStock", 'overallNewDebt', null),
 
     new Output("mediumTermBondsNewborrowing", 'governmentBondsComposition', null),
+    new Output("mediumTermBondsCumulativeBorrowing", 'governmentBondsComposition', null),
+
 
     new Output("year2BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
     new Output("year3BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),

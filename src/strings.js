@@ -143,6 +143,16 @@ export const localizedStrings = {
     },
 
 
+    mediumTermBondsCumulativeBorrowing: {
+        en: {
+            label: "Medium-term bonds: Cumulative borrowing",
+        },
+        fr: {
+            label: "Obligations à moyen terme : Emprunts cumulés",
+        }
+    },
+
+
     year2BondTurnover: {
         en: {
             label: "2-Year bond turnover",

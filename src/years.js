@@ -79,6 +79,18 @@ export class FiscalYears {
         return this.newBorrowingForYear(year) * fiscalModelStatics.assumedMarketDebtShared.mediumTermBonds;
     }
 
+    // Sum of new positive MT bond borrowings
+    mediumTermBondsCumulativeBorrowingForYear(year) {
+        const previousYear = year.previousYear(this);
+        const previousYearMediumTermBondsNewborrowing = previousYear ? this.mediumTermBondsNewborrowingForYear(previousYear) : 0;
+        const currentYearmediumTermBondsNewborrowing = this.mediumTermBondsNewborrowingForYear(year);
+        return (previousYearMediumTermBondsNewborrowing >= 0 ? previousYearMediumTermBondsNewborrowing : 0) + (currentYearmediumTermBondsNewborrowing >= 0 ? currentYearmediumTermBondsNewborrowing : 0);
+    }
+
+
+    // New borrowing * share of LT bonds
+
+
 
     // Turnover 2Y ago + (MT borrowed 2Y ago/cumulative MT borrowed)*current MT stock * share of 2Y bonds in MT
     year2BondTurnoverForYear(year) {
