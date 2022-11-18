@@ -89,7 +89,9 @@ export class FiscalYears {
 
 
     // New borrowing * share of LT bonds
-
+    longTermBondsNewborrowingForYear(year) {
+        return this.newBorrowingForYear(year) * fiscalModelStatics.assumedMarketDebtShared.longTermBonds;
+    }
 
 
     // Turnover 2Y ago + (MT borrowed 2Y ago/cumulative MT borrowed)*current MT stock * share of 2Y bonds in MT

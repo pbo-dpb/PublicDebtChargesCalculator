@@ -152,6 +152,15 @@ export const localizedStrings = {
         }
     },
 
+    longTermBondsNewborrowing: {
+        en: {
+            label: "Long-term bonds: New borrowing",
+        },
+        fr: {
+            label: "Obligations à long terme : Nouveaux emprunts",
+        }
+    },
+
 
     year2BondTurnover: {
         en: {
