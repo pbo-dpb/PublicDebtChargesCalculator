@@ -14,7 +14,9 @@
                 }}</button>
         </nav>
 
-
+        <!-- 
+            Inputs
+        -->
         <section class="flex flex-col divide-y divide-gray-300">
             <FlexibleRow class="hidden md:grid" aria-hidden="true">
                 <template #title>
@@ -29,7 +31,7 @@
             <FlexibleRow>
                 <template #title>
                     {{ strings.totalRevenuesMeasures }}<br><small class="has-text-grey-light">{{
-                            strings.inMillions
+                            strings.units.millions
                     }}</small>
                 </template>
                 <template #years>
@@ -45,7 +47,7 @@
             <FlexibleRow>
                 <template #title>
                     {{ strings.totalProgramSpendingMeasures }}<br><small class="has-text-grey-light">{{
-                            strings.inMillions
+                            strings.units.millions
                     }}</small>
                 </template>
                 <template #years>
@@ -61,7 +63,7 @@
             <FlexibleRow>
                 <template #title>
                     {{ strings.netChangeOnPrimaryBalance }}<br><small class="has-text-grey-light">{{
-                            strings.inMillions
+                            strings.units.millions
                     }}</small>
                 </template>
                 <template #years>
@@ -70,20 +72,61 @@
                 </template>
             </FlexibleRow>
 
-
-
-
         </section>
+
+        <!-- 
+            General Outputs
+        -->
+
+
+        <section class="flex flex-col divide-y divide-gray-300">
+
+
+            <FlexibleRow v-for="output in generalOutputs">
+                <template #title>
+                    {{ output.label }}<br><small class="has-text-grey-light">{{
+                            output.unit
+                    }}</small>
+                </template>
+                <template #years>
+                    <div v-for="year in years.displayYears">
+                        <Field :model-value="years[output.id + 'ForYear'](year)" :label="year.label" readonly>
+                        </Field>
+                    </div>
+                </template>
+            </FlexibleRow>
+        </section>
+
+        <!-- 
+            Backend Outputs
+         -->
+
 
         <div class="flex flex-row justify-center">
             <BackendToggle :label="strings.showBackEnd" v-model="showBackEnd"></BackendToggle>
         </div>
 
 
-        <template v-if="showBackEnd">
+        <section v-if="showBackEnd" v-for="(outputGroup, outputGroupLabel) in backendOutputs"
+            class="flex flex-col divide-y divide-gray-300">
 
-            BACKEND!
-        </template>
+            <h3 class="p-2 -mx-2 text-xl font-light" v-if="outputGroupLabel">{{ outputGroupLabel }}</h3>
+
+
+            <FlexibleRow v-for="output in outputGroup">
+                <template #title>
+                    {{ output.label }}<br><small class="has-text-grey-light">{{
+                            output.unit
+                    }}</small>
+                </template>
+                <template #years>
+                    <div v-for="year in years.displayYears">
+                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly>
+                        </Field>
+                    </div>
+                </template>
+            </FlexibleRow>
+        </section>
 
 
         <footer class="prose dark:prose-invert prose-sm max-w-none">
@@ -98,6 +141,7 @@
 
 <script>
 import collect from "collect.js";
+import { generalOutputs, backendOutputs } from "./outputs.js"
 import { Year } from "./year.js"
 import { FiscalYears } from "./years.js"
 import { lastUpdated, staticYears } from "./static-variables.js"
@@ -122,7 +166,8 @@ export default {
         return {
             years: new FiscalYears(),
             showBackEnd: true,
-            lastUpdated: lastUpdated
+            lastUpdated: lastUpdated,
+            generalOutputs: generalOutputs
         };
 
     },
@@ -162,12 +207,23 @@ export default {
             return collect(localizedStrings).map((locale) => {
                 return locale[this.selectedLanguage];
             }).items;
+        },
+
+
+        backendOutputs() {
+            console.log(collect(backendOutputs).groupBy('group').items);
+            return collect(backendOutputs).groupBy('group').items;
         }
+
     },
 
     methods: {
         print() {
             window.print();
+        },
+
+        retrieveValueForOutputYear(output, year) {
+            return this.years[output.id + 'ForYear'](year)
         }
     }
     ,

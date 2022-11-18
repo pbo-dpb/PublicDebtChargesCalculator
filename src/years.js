@@ -22,7 +22,16 @@ export class FiscalYears {
         return collect(this.years).reject(year => year.hidden).items;
     }
 
+    /**
+     *  Dynamically called functions
+     */
 
+    annualPublicDebtChargeForYear(year) {
 
+    }
+
+    day90TreasuryBillsRateForYear(year) {
+        return year.netChangeOnPrimaryBalance;
+    }
 
 }
