@@ -112,6 +112,15 @@ export const localizedStrings = {
         }
     },
 
+    newBorrowing: {
+        en: {
+            label: "New borrowing",
+        },
+        fr: {
+            label: "Nouvel emprunt",
+        }
+    },
+
 
     year2BondTurnover: {
         en: {

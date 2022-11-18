@@ -46,6 +46,7 @@ export class FiscalYears {
     }
 
 
+    // Previous debt stock * running int. rate
     debtChargesOnExistingDebtStockForYear(year) {
 
         const previousYear = year.previousYear(this);
@@ -53,6 +54,11 @@ export class FiscalYears {
         const cumulativeSurplus = previousYear ? this.cumulativeSurplusForYear(year) : 0;
 
         return (runningApplicableInterestRateAllDebt / 100) * cumulativeSurplus;
+    }
+
+    // Primary balance + debt charges on primary balance + debt charges on existing debt stock
+    newBorrowingForYear(year) {
+        return -(this.netChangeOnPrimaryBalanceForYear(year) + this.debtChargesOnPrimaryBalancesForYear(year) + this.debtChargesOnExistingDebtStockForYear(year));
     }
 
 
