@@ -253,6 +253,15 @@ export const localizedStrings = {
         }
     },
 
+    shareOfLongTermBondsNewlyIssued: {
+        en: {
+            label: "Share of long-term bonds newly issued",
+        },
+        fr: {
+            label: "Part des obligations à long terme nouvellement émises",
+        }
+    },
+
 
     // General Outputs 
 

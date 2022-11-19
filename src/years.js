@@ -176,6 +176,21 @@ export class FiscalYears {
     }
 
 
+    shareOfLongTermBondsNewlyIssuedForYear(year) {
+
+        let i = 0;
+        const longTermBondsStock = this.longTermBondsStockForYear(year);
+        const longTermBondsNewborrowing = this.longTermBondsNewborrowingForYear(year);
+
+        if (longTermBondsStock > 0 && longTermBondsNewborrowing > 0) {
+            i = longTermBondsNewborrowing / longTermBondsStock;
+        }
+
+        return Math.min(1, i);
+    }
+
+
+
 
     runningApplicableInterestRateAllDebtForYear(year) {
         //TODO Implement
