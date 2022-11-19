@@ -203,11 +203,14 @@ export class FiscalYears {
     }
 
 
-
-
     runningApplicableInterestRateAllDebtForYear(year) {
-        //TODO Implement
-        return 0;
+
+        return fiscalModelStatics.assumedMarketDebtShared.tBills * this.day90TreasuryBillsRateForYear(year)
+            +
+            fiscalModelStatics.assumedMarketDebtShared.longTermBonds * this.runningApplicableInterestRateLongTermForYear(year)
+            +
+            fiscalModelStatics.assumedMarketDebtShared.mediumTermBonds * this.runningApplicableInterestRateMediumTermForYear(year);
+
     }
 
     annualPublicDebtChargeForYear(year) {

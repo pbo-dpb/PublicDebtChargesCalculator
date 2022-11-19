@@ -271,6 +271,15 @@ export const localizedStrings = {
         }
     },
 
+    runningApplicableInterestRateAllDebt: {
+        en: {
+            label: "Running Applicable Interest Rate: All Debt",
+        },
+        fr: {
+            label: "Taux d'intérêt courant applicable : Toute la dette",
+        }
+    },
+
 
     // General Outputs 
 
