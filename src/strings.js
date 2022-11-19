@@ -31,10 +31,7 @@ export const localizedStrings = {
         fr: "Résultats"
     },
 
-    surplusOfTheYearWarning: {
-        en: "Includes debt charges on deficits/surplus from previous years resulting from policies implemented by the party platform.",
-        fr: "Inclut les intérêts sur la dette des déficits/surplus des années précédentes résultant des politiques implementés par le parti dans sa plateforme."
-    },
+
 
     /**
      * Groups
@@ -300,6 +297,35 @@ export const localizedStrings = {
             label: "Frais annuels de la dette publique",
         }
     },
+
+    cumulativeSurplus: {
+        en: {
+            label: "Cumulative Surplus",
+        },
+        fr: {
+            label: "Surplus cumulatif",
+        }
+    },
+
+    surplusOrDeficit: {
+        en: {
+            label: "Surplus / Deficit for year",
+            //warning: "Includes debt charges on deficits/surplus from previous years resulting from policies implemented by the party platform.",
+        },
+        fr: {
+            label: "Excédent/déficit de l'exercice",
+            //warning: "Inclut les intérêts sur la dette des déficits/surplus des années précédentes résultant des politiques implementés par le parti dans sa plateforme."
+        }
+    },
+
+    cumulativePublicDebtCharges: {
+        en: {
+            label: "Cumulative Public Debt Charges",
+        },
+        fr: {
+            label: "Frais de la dette publique cumulatifs",
+        }
+    }
 
 
 }

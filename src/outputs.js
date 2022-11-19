@@ -16,8 +16,11 @@ class Output {
 }
 
 export const generalOutputs = [
-    new Output("netChangeOnPrimaryBalance", null, UNIT_MILLIONS)
-    //new Output("annualPublicDebtCharge", null, UNIT_MILLIONS),
+    new Output("netChangeOnPrimaryBalance", null, UNIT_MILLIONS),
+    new Output("annualPublicDebtCharge", null, UNIT_MILLIONS),
+    new Output("cumulativeSurplus", null, UNIT_MILLIONS),
+    new Output("surplusOrDeficit", null, UNIT_MILLIONS),
+    new Output("cumulativePublicDebtCharges", null, UNIT_MILLIONS),
 ]
 
 export const backendOutputs = [
@@ -30,6 +33,7 @@ export const backendOutputs = [
 
     new Output("mediumTermBondsNewborrowing", 'governmentBondsComposition', null),
     new Output("mediumTermBondsCumulativeBorrowing", 'governmentBondsComposition', null),
+    new Output("longTermBondsNewborrowing", 'governmentBondsComposition', null),
     new Output("mediumTermBondsStock", 'governmentBondsComposition', null),
     new Output("longTermBondsStock", 'governmentBondsComposition', null),
 

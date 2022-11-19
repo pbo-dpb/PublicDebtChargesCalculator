@@ -35,7 +35,8 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
-                        <Field v-model.number="year.totalRevenueMeasures" :label="year.label">
+                        <Field v-model="year.totalRevenueMeasures" :label="year.label" @input="flushCache"
+                            @change="flushCache">
                         </Field>
 
                     </div>
@@ -50,7 +51,8 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
-                        <Field v-model.number="year.totalProgramSpendingMeasures" :label="year.label">
+                        <Field v-model="year.totalProgramSpendingMeasures" :label="year.label" @input="flushCache"
+                            @change="flushCache">
                         </Field>
 
                     </div>
@@ -76,7 +78,7 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
-                        <Field :model-value="years[output.id + 'ForYear'](year)" :label="year.label" readonly>
+                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly>
                         </Field>
                     </div>
                 </template>
@@ -116,9 +118,7 @@
         </section>
 
 
-        <footer class="prose dark:prose-invert prose-sm max-w-none">
-            <sup>*</sup>{{ strings.surplusOfTheYearWarning }}
-        </footer>
+
 
 
     </main>
@@ -212,10 +212,16 @@ export default {
 
         retrieveValueForOutputYear(output, year) {
             const outVal = this.years[output.id + 'ForYear'](year);
-            if (typeof outVal === "number")
-                return outVal.toFixed(2)
-            
+            if (typeof outVal === "number") {
+                return Number(outVal).toFixed(2);
+            }
+
+
             return outVal;
+        },
+
+        flushCache() {
+            this.years.forget();
         }
     }
     ,
