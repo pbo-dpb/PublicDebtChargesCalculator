@@ -46,5 +46,7 @@ export const backendOutputs = [
 
 
     new Output("longTermBondRate", 'longTermBondsNewIssuances', null, true),
-    new Output("shareOfLongTermBondsNewlyIssued", "longTermBondsNewIssuances", null)
+    new Output("shareOfLongTermBondsNewlyIssued", "longTermBondsNewIssuances", null),
+    new Output("runningApplicableInterestRateLongTerm", "longTermBondsNewIssuances", null),
+
 ]

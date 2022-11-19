@@ -190,6 +190,18 @@ export class FiscalYears {
         return Math.min(1, i);
     }
 
+    //Share new * new rate + share old * old rate
+    runningApplicableInterestRateLongTermForYear(year) {
+        const longTermBondsStock = this.longTermBondsStockForYear(year);
+        const longTermBondRate = this.longTermBondRateForYear(year);
+        if (longTermBondsStock > 0) {
+            const shareOfLongTermBondsNewlyIssued = this.shareOfLongTermBondsNewlyIssuedForYear(year);
+            const previousYear = year.previousYear(this);
+            return shareOfLongTermBondsNewlyIssued * longTermBondRate + (1 - shareOfLongTermBondsNewlyIssued) * this.runningApplicableInterestRateLongTermForYear(previousYear);
+        }
+        return longTermBondRate;
+    }
+
 
 
 

@@ -262,6 +262,15 @@ export const localizedStrings = {
         }
     },
 
+    runningApplicableInterestRateLongTerm: {
+        en: {
+            label: "Running Applicable Interest Rate: Long-Term",
+        },
+        fr: {
+            label: "Taux d'intérêt courant applicable : Long terme",
+        }
+    },
+
 
     // General Outputs 
 
