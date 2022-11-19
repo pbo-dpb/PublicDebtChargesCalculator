@@ -40,6 +40,9 @@ export const backendOutputs = [
     new Output("totalMediumTermBondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
     new Output("mediumTermBondRate", 'mediumTermBondsTurnoverAndNewIssuances', null, true),
     new Output("shareOfMediumTermBondsNewlyIssued", 'mediumTermBondsTurnoverAndNewIssuances', null),
+    new Output("runningApplicableInterestRateMediumTerm", 'mediumTermBondsTurnoverAndNewIssuances', null),
+
+
 
 
     new Output("longTermBondRate", 'longTermBondsNewIssuances', null, true)

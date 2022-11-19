@@ -140,7 +140,6 @@ export class FiscalYears {
     }
 
 
-
     // From fiscal model import
     mediumTermBondRateForYear(year) {
         return year.mediumTermBondRate;
@@ -155,6 +154,18 @@ export class FiscalYears {
             i = sumOfturnOverAndNewIssuance / mediumTermBondsStock;
         }
         return Math.min(1, i);
+    }
+
+
+
+    // Share new * new rate + share old * old rate
+    runningApplicableInterestRateMediumTermForYear(year) {
+        if (this.mediumTermBondsStockForYear(year) > 0) {
+            const previousYear = year.previousYear(this);
+            const shareOfMediumTermBondsNewlyIssued = this.shareOfMediumTermBondsNewlyIssuedForYear(year);
+            return shareOfMediumTermBondsNewlyIssued * this.mediumTermBondRateForYear(year) + (1 - shareOfMediumTermBondsNewlyIssued) * this.runningApplicableInterestRateAllDebtForYear(previousYear);
+        }
+        return this.mediumTermBondRateForYear(year);
     }
 
 

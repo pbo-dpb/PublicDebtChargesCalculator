@@ -235,6 +235,15 @@ export const localizedStrings = {
         }
     },
 
+    runningApplicableInterestRateMediumTerm: {
+        en: {
+            label: "Running Applicable Interest Rate: Medium-Term",
+        },
+        fr: {
+            label: "Taux d'intérêt courant applicable : Moyen terme",
+        }
+    },
+
     longTermBondRate: {
         en: {
             label: "Long-term bond rate (new borrowing)",
