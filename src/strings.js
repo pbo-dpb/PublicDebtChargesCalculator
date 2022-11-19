@@ -310,11 +310,11 @@ export const localizedStrings = {
     surplusOrDeficit: {
         en: {
             label: "Surplus / Deficit for year",
-            //warning: "Includes debt charges on deficits/surplus from previous years resulting from policies implemented by the party platform.",
+            warning: "Includes debt charges on deficits/surplus from previous years resulting from policies implemented by the party platform.",
         },
         fr: {
             label: "Excédent/déficit de l'exercice",
-            //warning: "Inclut les intérêts sur la dette des déficits/surplus des années précédentes résultant des politiques implementés par le parti dans sa plateforme."
+            warning: "Inclut les intérêts sur la dette des déficits/surplus des années précédentes résultant des politiques implementés par le parti dans sa plateforme."
         }
     },
 

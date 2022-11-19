@@ -74,7 +74,9 @@
 
             <FlexibleRow v-for="output in generalOutputs">
                 <template #title>
-                    {{ output.label }}<Unit>{{ output.unit }}</Unit>
+                    {{ output.label }}
+                    <Unit v-if="output.unit">{{ output.unit }}</Unit>
+                    <ValueWarning v-if="output.warning">{{ output.warning }}</ValueWarning>
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
@@ -138,6 +140,7 @@ import FlexibleRow from "./FlexibleRow.vue"
 import Field from "./Field.vue"
 import BackendToggle from "./BackendToggle.vue"
 import Unit from "./Unit.vue"
+import ValueWarning from "./ValueWarning.vue"
 
 export default {
 
@@ -145,7 +148,8 @@ export default {
         FlexibleRow,
         Field,
         BackendToggle,
-        Unit
+        Unit,
+        ValueWarning
     },
 
     props: {
