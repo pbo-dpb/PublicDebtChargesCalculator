@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col" :class="{ 'invisible': modelValue === false }">
+    <div class="flex flex-col" :class="{ 'invisible': modelValue === false }" :lang="language">
         <label :for="uuid"
             class="lg:sr-only print:hidden text-[10px] text-center text-gray-700 dark:text-gray-300 font-extralight">{{
                     label
@@ -35,6 +35,9 @@ export default {
             }
 
             return classes.join(" ");
+        },
+        language() {
+            return document.documentElement.lang;
         }
     }
 }

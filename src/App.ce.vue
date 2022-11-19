@@ -213,7 +213,7 @@ export default {
         retrieveValueForOutputYear(output, year) {
             const outVal = this.years[output.id + 'ForYear'](year);
             if (typeof outVal === "number") {
-                return Number(outVal).toFixed(2);
+                return Number(outVal).toFixed(this.showBackEnd ? 2 : 0);
             }
 
 
