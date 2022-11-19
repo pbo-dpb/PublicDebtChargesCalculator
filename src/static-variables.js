@@ -25,5 +25,19 @@ export const fiscalModelStatics = {
         tBills: 0.5092838196286470,
         longTermBonds: 0.1750663129973470,
         mediumTermBonds: 0.3156498673740050
+    },
+}
+
+export const mtDecomposition = {
+    mediumTermBondsComposition: {
+        year2: {
+            share: 0.5714285714285710,
+        },
+        year3: {
+            share: 0.1680672268907560,
+        },
+        year5: {
+            share: 0.2605042016806720,
+        }
     }
 }

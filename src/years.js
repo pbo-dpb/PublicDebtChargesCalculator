@@ -1,5 +1,5 @@
 import collect from "collect.js";
-import { staticYears, fiscalModelStatics } from './static-variables'
+import { staticYears, fiscalModelStatics, mtDecomposition } from './static-variables'
 
 export class FiscalYears {
     constructor() {
@@ -42,6 +42,21 @@ export class FiscalYears {
      */
     get displayYears() {
         return collect(this.years).reject(year => year.hidden).items;
+    }
+
+    retrieveYearAgoFromYear(yearsAgo, currentYear) {
+
+        let luckyYear = null;
+        let previousYear = currentYear.previousYear(this);
+        const currentYearBegins = currentYear.rawFirstYear;
+
+        while (previousYear && !luckyYear) {
+            luckyYear = (currentYearBegins - previousYear.rawFirstYear) == yearsAgo ? previousYear : null;
+            if (!luckyYear)
+                previousYear = previousYear.previousYear(this);
+        }
+
+        return luckyYear;
     }
 
 
@@ -150,37 +165,46 @@ export class FiscalYears {
     }
 
 
-    // Turnover 2Y ago + (MT borrowed 2Y ago/cumulative MT borrowed)*current MT stock * share of 2Y bonds in MT
-    year2BondTurnoverForYear(year) {
-
-        if (year.rawFirstYear - Object.values(this.years)[0].rawFirstYear < 2) {
+    _yearBondTurnoverForYearNumYear(yearNum, year) {
+        const yearsAgo = this.retrieveYearAgoFromYear(yearNum, year);
+        if (!yearsAgo) {
             return false;
         }
 
-        //TODO Implement
+        const mediumTermBondsCumulativeBorrowing = this.mediumTermBondsCumulativeBorrowingForYear(year);
+        if (mediumTermBondsCumulativeBorrowing != 0) {
+
+            const i = (this.mediumTermBondsNewborrowingForYear(yearsAgo) / mediumTermBondsCumulativeBorrowing)
+                * this.mediumTermBondsStockForYear(year)
+                * mtDecomposition.mediumTermBondsComposition[`year${yearNum}`].share;
+
+            return Math.max(0, i);
+        }
+
         return 0;
+    }
+
+    // Turnover 2Y ago + (MT borrowed 2Y ago/cumulative MT borrowed)*current MT stock * share of 2Y bonds in MT
+    year2BondTurnoverForYear(year) {
+        return this.remember(`year2BondTurnoverForYear-${year.label}`, () => {
+            return this._yearBondTurnoverForYearNumYear(2, year);
+        })
     }
 
     // Turnover 3Y ago + (MT borrowed 3Y ago/cumulative MT borrowed)*current MT stock * share of 3Y bonds in MT
     year3BondTurnoverForYear(year) {
 
-        if (year.rawFirstYear - Object.values(this.years)[0].rawFirstYear < 3) {
-            return false;
-        }
-
-        //TODO Implement
-        return 0;
+        return this.remember(`year3BondTurnoverForYear-${year.label}`, () => {
+            return this._yearBondTurnoverForYearNumYear(3, year);
+        })
     }
 
     // Turnover 5Y ago + (MT borrowed 5Y ago/cumulative MT borrowed)*current MT stock * share of 5Y bonds in MT
     year5BondTurnoverForYear(year) {
 
-        if (year.rawFirstYear - Object.values(this.years)[0].rawFirstYear < 5) {
-            return false;
-        }
-
-        //TODO Implement
-        return 0;
+        return this.remember(`year5BondTurnoverForYear-${year.label}`, () => {
+            return this._yearBondTurnoverForYearNumYear(5, year);
+        })
     }
 
     // Sum of 2Y, 3Y, 5Y bond turnovers
