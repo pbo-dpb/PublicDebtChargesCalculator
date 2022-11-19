@@ -176,6 +176,7 @@ export class FiscalYears {
     }
 
 
+    // New issuances/Current stock
     shareOfLongTermBondsNewlyIssuedForYear(year) {
 
         let i = 0;
