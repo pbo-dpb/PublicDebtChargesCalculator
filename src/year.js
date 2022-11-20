@@ -13,9 +13,9 @@ export class Year {
         this.totalProgramSpendingMeasures = 0;
 
         /// ### DEBUG
-        if (label == "2023-2024") {
-            this.totalRevenueMeasures = 123;
-            this.totalProgramSpendingMeasures = 456;
+        if (!hidden) {
+            this.totalRevenueMeasures = 0;
+            this.totalProgramSpendingMeasures = 1000;
         }
         /// ### /DEBUG
 

@@ -134,9 +134,12 @@ export class FiscalYears {
         return this.remember(`mediumTermBondsCumulativeBorrowingForYear-${year.label}`, () => {
 
             const previousYear = year.previousYear(this);
-            const previousYearMediumTermBondsNewborrowing = previousYear ? this.mediumTermBondsNewborrowingForYear(previousYear) : 0;
+            const mediumTermBondsCumulativeBorrowingForPreviousYears = previousYear ? this.mediumTermBondsCumulativeBorrowingForYear(previousYear) : 0;
+
             const currentYearmediumTermBondsNewborrowing = this.mediumTermBondsNewborrowingForYear(year);
-            return (previousYearMediumTermBondsNewborrowing >= 0 ? previousYearMediumTermBondsNewborrowing : 0) + (currentYearmediumTermBondsNewborrowing >= 0 ? currentYearmediumTermBondsNewborrowing : 0);
+
+
+            return (mediumTermBondsCumulativeBorrowingForPreviousYears >= 0 ? mediumTermBondsCumulativeBorrowingForPreviousYears : 0) + (currentYearmediumTermBondsNewborrowing >= 0 ? currentYearmediumTermBondsNewborrowing : 0);
         })
 
     }
@@ -171,12 +174,20 @@ export class FiscalYears {
             return false;
         }
 
+
+
+
         const mediumTermBondsCumulativeBorrowing = this.mediumTermBondsCumulativeBorrowingForYear(year);
         if (mediumTermBondsCumulativeBorrowing != 0) {
 
+
+            const yearBondTurnoverForYearsAgo = this._yearBondTurnoverForYearNumYear(yearNum, yearsAgo);
+
+
             const i = (this.mediumTermBondsNewborrowingForYear(yearsAgo) / mediumTermBondsCumulativeBorrowing)
                 * this.mediumTermBondsStockForYear(year)
-                * mtDecomposition.mediumTermBondsComposition[`year${yearNum}`].share;
+                * mtDecomposition.mediumTermBondsComposition[`year${yearNum}`].share
+                + (yearBondTurnoverForYearsAgo ? yearBondTurnoverForYearsAgo : 0);
 
             return Math.max(0, i);
         }
@@ -305,8 +316,6 @@ export class FiscalYears {
                 fiscalModelStatics.assumedMarketDebtShared.mediumTermBonds * this.runningApplicableInterestRateMediumTermForYear(year);
         })
 
-
-
     }
 
     // 
@@ -335,7 +344,8 @@ export class FiscalYears {
     cumulativePublicDebtChargesForYear(year) {
         return this.remember(`cumulativePublicDebtChargesForYear-${year.label}`, () => {
             const previousYear = year.previousYear(this);
-            return (previousYear ? this.annualPublicDebtChargeForYear(previousYear) : 0) + this.annualPublicDebtChargeForYear(year);
+            const previousYearCumulativeDebtCharges = (previousYear ? this.cumulativePublicDebtChargesForYear(previousYear) : 0);
+            return previousYearCumulativeDebtCharges + this.annualPublicDebtChargeForYear(year);
         })
 
     }
