@@ -12,13 +12,6 @@ export class Year {
         this.totalRevenueMeasures = 0;
         this.totalProgramSpendingMeasures = 0;
 
-        /// ### DEBUG
-        if (!hidden) {
-            this.totalRevenueMeasures = 0;
-            this.totalProgramSpendingMeasures = 1000;
-        }
-        /// ### /DEBUG
-
         // Set via years.js
         this.previousYearId = null;
 
