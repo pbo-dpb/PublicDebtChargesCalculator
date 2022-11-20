@@ -10,8 +10,9 @@
         <nav class="flex print:hidden flex-row justify-end items-center gap-4">
 
             <button
-                class="text-sm font-semibold px-4 py-2 text-red-900 dark:text-red-100 bg-red-100 dark:bg-red-800 rounded hover:bg-red-200 dark:hover:bg-red-700"
-                @click="clear">{{ strings.clearUserInput
+                class="text-sm font-semibold px-4 py-2 text-red-900 dark:text-red-100 bg-red-100 dark:bg-red-800 rounded "
+                :class="{ 'opacity-75': !isDirty, 'hover:bg-red-200 dark:hover:bg-red-700': isDirty }" @click="clear"
+                :disabled="!isDirty">{{ strings.clearUserInput
                 }}</button>
             <button
                 class="hidden lg:block text-sm font-semibold px-4 py-2 text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
@@ -167,7 +168,8 @@ export default {
             years: new FiscalYears(),
             showBackEnd: false,
             lastUpdated: lastUpdated,
-            generalOutputs: generalOutputs
+            generalOutputs: generalOutputs,
+            isDirty: window.localStorage.getItem("pdcc-user-input")
         };
 
     },
@@ -212,7 +214,8 @@ export default {
 
         backendOutputs() {
             return collect(backendOutputs).groupBy('group').items;
-        }
+        },
+
 
     },
 
@@ -238,6 +241,7 @@ export default {
 
         handleUpdatedUserInput() {
             this.years.forget();
+            this.isDirty = true;
             // Save user input
             window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.years.displayYears).mapWithKeys(year => {
                 return [year.label, {
