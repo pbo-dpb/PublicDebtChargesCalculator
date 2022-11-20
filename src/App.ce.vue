@@ -7,10 +7,14 @@
             <small>{{ strings.updatedOn }} {{ lastUpdated }}</small>
         </header>
 
-        <nav class="hidden lg:flex print:hidden flex-row justify-end items-center">
+        <nav class="flex print:hidden flex-row justify-end items-center gap-4">
 
             <button
-                class="text-sm font-semibold px-4 py-2 text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
+                class="text-sm font-semibold px-4 py-2 text-red-900 dark:text-red-100 bg-red-100 dark:bg-red-800 rounded hover:bg-red-200 dark:hover:bg-red-700"
+                @click="clear">{{ strings.clearUserInput
+                }}</button>
+            <button
+                class="hidden lg:block text-sm font-semibold px-4 py-2 text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
                 @click="print">{{ strings.printPage
                 }}</button>
         </nav>
@@ -36,8 +40,8 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
-                        <Field v-model="year.totalRevenueMeasures" :label="year.label" @input="flushCache"
-                            @change="flushCache">
+                        <Field v-model="year.totalRevenueMeasures" :label="year.label" @input="handleUpdatedUserInput"
+                            @change="handleUpdatedUserInput">
                         </Field>
 
                     </div>
@@ -52,8 +56,8 @@
                 </template>
                 <template #years>
                     <div v-for="year in years.displayYears">
-                        <Field v-model="year.totalProgramSpendingMeasures" :label="year.label" @input="flushCache"
-                            @change="flushCache">
+                        <Field v-model="year.totalProgramSpendingMeasures" :label="year.label"
+                            @input="handleUpdatedUserInput" @change="handleUpdatedUserInput">
                         </Field>
 
                     </div>
@@ -215,6 +219,11 @@ export default {
             window.print();
         },
 
+        clear() {
+            window.localStorage.removeItem("pdcc-user-input");
+            location.reload();
+        },
+
         retrieveValueForOutputYear(output, year) {
             const outVal = this.years[output.id + 'ForYear'](year);
             if (typeof outVal === "number") {
@@ -225,8 +234,15 @@ export default {
             return outVal;
         },
 
-        flushCache() {
+        handleUpdatedUserInput() {
             this.years.forget();
+            // Save user input
+            window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.years.displayYears).mapWithKeys(year => {
+                return [year.label, {
+                    totalRevenueMeasures: parseFloat(year.totalRevenueMeasures),
+                    totalProgramSpendingMeasures: parseFloat(year.totalProgramSpendingMeasures)
+                }];
+            }).items))
         }
     }
     ,

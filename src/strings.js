@@ -16,7 +16,10 @@ export const localizedStrings = {
         en: "Print",
         fr: "Imprimer"
     },
-
+    clearUserInput: {
+        en: "Clear",
+        fr: "Remettre à zéro"
+    },
     units: {
         en: {
             millions: "$M",

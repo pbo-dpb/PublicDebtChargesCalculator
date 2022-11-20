@@ -1,3 +1,11 @@
+let userInput;
+try {
+    const rawUserInput = window.localStorage.getItem("pdcc-user-input");
+    userInput = rawUserInput ? JSON.parse(rawUserInput) : {};
+} catch (error) {
+    userInput = {}
+}
+
 export class Year {
     constructor(label, hidden, day90TreasuryBillsRate, marginalEffectiveInterestRate, mediumTermBondRate, longTermBondRate) {
 
@@ -9,8 +17,8 @@ export class Year {
         this.longTermBondRate = longTermBondRate
 
         // User inputs
-        this.totalRevenueMeasures = 0;
-        this.totalProgramSpendingMeasures = 0;
+        this.totalRevenueMeasures = userInput?.[label]?.totalRevenueMeasures ?? 0;
+        this.totalProgramSpendingMeasures = userInput?.[label]?.totalProgramSpendingMeasures ?? 0;
 
         // Set via years.js
         this.previousYearId = null;
