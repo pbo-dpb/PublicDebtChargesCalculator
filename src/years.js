@@ -240,10 +240,11 @@ export class FiscalYears {
     // Share new * new rate + share old * old rate
     runningApplicableInterestRateMediumTermForYear(year) {
         return this.remember(`runningApplicableInterestRateMediumTermForYear-${year.label}`, () => {
+
             if (this.mediumTermBondsStockForYear(year) > 0) {
                 const previousYear = year.previousYear(this);
                 const shareOfMediumTermBondsNewlyIssued = this.shareOfMediumTermBondsNewlyIssuedForYear(year);
-                return shareOfMediumTermBondsNewlyIssued * this.mediumTermBondRateForYear(year) + (1 - shareOfMediumTermBondsNewlyIssued) * this.runningApplicableInterestRateAllDebtForYear(previousYear);
+                return shareOfMediumTermBondsNewlyIssued * this.mediumTermBondRateForYear(year) + (1 - shareOfMediumTermBondsNewlyIssued) * this.runningApplicableInterestRateMediumTermForYear(previousYear);
             }
             return this.mediumTermBondRateForYear(year);
         })
