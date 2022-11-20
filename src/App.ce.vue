@@ -6,7 +6,8 @@
             <div v-html="descriptionHtml"></div>
             <small>{{ strings.updatedOn }} {{ lastUpdated }}</small>
         </header>
-        <nav class="flex print:hidden flex-row justify-end items-center">
+
+        <nav class="hidden lg:flex print:hidden flex-row justify-end items-center">
 
             <button
                 class="text-sm font-semibold px-4 py-2 text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
@@ -158,7 +159,7 @@ export default {
     data() {
         return {
             years: new FiscalYears(),
-            showBackEnd: true,
+            showBackEnd: false,
             lastUpdated: lastUpdated,
             generalOutputs: generalOutputs
         };
