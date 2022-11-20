@@ -19,19 +19,21 @@
                 }}</button>
         </nav>
 
+        <FlexibleRow class="hidden md:grid sticky top-0 bg-white border-b border-gray-300" aria-hidden="true">
+            <template #title>
+
+            </template>
+            <template #years>
+                <div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
+                </div>
+            </template>
+        </FlexibleRow>
+
         <!-- 
             Inputs
         -->
-        <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800">
-            <FlexibleRow class="hidden md:grid" aria-hidden="true">
-                <template #title>
+        <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800 ">
 
-                </template>
-                <template #years>
-                    <div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
-                    </div>
-                </template>
-            </FlexibleRow>
 
             <FlexibleRow :editable="true">
                 <template #title>
