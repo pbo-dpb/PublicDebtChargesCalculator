@@ -42,16 +42,15 @@ export const localizedStrings = {
 
     groups: {
         en: {
+            interestRates: "Interest rates",
             overallNewDebt: "Overall New Debt",
-            governmentBondsComposition: "Government Bonds Composition",
-            mediumTermBondsTurnoverAndNewIssuances: "Medium-term bonds turnover & New Issuances",
-            longTermBondsNewIssuances: "Long-Term Bonds New Issuances",
+            incrementalGovernmentBondsComposition: "Incremental government bonds composition"
+
         },
         fr: {
+            interestRates: "Taux d'intérêt",
             overallNewDebt: "Nouvelle dette totale",
-            governmentBondsComposition: "Composition des obligations gouvernementales",
-            mediumTermBondsTurnoverAndNewIssuances: "Rotation des obligations à moyen terme et nouvelles émissions",
-            longTermBondsNewIssuances: "Nouvelles émissions d'obligations à long terme",
+            incrementalGovernmentBondsComposition: "Composition incrémentale des obligations d'État"
         },
     },
 
@@ -79,10 +78,10 @@ export const localizedStrings = {
 
     day90TreasuryBillsRate: {
         en: {
-            label: "Annual public debt charges",
+            label: "Public debt charges",
         },
         fr: {
-            label: "Frais annuels de la dette publique",
+            label: "Frais de la dette publique",
         }
     },
 
@@ -303,30 +302,30 @@ export const localizedStrings = {
 
     cumulativeSurplus: {
         en: {
-            label: "Cumulative Surplus",
+            label: "Cumulative surplus/(deficit)",
         },
         fr: {
-            label: "Surplus cumulatif",
+            label: "Surplus cumulatif/(déficit)",
         }
     },
 
     surplusOrDeficit: {
         en: {
-            label: "Surplus / Deficit for year",
-            warning: "Includes debt charges on deficits/surplus from previous years resulting from policies implemented by the party platform.",
+            label: "Surplus/(deficit) for the year",
+            warning: "Includes public debt charges on surplus/(deficit) from previous years resulting from the implemented policies.",
         },
         fr: {
-            label: "Excédent/déficit de l'exercice",
-            warning: "Inclut les intérêts sur la dette des déficits/surplus des années précédentes résultant des politiques implementés par le parti dans sa plateforme."
+            label: "Surplus/(déficit) pour l'année",
+            warning: "Comprend les charges de la dette publique sur l'excédent/(déficit) des années précédentes résultant des politiques mises en œuvre."
         }
     },
 
     cumulativePublicDebtCharges: {
         en: {
-            label: "Cumulative Public Debt Charges",
+            label: "Cumulative public debt charges",
         },
         fr: {
-            label: "Frais de la dette publique cumulatifs",
+            label: "Charges cumulées de la dette publique",
         }
     }
 

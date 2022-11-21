@@ -18,41 +18,22 @@ class Output {
 export const generalOutputs = [
     new Output("netChangeOnPrimaryBalance", null, UNIT_MILLIONS),
     new Output("annualPublicDebtCharge", null, UNIT_MILLIONS),
-    new Output("cumulativeSurplus", null, UNIT_MILLIONS),
     new Output("surplusOrDeficit", null, UNIT_MILLIONS),
+    new Output("cumulativeSurplus", null, UNIT_MILLIONS),
     new Output("cumulativePublicDebtCharges", null, UNIT_MILLIONS),
 ]
 
 export const backendOutputs = [
-    new Output("day90TreasuryBillsRate", 'overallNewDebt', null, true),
-    new Output("marginalEffectiveInterestRate", 'overallNewDebt', null, true),
+
+    new Output("day90TreasuryBillsRate", 'interestRates', null, true),
+
     new Output("debtChargesOnPrimaryBalances", 'overallNewDebt', null),
     new Output("debtChargesOnExistingDebtStock", 'overallNewDebt', null),
     new Output("newBorrowing", 'overallNewDebt', null),
     new Output("debtStock", 'overallNewDebt', null),
 
-    new Output("mediumTermBondsNewborrowing", 'governmentBondsComposition', null),
-    new Output("mediumTermBondsCumulativeBorrowing", 'governmentBondsComposition', null),
-    new Output("longTermBondsNewborrowing", 'governmentBondsComposition', null),
-    new Output("mediumTermBondsStock", 'governmentBondsComposition', null),
-    new Output("longTermBondsStock", 'governmentBondsComposition', null),
 
-
-    new Output("year2BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
-    new Output("year3BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
-    new Output("year5BondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
-    new Output("totalMediumTermBondTurnover", 'mediumTermBondsTurnoverAndNewIssuances', null),
-    new Output("mediumTermBondRate", 'mediumTermBondsTurnoverAndNewIssuances', null, true),
-    new Output("shareOfMediumTermBondsNewlyIssued", 'mediumTermBondsTurnoverAndNewIssuances', null),
-    new Output("runningApplicableInterestRateMediumTerm", 'mediumTermBondsTurnoverAndNewIssuances', null),
-
-
-
-
-    new Output("longTermBondRate", 'longTermBondsNewIssuances', null, true),
-    new Output("shareOfLongTermBondsNewlyIssued", "longTermBondsNewIssuances", null),
-    new Output("runningApplicableInterestRateLongTerm", "longTermBondsNewIssuances", null),
-    new Output("runningApplicableInterestRateAllDebt", "longTermBondsNewIssuances", null),
-
+    new Output("mediumTermBondsStock", 'incrementalGovernmentBondsComposition', null),
+    new Output("longTermBondsStock", 'incrementalGovernmentBondsComposition', null),
 
 ]
