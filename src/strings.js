@@ -327,6 +327,16 @@ export const localizedStrings = {
         fr: {
             label: "Charges cumulées de la dette publique",
         }
+    },
+
+    // New
+    treasuryBillStock: {
+        en: {
+            label: "Treasury bills stock",
+        },
+        fr: {
+            label: "Encours des bons du Trésor",
+        }
     }
 
 

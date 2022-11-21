@@ -125,7 +125,7 @@ export class FiscalYears {
     // New borrowing * share of MT bonds 
     mediumTermBondsNewborrowingForYear(year) {
         return this.remember(`mediumTermBondsNewborrowingForYear-${year.label}`, () => {
-            return this.newBorrowingForYear(year) * fiscalModelStatics.assumedMarketDebtShared.mediumTermBonds;
+            return this.newBorrowingForYear(year) * fiscalModelStatics.assumedMarketDebtShare.mediumTermBonds;
         })
     }
 
@@ -148,14 +148,14 @@ export class FiscalYears {
     // New borrowing * share of LT bonds
     longTermBondsNewborrowingForYear(year) {
         return this.remember(`longTermBondsNewborrowingForYear-${year.label}`, () => {
-            return this.newBorrowingForYear(year) * fiscalModelStatics.assumedMarketDebtShared.longTermBonds;
+            return this.newBorrowingForYear(year) * fiscalModelStatics.assumedMarketDebtShare.longTermBonds;
         })
     }
 
     // Stock of borrowing * share of MT bonds
     mediumTermBondsStockForYear(year) {
         return this.remember(`mediumTermBondsStockForYear-${year.label}`, () => {
-            return fiscalModelStatics.assumedMarketDebtShared.mediumTermBonds * this.debtStockForYear(year);
+            return fiscalModelStatics.assumedMarketDebtShare.mediumTermBonds * this.debtStockForYear(year);
         })
 
     }
@@ -163,7 +163,7 @@ export class FiscalYears {
     // Stock of borrowing * share of LT bonds
     longTermBondsStockForYear(year) {
         return this.remember(`longTermBondsStockForYear-${year.label}`, () => {
-            return fiscalModelStatics.assumedMarketDebtShared.longTermBonds * this.debtStockForYear(year);
+            return fiscalModelStatics.assumedMarketDebtShare.longTermBonds * this.debtStockForYear(year);
         })
     }
 
@@ -309,11 +309,11 @@ export class FiscalYears {
 
     runningApplicableInterestRateAllDebtForYear(year) {
         return this.remember(`runningApplicableInterestRateAllDebtForYear-${year.label}`, () => {
-            return fiscalModelStatics.assumedMarketDebtShared.tBills * this.day90TreasuryBillsRateForYear(year)
+            return fiscalModelStatics.assumedMarketDebtShare.tBills * this.day90TreasuryBillsRateForYear(year)
                 +
-                fiscalModelStatics.assumedMarketDebtShared.longTermBonds * this.runningApplicableInterestRateLongTermForYear(year)
+                fiscalModelStatics.assumedMarketDebtShare.longTermBonds * this.runningApplicableInterestRateLongTermForYear(year)
                 +
-                fiscalModelStatics.assumedMarketDebtShared.mediumTermBonds * this.runningApplicableInterestRateMediumTermForYear(year);
+                fiscalModelStatics.assumedMarketDebtShare.mediumTermBonds * this.runningApplicableInterestRateMediumTermForYear(year);
         })
 
     }
@@ -350,5 +350,14 @@ export class FiscalYears {
 
     }
 
+
+
+
+    /// Extra display
+    treasuryBillStockForYear(year) {
+        return this.remember(`treasuryBillStockForYear-${year.label}`, () => {
+            return this.debtStockForYear(year) * fiscalModelStatics.assumedMarketDebtShare.tBills;
+        })
+    }
 
 }

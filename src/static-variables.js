@@ -21,7 +21,7 @@ export const staticYears = [
 
 
 export const fiscalModelStatics = {
-    assumedMarketDebtShared: {
+    assumedMarketDebtShare: {
         tBills: 0.5092838196286470,
         longTermBonds: 0.1750663129973470,
         mediumTermBonds: 0.3156498673740050
