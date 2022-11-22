@@ -26,6 +26,10 @@ export const generalOutputs = [
 export const backendOutputs = [
 
     new Output("day90TreasuryBillsRate", 'interestRates', null, true),
+    new Output("year10BondRate", 'interestRates', null, true),
+    new Output("longTermBondRate", 'interestRates', null, true),
+    new Output("longTermBondRate", 'interestRates', null, true),
+    new Output("marginalEffectiveInterestRate", 'interestRates', null, true),
 
     new Output("debtChargesOnPrimaryBalances", 'overallNewDebt', null),
     new Output("debtChargesOnExistingDebtStock", 'overallNewDebt', null),

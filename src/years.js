@@ -76,6 +76,26 @@ export class FiscalYears {
         })
     }
 
+    year10BondRateForYear(year) {
+        return this.remember(`year10BondRateForYear-${year.label}`, () => {
+            return year.year10BondRate;
+        })
+    }
+
+
+    marginalEffectiveInterestRateForYear() {
+        return this.remember(`marginalEffectiveInterestRateForYear-${year.label}`, () => {
+            return year.marginalEffectiveInterestRate;
+        })
+    }
+
+
+    longTermBondRateForYear(year) {
+        return this.remember(`longTermBondRateForYear-${year.label}`, () => {
+            return year.longTermBondRate;
+        })
+    }
+
     // Calculated from fiscal model import
     marginalEffectiveInterestRateForYear(year) {
         return this.remember(`marginalEffectiveInterestRateForYear-${year.label}`, () => {

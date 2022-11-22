@@ -85,13 +85,22 @@ export const localizedStrings = {
         }
     },
 
+    year10BondRate: {
+        en: {
+            label: "10-year bond rate",
+        },
+        fr: {
+            label: "Taux des obligations sur 10 ans",
+        }
+    },
+
 
     marginalEffectiveInterestRate: {
         en: {
-            label: "Marginal effective interest rate (all new debt)",
+            label: "Effective interest rate",
         },
         fr: {
-            label: "Taux d'intérêt effectif marginal (toute nouvelle dette)",
+            label: "Taux d'intérêt effectif",
         }
     },
 
@@ -245,10 +254,10 @@ export const localizedStrings = {
 
     longTermBondRate: {
         en: {
-            label: "Long-term bond rate (new borrowing)",
+            label: "Long-term bond rate",
         },
         fr: {
-            label: "Taux des obligations à long terme (nouveaux emprunts)",
+            label: "Taux des obligations à long terme",
         }
     },
 

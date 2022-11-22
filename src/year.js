@@ -7,14 +7,15 @@ try {
 }
 
 export class Year {
-    constructor(label, hidden, day90TreasuryBillsRate, marginalEffectiveInterestRate, mediumTermBondRate, longTermBondRate) {
+    constructor(label, hidden, day90TreasuryBillsRate, marginalEffectiveInterestRate, mediumTermBondRate, longTermBondRate, year10BondRate) {
 
         this.label = label;
         this.hidden = hidden;
         this.day90TreasuryBillsRate = day90TreasuryBillsRate;
         this.marginalEffectiveInterestRate = marginalEffectiveInterestRate;
         this.mediumTermBondRate = mediumTermBondRate;
-        this.longTermBondRate = longTermBondRate
+        this.longTermBondRate = longTermBondRate;
+        this.year10BondRate = year10BondRate;
 
         // User inputs
         this.totalRevenueMeasures = userInput?.[label]?.totalRevenueMeasures ?? 0;
@@ -50,7 +51,6 @@ export class Year {
     get debtChargesOnPrimaryBalances() {
         return (this.marginalEffectiveInterestRate / 100) * this.netChangeOnPrimaryBalance;
     }
-
 
 
 }
