@@ -43,14 +43,14 @@ export const localizedStrings = {
     groups: {
         en: {
             interestRates: "Interest rates",
-            overallNewDebt: "Overall New Debt",
-            incrementalGovernmentBondsComposition: "Incremental government bonds composition"
+            overallNewDebt: "Overall new debt",
+            incrementalGovernmentBondsComposition: "Incremental stock of government bonds, composition"
 
         },
         fr: {
             interestRates: "Taux d'intérêt",
             overallNewDebt: "Nouvelle dette totale",
-            incrementalGovernmentBondsComposition: "Composition incrémentale des obligations d'État"
+            incrementalGovernmentBondsComposition: "Stock incrémental d'obligations gouvernementales, composition"
         },
     },
 
@@ -171,7 +171,7 @@ export const localizedStrings = {
 
     mediumTermBondsStock: {
         en: {
-            label: "Medium-term bond stock",
+            label: "Medium-term bonds stock",
         },
         fr: {
             label: "Stock d'obligations à moyen terme",
@@ -181,7 +181,7 @@ export const localizedStrings = {
 
     longTermBondsStock: {
         en: {
-            label: "Long-term bond stock",
+            label: "Long-term bonds stock",
         },
         fr: {
             label: "Stock d'obligations à long terme",
@@ -218,7 +218,7 @@ export const localizedStrings = {
 
     totalMediumTermBondTurnover: {
         en: {
-            label: "Total medium-term bond turnover",
+            label: "Total medium-term bonds turnover",
         },
         fr: {
             label: "Rotation totale des obligations à moyen terme",
@@ -227,7 +227,7 @@ export const localizedStrings = {
 
     mediumTermBondRate: {
         en: {
-            label: "Medium-term bond rate (new borrowing)",
+            label: "Medium-term bonds rate (new borrowing)",
         },
         fr: {
             label: "Taux des obligations à moyen terme (nouveaux emprunts)",
@@ -254,7 +254,7 @@ export const localizedStrings = {
 
     longTermBondRate: {
         en: {
-            label: "Long-term bond rate",
+            label: "Long-term bonds rate",
         },
         fr: {
             label: "Taux des obligations à long terme",
