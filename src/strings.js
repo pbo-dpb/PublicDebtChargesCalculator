@@ -133,10 +133,10 @@ export const localizedStrings = {
 
     debtStock: {
         en: {
-            label: "Debt Stock",
+            label: "Incremental debt stock",
         },
         fr: {
-            label: "Stock de dettes",
+            label: "Augmentation de l'encours de la dette",
         }
     },
 
