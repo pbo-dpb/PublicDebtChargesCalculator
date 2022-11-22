@@ -78,10 +78,10 @@ export const localizedStrings = {
 
     day90TreasuryBillsRate: {
         en: {
-            label: "Public debt charges",
+            label: "90-day treasury bills rate",
         },
         fr: {
-            label: "Frais de la dette publique",
+            label: "Taux des bons du Trésor de 90 jours",
         }
     },
 
@@ -90,7 +90,7 @@ export const localizedStrings = {
             label: "10-year bond rate",
         },
         fr: {
-            label: "Taux des obligations sur 10 ans",
+            label: "Taux des obligations de 10 ans",
         }
     },
 
@@ -124,10 +124,10 @@ export const localizedStrings = {
 
     newBorrowing: {
         en: {
-            label: "New borrowing",
+            label: "Incremental new borrowing",
         },
         fr: {
-            label: "Nouveaux emprunts",
+            label: "Nouveaux emprunts marginaux",
         }
     },
 
@@ -302,10 +302,10 @@ export const localizedStrings = {
 
     annualPublicDebtCharge: {
         en: {
-            label: "Annual public debt charges",
+            label: "Public debt charges",
         },
         fr: {
-            label: "Frais annuels de la dette publique",
+            label: "Charges de la dette publique",
         }
     },
 
