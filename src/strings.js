@@ -49,8 +49,8 @@ export const localizedStrings = {
         },
         fr: {
             interestRates: "Taux d'intérêt",
-            overallNewDebt: "Nouvelle dette totale",
-            incrementalGovernmentBondsComposition: "Stock incrémental d'obligations gouvernementales, composition"
+            overallNewDebt: "Nouvelle dette globale",
+            incrementalGovernmentBondsComposition: "Composition de l'encours marginal des obligations d'État"
         },
     },
 
@@ -81,7 +81,7 @@ export const localizedStrings = {
             label: "90-day treasury bills rate",
         },
         fr: {
-            label: "Taux des bons du Trésor de 90 jours",
+            label: "Taux des bons du Trésor à 90 jours",
         }
     },
 
@@ -90,7 +90,7 @@ export const localizedStrings = {
             label: "10-year bond rate",
         },
         fr: {
-            label: "Taux des obligations de 10 ans",
+            label: "Taux des obligations à 10 ans",
         }
     },
 
@@ -109,7 +109,7 @@ export const localizedStrings = {
             label: "Debt charges on primary balances",
         },
         fr: {
-            label: "Charges de la dette sur les soldes primaires",
+            label: "Frais de la dette sur les soldes primaires",
         }
     },
 
@@ -127,7 +127,7 @@ export const localizedStrings = {
             label: "Incremental new borrowing",
         },
         fr: {
-            label: "Nouveaux emprunts marginaux",
+            label: "Nouvel emprunt marginal",
         }
     },
 
@@ -136,7 +136,7 @@ export const localizedStrings = {
             label: "Incremental debt stock",
         },
         fr: {
-            label: "Augmentation de l'encours de la dette",
+            label: "Encours de la dette marginal",
         }
     },
 
@@ -174,7 +174,7 @@ export const localizedStrings = {
             label: "Medium-term bonds stock",
         },
         fr: {
-            label: "Stock d'obligations à moyen terme",
+            label: "Encours des obligations à moyen terme",
         }
     },
 
@@ -184,7 +184,7 @@ export const localizedStrings = {
             label: "Long-term bonds stock",
         },
         fr: {
-            label: "Stock d'obligations à long terme",
+            label: "Encours des obligations à long terme",
         }
     },
 
@@ -305,7 +305,7 @@ export const localizedStrings = {
             label: "Public debt charges",
         },
         fr: {
-            label: "Charges de la dette publique",
+            label: "Service de la dette publique",
         }
     },
 
@@ -314,7 +314,7 @@ export const localizedStrings = {
             label: "Cumulative surplus/(deficit)",
         },
         fr: {
-            label: "Surplus cumulatif/(déficit)",
+            label: "Surplus/(déficit) cumulatif",
         }
     },
 
@@ -325,7 +325,7 @@ export const localizedStrings = {
         },
         fr: {
             label: "Surplus/(déficit) pour l'année",
-            warning: "Comprend les charges de la dette publique sur l'excédent/(déficit) des années précédentes résultant des politiques mises en œuvre."
+            warning: "Inclut le service de la dette publique sur le surplus/(déficit) des années précédentes résultant des politiques mises en œuvre."
         }
     },
 
@@ -334,7 +334,7 @@ export const localizedStrings = {
             label: "Cumulative public debt charges",
         },
         fr: {
-            label: "Charges cumulées de la dette publique",
+            label: "Frais cumulatifs de la dette publique",
         }
     },
 
