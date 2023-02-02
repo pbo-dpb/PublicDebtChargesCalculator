@@ -1,10 +1,12 @@
 # Public Debt Charges Calculator
 
-Within the framework of the 2019 electoral campaign, the PBO developed a tool allowing political parties to estimate the interest charges from their new proposals.
+This tool is designed to provide an estimate of the interest costs resulting from new policy proposals and budgetary measures.
 
-For example, if a party wants to implement a measure and its cost is financed by the public debt, then public debt charges will be added to the cost of said measure. Similarly, if a party wants to implement a measure with a net expected revenue, then the revenue would reduce the public debt and would therefore reduce the public debt charges.
+To use the tool, simply enter the revenue and expense amounts that are expected from the proposal or measure. The PBO's projected interest rates are then applied to the difference between the revenues and expenses. This will show you the cumulative surplus/deficit including the interest costs on public debt from one or more measures. The results are reported over a 5-year horizon.
 
-To use the tool, the user must only enter in the appropriate boxes the expected revenue and spending associated with the measure(s) for which they want to estimate the cost in interest. Interest rates projected by the PBO are then applied to the difference between the revenue and the spending. As a result, the user will be able to see the cumulative surplus/deficit including public debt charges associated with one or more measures. The results are displayed over a 5-year horizon.
+For example, if a measure is proposed and its cost is financed by public debt, then interest charges will be added to the total cost of that measure. Similarly, if a measure is proposed and generates new revenues, then these revenues will reduce the public debt and thus reduce the interest costs paid on it.
+
+The tool has been updated to reflect the new interest rate projections from our October Economic and Fiscal Outlook (EFO).
 
 [Live version](https://www.pbo-dpb.ca/en/research--recherches/tools--outils/public-debt-charges-calculator--calculateur-frais-dette-publique)
 
@@ -27,11 +29,13 @@ npm run build
 
 # Calculateur des frais sur la dette publique
 
-Dans le cadre de la campagne électorale de 2019, le DPB a développé un outil permettant aux partis politiques d’estimer les frais en intérêts de leurs nouvelles propositions.
+Cet outil est conçu de manière à fournir une estimation des coûts d'intérêt résultant des nouvelles propositions politiques et des mesures budgétaires.
 
-Par exemple, si une mesure est proposée et son coût est financé par la dette publique, alors des frais d’intérêt s’ajouteront au coût total de ladite mesure. De même, si une mesure est proposée et permet d’engranger de nouveaux revenus, alors ceux-ci permettront de réduire la dette publique et ainsi de réduire les frais d’intérêt payés sur celle-ci.
+Afin d'utiliser l'outil, il suffit de saisir les montants des recettes et des dépenses attendues de la proposition ou de la mesure. Les taux d'intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d'intérêt sur la dette publique provenant d'une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans.
 
-Afin d’utiliser l’outil, l’usager n’a qu’à entrer dans les cases indiquées le revenu et les dépenses provenant des mesures dont il/elle désire estimer les frais d’intérêt. Des taux d’intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. L’usager pourra ainsi voir le surplus/déficit cumulatif incluant les frais d’intérêt sur la dette publique provenant d’une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans.
+Par exemple, si une mesure est proposée et son coût est financé par la dette publique, alors des frais d'intérêt s'ajouteront au coût total de ladite mesure. De même, si une mesure est proposée et permet d'engranger de nouveaux revenus, alors ceux-ci permettront de réduire la dette publique et ainsi de réduire les frais d'intérêt payés sur celle-ci.
+
+L'outil a été mis à jour afin de tenir compte des nouvelles projections des taux d'intérêt tirées de nos Perspectives économiques et financières (PEF).
 
 [Version en ligne](https://www.pbo-dpb.ca/fr/research--recherches/tools--outils/public-debt-charges-calculator--calculateur-frais-dette-publique)
 
