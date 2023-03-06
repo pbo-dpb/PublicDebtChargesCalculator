@@ -3,7 +3,7 @@ import { Year } from "./year.js"
  * Last update. Is used to update user facing label. 
  * YYYY-MM-DD
  */
-export const lastUpdated = "2022-11-23";
+export const lastUpdated = "2023-03-06";
 
 /**
  * Declaration of all years in table.
