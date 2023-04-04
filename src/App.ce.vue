@@ -1,5 +1,4 @@
 <template>
-
     <main id="app" class="flex flex-col gap-4" v-cloak>
 
         <header class="print:hidden prose dark:prose-invert max-w-none flex flex-col gap-4">
@@ -20,7 +19,8 @@
                 }}</button>
         </nav>
 
-        <FlexibleRow class="hidden md:grid sticky top-0 bg-white border-b border-gray-300" aria-hidden="true">
+        <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
+            aria-hidden="true">
             <template #title>
 
             </template>
@@ -132,8 +132,6 @@
 
 
     </main>
-
-
 </template>
 
 <script>
