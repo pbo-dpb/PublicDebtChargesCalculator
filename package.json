@@ -11,15 +11,15 @@
   "dependencies": {
     "collect.js": "^4.36.1",
     "lodash.uniqueid": "^4.0.1",
-    "marked": "^7.0.2",
-    "vue": "^3.3.4"
+    "marked": "^10.0.0",
+    "vue": "^3.3.8"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.27",
-    "tailwindcss": "^3.3.3",
-    "vite": "^4.4.9"
+    "@tailwindcss/typography": "^0.5.10",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "vite": "^5.0.0"
   }
 }
