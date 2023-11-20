@@ -12,6 +12,7 @@
     "collect.js": "^4.36.1",
     "lodash.uniqueid": "^4.0.1",
     "marked": "^10.0.0",
+    "pinia": "^2.1.7",
     "vue": "^3.3.8"
   },
   "devDependencies": {

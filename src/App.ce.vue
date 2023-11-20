@@ -1,5 +1,6 @@
 <template>
     <main id="app" class="flex flex-col gap-4" v-cloak>
+        <DebugBar></DebugBar>
 
         <header class="print:hidden prose dark:prose-invert max-w-none flex flex-col gap-4">
             <div v-html="descriptionHtml"></div>
@@ -127,26 +128,26 @@
             </FlexibleRow>
         </section>
 
-
-
-
-
     </main>
 </template>
 
 <script>
 import collect from "collect.js";
+import DebugBar from "./components/DebugBar.vue"
 import { generalOutputs, backendOutputs } from "./outputs.js"
 import { Year } from "./year.js"
 import { FiscalYears } from "./years.js"
 import { lastUpdated, staticYears } from "./static-variables.js"
-import { localizedStrings } from "./strings.js"
 import { marked } from "marked"
 import FlexibleRow from "./FlexibleRow.vue"
 import Field from "./Field.vue"
 import BackendToggle from "./BackendToggle.vue"
 import Unit from "./Unit.vue"
 import ValueWarning from "./ValueWarning.vue"
+
+import { mapState, mapWritableState } from 'pinia'
+import Localizations from './stores/localizations.js'
+
 
 export default {
 
@@ -155,7 +156,8 @@ export default {
         Field,
         BackendToggle,
         Unit,
-        ValueWarning
+        ValueWarning,
+        DebugBar
     },
 
     props: {
@@ -175,14 +177,7 @@ export default {
 
 
     computed: {
-        /**
-         * Retrieve the currently selected language using a `lang` url parameter. If the language is not set
-         * or if the language is not supported (anything else but fr or en), just return null. When no
-         * language is set, only the page's header (with languager selector) will be displayed. 
-         */
-        selectedLanguage() {
-            return document.documentElement.lang;
-        },
+        ...mapState(Localizations, ['strings', 'language']),
 
         /**
          * Retrieve a localized description for the tool. This markdown content is parsed to HTML.
@@ -198,17 +193,6 @@ export default {
         yearsLabels() {
             return collect(this.years.displayYears).pluck("label").toArray();
         },
-
-        /**
-         * Pick only the strings in the current locale. Used to avoid using `[selectedLanguage]` everywhere
-         * in our views.
-         */
-        strings() {
-            return collect(localizedStrings).map((locale) => {
-                return locale[this.selectedLanguage];
-            }).items;
-        },
-
 
         backendOutputs() {
             return collect(backendOutputs).groupBy('group').items;
@@ -254,11 +238,8 @@ export default {
     filters: {
         percentage: function (percentage) {
             percentage = Math.round(percentage * 100);
-            return this.selectedLanguage === "fr" ? `${percentage} %` : `${percentage}%`;
+            return this.language === "fr" ? `${percentage} %` : `${percentage}%`;
         }
     }
 };
 </script>
-<style>
-@import "./index.css";
-</style>
