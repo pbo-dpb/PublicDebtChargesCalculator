@@ -73,6 +73,16 @@ export const localizedStrings = {
     },
 
 
+    netChangeOnPrimaryBalance: {
+        en: {
+            label: "Net change on primary balance ",
+        },
+        fr: {
+            label: "Changement net sur le solde primaire",
+        }
+    },
+
+
     /**
      * Outputs
      */
@@ -295,14 +305,7 @@ export const localizedStrings = {
 
     // General Outputs 
 
-    netChangeOnPrimaryBalance: {
-        en: {
-            label: "Net change on primary balance ",
-        },
-        fr: {
-            label: "Changement net sur le solde primaire",
-        }
-    },
+
 
     annualPublicDebtCharge: {
         en: {
