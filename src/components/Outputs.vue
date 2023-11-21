@@ -57,7 +57,6 @@ Backend Outputs
 <script>
 import collect from "collect.js";
 
-import { generalOutputs, backendOutputs } from "../outputs.js"
 import FlexibleRow from "./FlexibleRow.vue"
 import Field from './Field.vue'
 import ValueWarning from "./ValueWarning.vue"
@@ -66,12 +65,24 @@ import BackendToggle from "./BackendToggle.vue"
 
 import { mapState } from 'pinia'
 import { useLocalizationsStore } from '../stores/localizations.js'
+const UNIT_MILLIONS = "millions"
+
+
+class Output {
+    constructor(stringBank, id, group, unit, isStatic) {
+        this.id = id;
+        this.isStatic = isStatic;
+        this.group = group ? stringBank.groups[group] : null;
+        this.unit = unit ? stringBank.units[unit] : '';
+        this.label = stringBank[id].label;
+        this.warning = stringBank[id].warning;
+    }
+}
 
 export default {
     props: ['years'],
     data() {
         return {
-            generalOutputs,
             showBackEnd: false,
         }
     },
@@ -85,8 +96,35 @@ export default {
     computed: {
         ...mapState(useLocalizationsStore, ['strings', 'language']),
         backendOutputs() {
+            const backendOutputs = [
+
+                new Output(this.strings, "day90TreasuryBillsRate", 'interestRates', null, true),
+                new Output(this.strings, "year10BondRate", 'interestRates', null, true),
+                new Output(this.strings, "longTermBondRate", 'interestRates', null, true),
+                new Output(this.strings, "marginalEffectiveInterestRate", 'interestRates', null, true),
+
+                new Output(this.strings, "debtChargesOnPrimaryBalances", 'overallNewDebt', null),
+                new Output(this.strings, "debtChargesOnExistingDebtStock", 'overallNewDebt', null),
+                new Output(this.strings, "newBorrowing", 'overallNewDebt', null),
+                new Output(this.strings, "debtStock", 'overallNewDebt', null),
+
+                new Output(this.strings, "treasuryBillStock", "incrementalGovernmentBondsComposition", null),
+                new Output(this.strings, "mediumTermBondsStock", 'incrementalGovernmentBondsComposition', null),
+                new Output(this.strings, "longTermBondsStock", 'incrementalGovernmentBondsComposition', null),
+
+            ];
             return collect(backendOutputs).groupBy('group').items;
         },
+        generalOutputs() {
+            return [
+                new Output(this.strings, "netChangeOnPrimaryBalance", null, UNIT_MILLIONS),
+                new Output(this.strings, "annualPublicDebtCharge", null, UNIT_MILLIONS),
+                new Output(this.strings, "surplusOrDeficit", null, UNIT_MILLIONS),
+                new Output(this.strings, "cumulativeSurplus", null, UNIT_MILLIONS),
+                new Output(this.strings, "cumulativePublicDebtCharges", null, UNIT_MILLIONS),
+            ]
+        }
+
     },
     methods: {
         retrieveValueForOutputYear(output, year) {
