@@ -3,7 +3,7 @@
         <DebugBar></DebugBar>
 
 
-        <CollapsibleIntro :last-updated="lastUpdated"></CollapsibleIntro>
+        <CollapsibleIntro></CollapsibleIntro>
 
         <nav class="flex print:hidden flex-row justify-end items-center gap-4">
 
@@ -132,7 +132,6 @@ import { defineAsyncComponent } from 'vue'
 
 import { generalOutputs, backendOutputs } from "./outputs.js"
 import { FiscalYears } from "./years.js"
-import { lastUpdated } from "./static-variables.js"
 import { marked } from "marked"
 import FlexibleRow from "./FlexibleRow.vue"
 import Field from "./Field.vue"
@@ -167,7 +166,6 @@ export default {
         return {
             years: new FiscalYears(),
             showBackEnd: false,
-            lastUpdated,
             generalOutputs: generalOutputs,
             isDirty: window.localStorage.getItem("pdcc-user-input")
         };

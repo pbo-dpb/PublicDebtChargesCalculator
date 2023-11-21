@@ -26,6 +26,7 @@ import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/solid';
 import introEn from '../assets/intro.en.md?url'
 import introFr from '../assets/intro.fr.md?url'
 import uniqueId from 'lodash.uniqueid'
+import { lastUpdated } from "../static-variables.js"
 
 import { mapState } from 'pinia'
 import Localizations from '../stores/localizations.js'
@@ -34,9 +35,9 @@ import LoadingIndicator from './LoadingIndicator.vue';
 import { marked } from 'marked';
 
 export default {
-    props: ['lastUpdated'],
     data() {
         return {
+            lastUpdated,
             shouldCollapse: false,
             uid: `collapsible-${uniqueId()}`,
             fetching: false,
