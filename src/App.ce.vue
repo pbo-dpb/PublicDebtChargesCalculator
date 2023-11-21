@@ -136,9 +136,8 @@ import collect from "collect.js";
 import { defineAsyncComponent } from 'vue'
 
 import { generalOutputs, backendOutputs } from "./outputs.js"
-import { Year } from "./year.js"
 import { FiscalYears } from "./years.js"
-import { lastUpdated, staticYears } from "./static-variables.js"
+import { lastUpdated } from "./static-variables.js"
 import { marked } from "marked"
 import FlexibleRow from "./FlexibleRow.vue"
 import Field from "./Field.vue"
@@ -147,7 +146,7 @@ import Unit from "./Unit.vue"
 import ValueWarning from "./ValueWarning.vue"
 import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
 
-import { mapState, mapWritableState } from 'pinia'
+import { mapState } from 'pinia'
 import Localizations from './stores/localizations.js'
 const DebugBar = defineAsyncComponent(() =>
     import("./components/DebugBar.vue")
