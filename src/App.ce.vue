@@ -2,10 +2,8 @@
     <main id="app" class="flex flex-col gap-4" v-cloak>
         <DebugBar></DebugBar>
 
-        <header class="print:hidden prose dark:prose-invert max-w-none flex flex-col gap-4">
-            <div v-html="descriptionHtml"></div>
-            <small>{{ strings.updatedOn }} {{ lastUpdated }}</small>
-        </header>
+
+        <CollapsibleIntro :last-updated="lastUpdated"></CollapsibleIntro>
 
         <nav class="flex print:hidden flex-row justify-end items-center gap-4">
 
@@ -14,10 +12,7 @@
                 :class="{ 'opacity-75': !isDirty, 'hover:bg-red-200 dark:hover:bg-red-700': isDirty }" @click="clear"
                 :disabled="!isDirty">{{ strings.clearUserInput
                 }}</button>
-            <button
-                class="hidden lg:block text-sm font-semibold px-4 py-2 text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
-                @click="print">{{ strings.printPage
-                }}</button>
+
         </nav>
 
         <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
@@ -145,6 +140,7 @@ import BackendToggle from "./BackendToggle.vue"
 import Unit from "./Unit.vue"
 import ValueWarning from "./ValueWarning.vue"
 import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
+import CollapsibleIntro from "./components/CollapsibleIntro.vue";
 
 import { mapState } from 'pinia'
 import Localizations from './stores/localizations.js'
@@ -160,7 +156,8 @@ export default {
         BackendToggle,
         Unit,
         ValueWarning,
-        DebugBar
+        DebugBar,
+        CollapsibleIntro
     },
 
     props: {
@@ -170,7 +167,7 @@ export default {
         return {
             years: new FiscalYears(),
             showBackEnd: false,
-            lastUpdated: lastUpdated,
+            lastUpdated,
             generalOutputs: generalOutputs,
             isDirty: window.localStorage.getItem("pdcc-user-input")
         };
@@ -182,12 +179,6 @@ export default {
     computed: {
         ...mapState(Localizations, ['strings', 'language']),
 
-        /**
-         * Retrieve a localized description for the tool. This markdown content is parsed to HTML.
-         */
-        descriptionHtml() {
-            return marked.parse(this.strings.description);
-        },
 
         /**
          * Return a nicely formatted list of years.
@@ -217,11 +208,6 @@ export default {
     methods: {
         setPageTitle() {
             (new WrapperEventDispatcher(this.strings.title, null)).dispatch();
-        },
-
-
-        print() {
-            window.print();
         },
 
         clear() {

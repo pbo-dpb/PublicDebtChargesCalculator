@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.18",
     "collect.js": "^4.36.1",
     "lodash.uniqueid": "^4.0.1",
     "marked": "^10.0.0",

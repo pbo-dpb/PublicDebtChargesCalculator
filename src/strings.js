@@ -3,22 +3,17 @@ export const localizedStrings = {
         "en": "Public debt charges calculator",
         "fr": "Calculateur des frais sur la dette publique",
     },
-    description: {
-        "en": "This tool is designed to provide an estimate of the interest costs resulting from new policy proposals and budgetary measures.\n\nTo use the tool, simply enter the revenue and expense amounts that are expected from the proposal or measure. The PBO's projected interest rates are then applied to the difference between the revenues and expenses. This will show you the cumulative surplus/deficit including the interest costs on public debt from one or more measures. The results are reported over a 5-year horizon.\n\nFor example, if a measure is proposed and its cost is financed by public debt, then interest charges will be added to the total cost of that measure. Similarly, if a measure is proposed and generates new revenues, then these revenues will reduce the public debt and thus reduce the interest costs paid on it.\n\nThe tool has been updated to reflect our latest interest rate projections.",
-        "fr": "Cet outil est conçu de manière à fournir une estimation des coûts d'intérêt résultant des nouvelles propositions politiques et des mesures budgétaires.\n\nAfin d'utiliser l'outil, il suffit de saisir les montants des recettes et des dépenses attendues de la proposition ou de la mesure. Les taux d'intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d'intérêt sur la dette publique provenant d'une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans.\n\nPar exemple, si une mesure est proposée et son coût est financé par la dette publique, alors des frais d'intérêt s'ajouteront au coût total de ladite mesure. De même, si une mesure est proposée et permet d'engranger de nouveaux revenus, alors ceux-ci permettront de réduire la dette publique et ainsi de réduire les frais d'intérêt payés sur celle-ci.\n\nL'outil a été mis à jour pour refléter nos dernières projections de taux d'intérêt."
-    },
     updatedOn: {
         en: "Updated:",
         fr: "Mis à jour :"
     },
-
     showBackEnd: {
         en: "Show details",
         fr: "Afficher les détails",
     },
-    printPage: {
-        en: "Print",
-        fr: "Imprimer"
+    collapsible_component_handle: {
+        en: "About this tool",
+        fr: "À propos de cet outil"
     },
     clearUserInput: {
         en: "Clear",
