@@ -1,8 +1,11 @@
 import collect from "collect.js";
 import { staticYears, fiscalModelStatics, mtDecomposition } from './static-variables'
+import { useDebtProjectionStore } from "./stores/debt-projection";
 
 export class FiscalYears {
     constructor() {
+
+        this.debtProjectionStore = useDebtProjectionStore();
 
         let previousYear = null;
         let counter = 0;
