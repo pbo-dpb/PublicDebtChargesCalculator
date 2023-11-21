@@ -3,7 +3,7 @@ import { localizedStrings } from "../strings.js"
 import collect from "collect.js";
 
 
-export default defineStore('localizations', {
+export const useLocalizationsStore = defineStore('localizations', {
     state: () => ({
         language: document.documentElement.lang,
         iStrings: { en: null, fr: null, a: localizedStrings }

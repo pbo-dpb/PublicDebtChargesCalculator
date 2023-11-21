@@ -12,11 +12,11 @@
 <script>
 import { mapWritableState } from 'pinia'
 import Button from './Button.vue'
-import Localizations from '../stores/localizations.js'
+import { useLocalizationsStore } from '../stores/localizations.js'
 
 export default {
     computed: {
-        ...mapWritableState(Localizations, ['language']),
+        ...mapWritableState(useLocalizationsStore, ['language']),
     },
 
     components: {

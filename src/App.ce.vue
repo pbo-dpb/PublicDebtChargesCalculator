@@ -66,62 +66,7 @@
 
         </section>
 
-        <!-- 
-            General Outputs
-        -->
-
-
-        <section class="flex flex-col divide-y divide-gray-300 ">
-
-
-            <h3 class="p-2 -mx-2 text-xl font-light">{{ strings.ouputsTitle }}</h3>
-
-            <FlexibleRow v-for="output in generalOutputs">
-                <template #title>
-                    {{ output.label }}
-                    <Unit v-if="output.unit">{{ output.unit }}</Unit>
-                    <ValueWarning v-if="output.warning">{{ output.warning }}</ValueWarning>
-                </template>
-                <template #years>
-                    <div v-for="year in years.displayYears">
-                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly>
-                        </Field>
-                    </div>
-                </template>
-            </FlexibleRow>
-        </section>
-
-        <!-- 
-            Backend Outputs
-         -->
-
-
-        <div class="flex flex-row justify-center">
-            <BackendToggle :label="strings.showBackEnd" v-model="showBackEnd"></BackendToggle>
-        </div>
-
-
-        <section v-if="showBackEnd" v-for="(outputGroup, outputGroupLabel) in backendOutputs"
-            class="flex flex-col divide-y divide-gray-300">
-
-            <h3 class="p-2 -mx-2 text-xl font-light" v-if="outputGroupLabel">{{ outputGroupLabel }}</h3>
-
-
-            <FlexibleRow v-for="output in outputGroup">
-                <template #title>
-                    {{ output.label }}
-                    <Unit>{{ output.unit }}</Unit>
-
-                </template>
-                <template #years>
-                    <div v-for="year in years.displayYears">
-                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly
-                            :is-static="output.isStatic">
-                        </Field>
-                    </div>
-                </template>
-            </FlexibleRow>
-        </section>
+        <Outputs :years="years"></Outputs>
 
     </main>
 </template>
@@ -130,19 +75,16 @@
 import collect from "collect.js";
 import { defineAsyncComponent } from 'vue'
 
-import { generalOutputs, backendOutputs } from "./outputs.js"
 import { FiscalYears } from "./years.js"
-import { marked } from "marked"
-import FlexibleRow from "./FlexibleRow.vue"
-import Field from "./Field.vue"
-import BackendToggle from "./BackendToggle.vue"
-import Unit from "./Unit.vue"
-import ValueWarning from "./ValueWarning.vue"
+import FlexibleRow from "./components/FlexibleRow.vue"
+import Field from "./components/Field.vue"
 import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
 import CollapsibleIntro from "./components/CollapsibleIntro.vue";
+import Outputs from "./components/Outputs.vue";
+import Unit from "./components/Unit.vue";
 
 import { mapState } from 'pinia'
-import Localizations from './stores/localizations.js'
+import { useLocalizationsStore } from './stores/localizations.js'
 const DebugBar = defineAsyncComponent(() =>
     import("./components/DebugBar.vue")
 );
@@ -152,11 +94,10 @@ export default {
     components: {
         FlexibleRow,
         Field,
-        BackendToggle,
         Unit,
-        ValueWarning,
         DebugBar,
-        CollapsibleIntro
+        CollapsibleIntro,
+        Outputs,
     },
 
     props: {
@@ -165,8 +106,7 @@ export default {
     data() {
         return {
             years: new FiscalYears(),
-            showBackEnd: false,
-            generalOutputs: generalOutputs,
+
             isDirty: window.localStorage.getItem("pdcc-user-input")
         };
 
@@ -175,7 +115,7 @@ export default {
 
 
     computed: {
-        ...mapState(Localizations, ['strings', 'language']),
+        ...mapState(useLocalizationsStore, ['strings', 'language']),
 
 
         /**
@@ -186,9 +126,7 @@ export default {
             return collect(this.years.displayYears).pluck("label").toArray();
         },
 
-        backendOutputs() {
-            return collect(backendOutputs).groupBy('group').items;
-        },
+
 
 
     },
@@ -213,15 +151,6 @@ export default {
             location.reload();
         },
 
-        retrieveValueForOutputYear(output, year) {
-            const outVal = this.years[output.id + 'ForYear'](year);
-            if (typeof outVal === "number") {
-                return Number(outVal).toFixed(this.showBackEnd ? 1 : 0);
-            }
-
-
-            return outVal;
-        },
 
         handleUpdatedUserInput() {
             this.years.forget();
@@ -234,8 +163,8 @@ export default {
                 }];
             }).items))
         }
-    }
-    ,
+    },
+
 
     filters: {
         percentage: function (percentage) {

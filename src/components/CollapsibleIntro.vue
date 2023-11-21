@@ -29,7 +29,7 @@ import uniqueId from 'lodash.uniqueid'
 import { lastUpdated } from "../static-variables.js"
 
 import { mapState } from 'pinia'
-import Localizations from '../stores/localizations.js'
+import { useLocalizationsStore } from '../stores/localizations.js'
 
 import LoadingIndicator from './LoadingIndicator.vue';
 import { marked } from 'marked';
@@ -59,7 +59,7 @@ export default {
     },
 
     computed: {
-        ...mapState(Localizations, ['strings', 'language']),
+        ...mapState(useLocalizationsStore, ['strings', 'language']),
 
         collapsibleContent() {
 
