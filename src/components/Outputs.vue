@@ -14,7 +14,7 @@
                 <ValueWarning v-if="output.warning">{{ output.warning }}</ValueWarning>
             </template>
             <template #years>
-                <div v-for="year in years.displayYears">
+                <div v-for="year in fiscalYearsStore.displayYears">
                     <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly>
                     </Field>
                 </div>
@@ -45,7 +45,7 @@ Backend Outputs
 
             </template>
             <template #years>
-                <div v-for="year in years.displayYears">
+                <div v-for="year in fiscalYearsStore.displayYears">
                     <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly
                         :is-static="output.isStatic">
                     </Field>
@@ -65,6 +65,8 @@ import BackendToggle from "./BackendToggle.vue"
 
 import { mapState } from 'pinia'
 import { useLocalizationsStore } from '../stores/localizations.js'
+import { useFiscalYearsStore } from "../stores/years.js"
+
 const UNIT_MILLIONS = "millions"
 
 
@@ -80,11 +82,14 @@ class Output {
 }
 
 export default {
-    props: ['years'],
     data() {
         return {
             showBackEnd: false,
         }
+    },
+    setup() {
+        const fiscalYearsStore = useFiscalYearsStore()
+        return { fiscalYearsStore }
     },
     components: {
         FlexibleRow,
@@ -127,7 +132,7 @@ export default {
     },
     methods: {
         retrieveValueForOutputYear(output, year) {
-            const outVal = this.years[output.id + 'ForYear'](year);
+            const outVal = this.fiscalYearsStore[output.id + 'ForYear'](year);
 
 
             if (typeof outVal === "number") {

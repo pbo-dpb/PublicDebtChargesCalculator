@@ -38,7 +38,7 @@
                     <Unit>{{ strings.units.millions }}</Unit>
                 </template>
                 <template #years>
-                    <div v-for="year in years.displayYears">
+                    <div v-for="year in fiscalYearsStore.displayYears">
                         <Field v-model="year.totalRevenueMeasures" :label="year.label" @input="handleUpdatedUserInput"
                             @change="handleUpdatedUserInput">
                         </Field>
@@ -54,7 +54,7 @@
                     <Unit>{{ strings.units.millions }}</Unit>
                 </template>
                 <template #years>
-                    <div v-for="year in years.displayYears">
+                    <div v-for="year in fiscalYearsStore.displayYears">
                         <Field v-model="year.totalProgramSpendingMeasures" :label="year.label"
                             @input="handleUpdatedUserInput" @change="handleUpdatedUserInput">
                         </Field>
@@ -66,7 +66,7 @@
 
         </section>
 
-        <Outputs :years="years"></Outputs>
+        <Outputs></Outputs>
 
     </main>
 </template>
@@ -75,7 +75,7 @@
 import collect from "collect.js";
 import { defineAsyncComponent } from 'vue'
 
-import { FiscalYears } from "./years.js"
+
 import FlexibleRow from "./components/FlexibleRow.vue"
 import Field from "./components/Field.vue"
 import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
@@ -85,6 +85,9 @@ import Unit from "./components/Unit.vue";
 
 import { mapState } from 'pinia'
 import { useLocalizationsStore } from './stores/localizations.js'
+import { useFiscalYearsStore } from "./stores/years.js"
+
+
 const DebugBar = defineAsyncComponent(() =>
     import("./components/DebugBar.vue")
 );
@@ -105,15 +108,14 @@ export default {
     },
     data() {
         return {
-            years: new FiscalYears(),
-
             isDirty: window.localStorage.getItem("pdcc-user-input")
         };
 
     },
-
-
-
+    setup() {
+        const fiscalYearsStore = useFiscalYearsStore()
+        return { fiscalYearsStore }
+    },
     computed: {
         ...mapState(useLocalizationsStore, ['strings', 'language']),
 
@@ -123,7 +125,7 @@ export default {
          * in `static-variables.js`.
          */
         yearsLabels() {
-            return collect(this.years.displayYears).pluck("label").toArray();
+            return collect(this.fiscalYearsStore.displayYears).pluck("label").toArray();
         },
 
 
@@ -153,10 +155,10 @@ export default {
 
 
         handleUpdatedUserInput() {
-            this.years.forget();
+            this.fiscalYearsStore.forget();
             this.isDirty = true;
             // Save user input
-            window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.years.displayYears).mapWithKeys(year => {
+            window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.fiscalYearsStore.displayYears).mapWithKeys(year => {
                 return [year.label, {
                     totalRevenueMeasures: parseFloat(year.totalRevenueMeasures),
                     totalProgramSpendingMeasures: parseFloat(year.totalProgramSpendingMeasures)
