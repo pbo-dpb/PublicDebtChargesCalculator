@@ -128,9 +128,6 @@ export default {
             return collect(this.fiscalYearsStore.displayYears).pluck("label").toArray();
         },
 
-
-
-
     },
 
     mounted() {

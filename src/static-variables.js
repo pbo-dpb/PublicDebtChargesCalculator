@@ -1,4 +1,4 @@
-import { Year } from "./year.js"
+import { Year } from "./models/year.js"
 /**
  * Last update. Is used to update user facing label. 
  * YYYY-MM-DD

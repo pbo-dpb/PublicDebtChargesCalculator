@@ -26,17 +26,14 @@
 Backend Outputs
 -->
 
-
     <div class="flex flex-row justify-center">
         <BackendToggle :label="strings.showBackEnd" v-model="showBackEnd"></BackendToggle>
     </div>
-
 
     <section v-if="showBackEnd" v-for="(outputGroup, outputGroupLabel) in backendOutputs"
         class="flex flex-col divide-y divide-gray-300">
 
         <h3 class="p-2 -mx-2 text-xl font-light" v-if="outputGroupLabel">{{ outputGroupLabel }}</h3>
-
 
         <FlexibleRow v-for="output in outputGroup">
             <template #title>
