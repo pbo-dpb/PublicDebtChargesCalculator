@@ -1,24 +1,35 @@
 import { defineStore } from 'pinia'
 import collect from "collect.js";
-import { staticYears, fiscalModelStatics, mtDecomposition } from '../static-variables'
-import { useDebtProjectionStore } from "./debt-projection";
+import { Year } from "../models/year.js"
 
-const yearsInit = function () {
-    let counter = 0;
-    let previousYear = null;
-    return collect(staticYears).mapWithKeys(yr => {
-        yr.previousYearId = previousYear ? ("" + previousYear.label) : null;
-        yr.counter = counter;
-        previousYear = yr;
-        counter++;
-        return [yr.label, yr];
-    }).all();
-}
 
 export const useFiscalYearsStore = defineStore('fiscal-years', {
     state: () => ({
-        debtProjectionStore: useDebtProjectionStore(),
-        years: yearsInit(),
+        years: function () {
+            let counter = 0;
+            let previousYear = null;
+            return collect([
+                new Year('2021-2022', true),
+                new Year('2022-2023', true),
+                new Year('2023-2024', true),
+                new Year('2024-2025', false),
+                new Year('2025-2026', false),
+                new Year('2026-2027', false),
+                new Year('2027-2028', false),
+                new Year('2028-2029', false),
+                new Year('2029-2030', true),
+                new Year('2030-2031', true),
+                new Year('2031-2032', true),
+                new Year('2032-2033', true),
+                new Year('2033-2034', true),
+            ]).mapWithKeys(yr => {
+                yr.previousYearId = previousYear ? ("" + previousYear.label) : null;
+                yr.counter = counter;
+                previousYear = yr;
+                counter++;
+                return [yr.label, yr];
+            }).all();
+        }(),
         rememberMatrix: {}
     }),
 

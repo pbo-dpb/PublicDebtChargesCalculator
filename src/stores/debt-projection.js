@@ -265,14 +265,33 @@ const rawVals = [
 export const useDebtProjectionStore = defineStore('debt-projection', {
     state: () => ({
         vals: rawVals.map((qt) => {
-            // Transform date to timestamp for easier comparison
             let qtStart = qt.qt.split("-");
+            let fyFirstYear = parseInt(qtStart[1]) < 4 ? parseInt(qtStart[0]) : parseInt(qtStart[0]) + 1;
+            let fySecondYear = fyFirstYear + 1;
             return {
-                qt: (new Date(qtStart[2], qtStart[1] - 1, qtStart[0])).getTime(),
+                fy: `${fyFirstYear}-${fySecondYear}`,
                 marginalLTBondsRate: qt.marginalLTBondsRate,
                 marginal10yrBondsRate: qt.marginal10yrBondsRate,
                 marginalTBillsRate: qt.marginalTBillsRate
             }
         })
     }),
+
+    actions: {
+        averageForFiscalYear(fy, rate) {
+
+            let vals = this.vals.filter((qt) => qt.fy === fy);
+            let previousYear = parseInt(fy.split("-")[0]) - 1;
+            while (vals.length === 0 && previousYear > 2021) {
+                vals = this.vals.filter((qt) => qt.fy === `${previousYear}-${previousYear + 1}`);
+                previousYear--;
+            }
+
+            let sum = 0;
+            for (let i = 0; i < vals.length; i++) {
+                sum += vals[i][rate];
+            }
+            return sum / vals.length;
+        }
+    }
 })

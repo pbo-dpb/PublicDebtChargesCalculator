@@ -1,3 +1,5 @@
+import { useDebtProjectionStore } from "../stores/debt-projection";
+
 let userInput;
 try {
     const rawUserInput = window.localStorage.getItem("pdcc-user-input");
@@ -8,9 +10,13 @@ try {
 
 export class Year {
     constructor(label, hidden) {
+        const debtProjectionStore = useDebtProjectionStore();
 
         this.label = label;
         this.hidden = hidden;
+        this.marginalTBillsRate = debtProjectionStore.averageForFiscalYear(label, "marginalTBillsRate");
+        this.marginalLTBondsRate = debtProjectionStore.averageForFiscalYear(label, "marginalLTBondsRate");
+        this.marginal10yrBondsRate = debtProjectionStore.averageForFiscalYear(label, "marginal10yrBondsRate");
         /*this.day90TreasuryBillsRate = day90TreasuryBillsRate;
         this.marginalEffectiveInterestRate = marginalEffectiveInterestRate;
         this.mediumTermBondRate = mediumTermBondRate;
@@ -21,7 +27,6 @@ export class Year {
         this.totalRevenueMeasures = userInput?.[label]?.totalRevenueMeasures ?? 0;
         this.totalProgramSpendingMeasures = userInput?.[label]?.totalProgramSpendingMeasures ?? 0;
 
-        // Set via years.js
         this.previousYearId = null;
 
     }
