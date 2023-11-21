@@ -95,10 +95,19 @@ export default {
     },
     computed: {
         ...mapState(useLocalizationsStore, ['strings', 'language']),
+        generalOutputs() {
+            return [
+                new Output(this.strings, "netChangeOnPrimaryBalance", null, UNIT_MILLIONS),
+                /*new Output(this.strings, "annualPublicDebtCharge", null, UNIT_MILLIONS),
+                new Output(this.strings, "surplusOrDeficit", null, UNIT_MILLIONS),
+                new Output(this.strings, "cumulativeSurplus", null, UNIT_MILLIONS),
+                new Output(this.strings, "cumulativePublicDebtCharges", null, UNIT_MILLIONS),*/
+            ]
+        },
         backendOutputs() {
             const backendOutputs = [
 
-                new Output(this.strings, "day90TreasuryBillsRate", 'interestRates', null, true),
+                /*new Output(this.strings, "day90TreasuryBillsRate", 'interestRates', null, true),
                 new Output(this.strings, "year10BondRate", 'interestRates', null, true),
                 new Output(this.strings, "longTermBondRate", 'interestRates', null, true),
                 new Output(this.strings, "marginalEffectiveInterestRate", 'interestRates', null, true),
@@ -110,21 +119,11 @@ export default {
 
                 new Output(this.strings, "treasuryBillStock", "incrementalGovernmentBondsComposition", null),
                 new Output(this.strings, "mediumTermBondsStock", 'incrementalGovernmentBondsComposition', null),
-                new Output(this.strings, "longTermBondsStock", 'incrementalGovernmentBondsComposition', null),
+                new Output(this.strings, "longTermBondsStock", 'incrementalGovernmentBondsComposition', null),*/
 
             ];
             return collect(backendOutputs).groupBy('group').items;
-        },
-        generalOutputs() {
-            return [
-                new Output(this.strings, "netChangeOnPrimaryBalance", null, UNIT_MILLIONS),
-                new Output(this.strings, "annualPublicDebtCharge", null, UNIT_MILLIONS),
-                new Output(this.strings, "surplusOrDeficit", null, UNIT_MILLIONS),
-                new Output(this.strings, "cumulativeSurplus", null, UNIT_MILLIONS),
-                new Output(this.strings, "cumulativePublicDebtCharges", null, UNIT_MILLIONS),
-            ]
         }
-
     },
     methods: {
         retrieveValueForOutputYear(output, year) {

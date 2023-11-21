@@ -7,15 +7,15 @@ try {
 }
 
 export class Year {
-    constructor(label, hidden, day90TreasuryBillsRate, marginalEffectiveInterestRate, mediumTermBondRate, longTermBondRate, year10BondRate) {
+    constructor(label, hidden) {
 
         this.label = label;
         this.hidden = hidden;
-        this.day90TreasuryBillsRate = day90TreasuryBillsRate;
+        /*this.day90TreasuryBillsRate = day90TreasuryBillsRate;
         this.marginalEffectiveInterestRate = marginalEffectiveInterestRate;
         this.mediumTermBondRate = mediumTermBondRate;
         this.longTermBondRate = longTermBondRate;
-        this.year10BondRate = year10BondRate;
+        this.year10BondRate = year10BondRate;*/
 
         // User inputs
         this.totalRevenueMeasures = userInput?.[label]?.totalRevenueMeasures ?? 0;

@@ -3,20 +3,26 @@ import { Year } from "./year.js"
  * Last update. Is used to update user facing label. 
  * YYYY-MM-DD
  */
-export const lastUpdated = "2023-03-06";
+export const lastUpdated = "2024-12-01";
 
 /**
  * Declaration of all years in table.
  * Static import from Fiscal Model.
- * Year(label, hidden, day90TreasuryBillsRate, marginalEffectiveInterestRate, mediumTermBondRate, longTermBondRate, year10BondRate)
+ * Year(label, hidden)
  */
 export const staticYears = [
-    new Year('2022-2023', true, 3.1949999166666600, 3.1846010923961100, 3.1725341666666700, 3.1761070000000000, 0),
-    new Year('2023-2024', false, 4.3250000000000000, 4.0138796732095500, 3.7693862000000000, 3.5496315000000000, 3.3989770000000000),
-    new Year('2024-2025', false, 2.8250000000000000, 3.0267463972148500, 3.0874737500000000, 3.5041517500000000, 3.2624562500000000),
-    new Year('2025-2026', false, 2.4500000000000000, 2.7853315649867400, 2.9300000000000000, 3.5000000000000000, 3.2500000000000000),
-    new Year('2026-2027', false, 2.4500000000000000, 2.7853315649867400, 2.9300000000000000, 3.5000000000000000, 3.2500000000000000),
-    new Year('2027-2028', false, 2.4500000000000000, 2.7853315649867400, 2.9300000000000000, 3.5000000000000000, 3.2500000000000000),
+    new Year('2021-2022', true),
+    new Year('2023-2024', true),
+    new Year('2024-2025', false),
+    new Year('2025-2026', false),
+    new Year('2026-2027', false),
+    new Year('2027-2028', false),
+    new Year('2028-2029', false),
+    new Year('2029-2030', true),
+    new Year('2030-2031', true),
+    new Year('2031-2032', true),
+    new Year('2032-2033', true),
+    new Year('2033-2034', true),
 ];
 
 
