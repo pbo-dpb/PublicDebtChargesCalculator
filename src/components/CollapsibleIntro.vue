@@ -71,7 +71,7 @@ export default {
         },
 
         localStorageKey() {
-            return `pdcc--cfdp.collapse`
+            return `pdcc--cfdp.collapse.${this.lastUpdated}`
         }
     },
     methods: {
