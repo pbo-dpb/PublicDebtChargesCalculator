@@ -133,7 +133,8 @@
 
 <script>
 import collect from "collect.js";
-import DebugBar from "./components/DebugBar.vue"
+import { defineAsyncComponent } from 'vue'
+
 import { generalOutputs, backendOutputs } from "./outputs.js"
 import { Year } from "./year.js"
 import { FiscalYears } from "./years.js"
@@ -144,10 +145,13 @@ import Field from "./Field.vue"
 import BackendToggle from "./BackendToggle.vue"
 import Unit from "./Unit.vue"
 import ValueWarning from "./ValueWarning.vue"
+import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
 
 import { mapState, mapWritableState } from 'pinia'
 import Localizations from './stores/localizations.js'
-
+const DebugBar = defineAsyncComponent(() =>
+    import("./components/DebugBar.vue")
+);
 
 export default {
 
@@ -201,7 +205,22 @@ export default {
 
     },
 
+    mounted() {
+        this.setPageTitle();
+    },
+
+    watch: {
+        language() {
+            this.setPageTitle();
+        }
+    },
+
     methods: {
+        setPageTitle() {
+            (new WrapperEventDispatcher(this.strings.title, null)).dispatch();
+        },
+
+
         print() {
             window.print();
         },
