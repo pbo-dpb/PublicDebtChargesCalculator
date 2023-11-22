@@ -43,11 +43,8 @@ export class Year {
 
 
         // User inputs
-        this.totalRevenueMeasures = userInput?.[label]?.totalRevenueMeasures ?? 0;
-        this.totalProgramSpendingMeasures = userInput?.[label]?.totalProgramSpendingMeasures ?? 0;
-
-
-
+        this.totalRevenueMeasures = this.hidden ? 0 : userInput?.[label]?.totalRevenueMeasures ?? 0;
+        this.totalProgramSpendingMeasures = this.hidden ? 0 : userInput?.[label]?.totalProgramSpendingMeasures ?? 0;
 
     }
 
