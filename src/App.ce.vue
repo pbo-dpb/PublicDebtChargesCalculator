@@ -21,8 +21,8 @@
 
             </template>
             <template #years>
-                <div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
-                </div>
+                <!--<div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
+                </div>-->
             </template>
         </FlexibleRow>
 
@@ -32,7 +32,7 @@
         <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800 ">
 
 
-            <FlexibleRow :editable="true">
+            <!--<FlexibleRow :editable="true">
                 <template #title>
                     {{ strings.totalRevenuesMeasures }}
                     <Unit>{{ strings.units.millions }}</Unit>
@@ -45,10 +45,10 @@
 
                     </div>
                 </template>
-            </FlexibleRow>
+            </FlexibleRow>-->
 
 
-            <FlexibleRow :editable="true">
+            <!--<FlexibleRow :editable="true">
                 <template #title>
                     {{ strings.totalProgramSpendingMeasures }}
                     <Unit>{{ strings.units.millions }}</Unit>
@@ -61,7 +61,7 @@
 
                     </div>
                 </template>
-            </FlexibleRow>
+            </FlexibleRow>-->
 
 
         </section>
@@ -72,10 +72,11 @@
 </template>
 
 <script>
-import collect from "collect.js";
+import worksheetUrl from "./assets/worksheet.xlsx?url";
+import { read } from "xlsx";
+import XLSX_CALC from "xlsx-calc";
+
 import { defineAsyncComponent } from 'vue'
-
-
 import FlexibleRow from "./components/FlexibleRow.vue"
 import Field from "./components/Field.vue"
 import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
@@ -85,7 +86,7 @@ import Unit from "./components/Unit.vue";
 
 import { mapState } from 'pinia'
 import { useLocalizationsStore } from './stores/localizations.js'
-import { useFiscalYearsStore } from "./stores/years.js"
+import { useWorkbookStore } from "./stores/workbook.js"
 
 
 const DebugBar = defineAsyncComponent(() =>
@@ -103,9 +104,6 @@ export default {
         Outputs,
     },
 
-    props: {
-        publicPath: String
-    },
     data() {
         return {
             isDirty: window.localStorage.getItem("pdcc-user-input")
@@ -113,25 +111,16 @@ export default {
 
     },
     setup() {
-        const fiscalYearsStore = useFiscalYearsStore()
-        return { fiscalYearsStore }
+        const workbookStore = useWorkbookStore()
+        return { workbookStore }
     },
     computed: {
         ...mapState(useLocalizationsStore, ['strings', 'language']),
-
-
-        /**
-         * Return a nicely formatted list of years.
-         * in `static-variables.js`.
-         */
-        yearsLabels() {
-            return collect(this.fiscalYearsStore.displayYears).pluck("label").toArray();
-        },
-
     },
 
     mounted() {
         this.setPageTitle();
+        this.loadCustomWorksheet();
     },
 
     watch: {
@@ -141,6 +130,21 @@ export default {
     },
 
     methods: {
+        async loadCustomWorksheet() {
+
+            const file = await (await fetch(worksheetUrl)).arrayBuffer();
+            const workbook = read(file);
+
+            console.log(workbook.Sheets["For user (EN)"].C5.v);
+            console.log(workbook.Sheets["For user (EN)"].C10.v);
+
+            workbook.Sheets["For user (EN)"].C5.v = 500;
+            XLSX_CALC(workbook);
+
+            console.log(workbook.Sheets["For user (EN)"].C10.v);
+
+
+        },
         setPageTitle() {
             (new WrapperEventDispatcher(this.strings.title, null)).dispatch();
         },
@@ -155,21 +159,15 @@ export default {
             this.fiscalYearsStore.forget();
             this.isDirty = true;
             // Save user input
-            window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.fiscalYearsStore.displayYears).mapWithKeys(year => {
+            /*window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.fiscalYearsStore.displayYears).mapWithKeys(year => {
                 return [year.label, {
                     totalRevenueMeasures: parseFloat(year.totalRevenueMeasures),
                     totalProgramSpendingMeasures: parseFloat(year.totalProgramSpendingMeasures)
                 }];
-            }).items))
+            }).items))*/
         }
     },
 
 
-    filters: {
-        percentage: function (percentage) {
-            percentage = Math.round(percentage * 100);
-            return this.language === "fr" ? `${percentage} %` : `${percentage}%`;
-        }
-    }
 };
 </script>

@@ -1,25 +1,17 @@
 import { defineStore } from 'pinia'
-import { localizedStrings } from "../strings.js"
-import collect from "collect.js";
-
+import en from '../assets/en.json'
+import fr from '../assets/fr.json'
 
 export const useLocalizationsStore = defineStore('localizations', {
     state: () => ({
         language: document.documentElement.lang,
-        iStrings: { en: null, fr: null, a: localizedStrings }
+        iStrings: { en, fr }
     }),
 
     getters: {
         strings(state) {
 
-            let strings = state.iStrings[state.language] ? state.iStrings[state.language] : null;
-            if (!strings) {
-                strings = collect(state.iStrings.a).map((locale) => {
-                    return locale[state.language];
-                }).items
-                state.iStrings[state.language] = strings;
-            }
-
+            let strings = state.iStrings[state.language]
             return strings
         },
     },
