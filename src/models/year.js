@@ -38,8 +38,9 @@ export class Year {
         /* Displayed to end user */
         this.day90TreasuryBillsRate = debtProjectionStore.averageForFiscalYear(nextFyLabel, "marginalTBillsRate");
         this.longTermBondRateNewBorrowing = debtProjectionStore.averageForFiscalYear(nextFyLabel, "marginalLTBondsRate");
-
         this.mediumTermBondRateNewBorrowing = 0.6 * debtProjectionStore.averageForFiscalYear(nextFyLabel, "marginal10yrBondsRate") + 0.4 * this.day90TreasuryBillsRate;
+
+
 
 
         // User inputs
