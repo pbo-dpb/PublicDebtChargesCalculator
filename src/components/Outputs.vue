@@ -100,28 +100,15 @@ export default {
         generalOutputs() {
             return [
                 new Output(this.strings, "netChangeOnPrimaryBalance", null, UNIT_MILLIONS),
-                /*new Output(this.strings, "annualPublicDebtCharge", null, UNIT_MILLIONS),
-                new Output(this.strings, "surplusOrDeficit", null, UNIT_MILLIONS),
-                new Output(this.strings, "cumulativeSurplus", null, UNIT_MILLIONS),
-                new Output(this.strings, "cumulativePublicDebtCharges", null, UNIT_MILLIONS),*/
+
             ]
         },
         backendOutputs() {
             const backendOutputs = [
 
-                /*new Output(this.strings, "day90TreasuryBillsRate", 'interestRates', null, true),
-                new Output(this.strings, "year10BondRate", 'interestRates', null, true),
-                new Output(this.strings, "longTermBondRate", 'interestRates', null, true),
-                new Output(this.strings, "marginalEffectiveInterestRate", 'interestRates', null, true),
-
-                new Output(this.strings, "debtChargesOnPrimaryBalances", 'overallNewDebt', null),
-                new Output(this.strings, "debtChargesOnExistingDebtStock", 'overallNewDebt', null),
-                new Output(this.strings, "newBorrowing", 'overallNewDebt', null),
-                new Output(this.strings, "debtStock", 'overallNewDebt', null),
-
-                new Output(this.strings, "treasuryBillStock", "incrementalGovernmentBondsComposition", null),
-                new Output(this.strings, "mediumTermBondsStock", 'incrementalGovernmentBondsComposition', null),
-                new Output(this.strings, "longTermBondsStock", 'incrementalGovernmentBondsComposition', null),*/
+                new Output(this.strings, "day90TreasuryBillsRate", 'fiscalModelImports', null, true),
+                new Output(this.strings, "longTermBondRateNewBorrowing", "fiscalModelImports", null, true),
+                new Output(this.strings, "mediumTermBondRateNewBorrowing", "fiscalModelImports", null, true),
 
             ];
             return collect(backendOutputs).groupBy('group').items;
