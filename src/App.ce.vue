@@ -1,5 +1,5 @@
 <template>
-    <main id="app" class="flex flex-col gap-4" v-cloak>
+    <div id="app" class="flex flex-col gap-4" v-cloak>
         <DebugBar></DebugBar>
 
 
@@ -15,24 +15,27 @@
 
         </nav>
 
-        <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
-            aria-hidden="true">
-            <template #title>
+        <LoadingIndicator class="w-8 h-8" v-if="workbookStore.loading"></LoadingIndicator>
+        <ErrorBlock v-if="workbookStore.error"></ErrorBlock>
+        <main v-if="!workbookStore.loading && workbookStore.error">
+            <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
+                aria-hidden="true">
+                <template #title>
 
-            </template>
-            <template #years>
-                <!--<div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
+                </template>
+                <template #years>
+                    <!--<div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
                 </div>-->
-            </template>
-        </FlexibleRow>
+                </template>
+            </FlexibleRow>
 
-        <!-- 
+            <!-- 
             Inputs
         -->
-        <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800 ">
+            <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800 ">
 
 
-            <!--<FlexibleRow :editable="true">
+                <!--<FlexibleRow :editable="true">
                 <template #title>
                     {{ strings.totalRevenuesMeasures }}
                     <Unit>{{ strings.units.millions }}</Unit>
@@ -48,7 +51,7 @@
             </FlexibleRow>-->
 
 
-            <!--<FlexibleRow :editable="true">
+                <!--<FlexibleRow :editable="true">
                 <template #title>
                     {{ strings.totalProgramSpendingMeasures }}
                     <Unit>{{ strings.units.millions }}</Unit>
@@ -64,17 +67,15 @@
             </FlexibleRow>-->
 
 
-        </section>
+            </section>
 
-        <Outputs></Outputs>
+            <Outputs></Outputs>
+        </main>
 
-    </main>
+    </div>
 </template>
 
 <script>
-import worksheetUrl from "./assets/worksheet.xlsx?url";
-import { read } from "xlsx";
-import XLSX_CALC from "xlsx-calc";
 
 import { defineAsyncComponent } from 'vue'
 import FlexibleRow from "./components/FlexibleRow.vue"
@@ -87,10 +88,16 @@ import Unit from "./components/Unit.vue";
 import { mapState } from 'pinia'
 import { useLocalizationsStore } from './stores/localizations.js'
 import { useWorkbookStore } from "./stores/workbook.js"
+import LoadingIndicator from "./components/LoadingIndicator.vue";
 
 
 const DebugBar = defineAsyncComponent(() =>
     import("./components/DebugBar.vue")
+);
+
+
+const ErrorBlock = defineAsyncComponent(() =>
+    import("./components/ErrorBlock.vue")
 );
 
 export default {
@@ -102,6 +109,8 @@ export default {
         DebugBar,
         CollapsibleIntro,
         Outputs,
+        LoadingIndicator,
+        ErrorBlock
     },
 
     data() {
@@ -131,19 +140,7 @@ export default {
 
     methods: {
         async loadCustomWorksheet() {
-
-            const file = await (await fetch(worksheetUrl)).arrayBuffer();
-            const workbook = read(file);
-
-            console.log(workbook.Sheets["For user (EN)"].C5.v);
-            console.log(workbook.Sheets["For user (EN)"].C10.v);
-
-            workbook.Sheets["For user (EN)"].C5.v = 500;
-            XLSX_CALC(workbook);
-
-            console.log(workbook.Sheets["For user (EN)"].C10.v);
-
-
+            this.workbookStore.loadWorkbook();
         },
         setPageTitle() {
             (new WrapperEventDispatcher(this.strings.title, null)).dispatch();
