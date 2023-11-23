@@ -20,5 +20,6 @@ export default class {
         }
         this.unit = null;
         this.fiscalYears = {};
+        this.is_static = null;
     }
 }

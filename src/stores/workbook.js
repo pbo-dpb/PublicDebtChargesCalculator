@@ -119,6 +119,7 @@ export const useWorkbookStore = defineStore('workbook', {
                 row.warning.en = sheet[attributesColumns.warning_en + rowNumber]?.v ?? null;
                 row.warning.fr = sheet[attributesColumns.warning_fr + rowNumber]?.v ?? null;
                 row.unit = sheet[attributesColumns.unit + rowNumber]?.v ?? null;
+                row.is_static = (sheet[attributesColumns.is_static + rowNumber]?.v ?? null) === 'TRUE';
 
 
                 for (const fyCol in fiscalYears) {
