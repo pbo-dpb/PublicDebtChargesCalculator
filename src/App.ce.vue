@@ -136,7 +136,7 @@ export default {
 
         handleUpdatedUserInput() {
             this.isDirty = true;
-            //this.fiscalYearsStore.forget();
+            this.workbookStore.updateSheet();
 
             // Save user input
             /*window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.fiscalYearsStore.displayYears).mapWithKeys(year => {

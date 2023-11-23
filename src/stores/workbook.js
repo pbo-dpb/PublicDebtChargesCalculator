@@ -175,7 +175,23 @@ export const useWorkbookStore = defineStore('workbook', {
         },
 
         updateSheet(workbook) {
-            XLSX_CALC(workbook);
+
+            // Update the sheet with the user values
+            for (const inputRowId in this.userValues) {
+
+                const rowForInput = this.rows.find(row => row.id === inputRowId);
+
+                for (const fy in this.userValues[inputRowId]) {
+                    const userValue = this.userValues[inputRowId][fy].value;
+                    const columnForFiscalYear = Object.keys(this.fiscalYears).find(col => this.fiscalYears[col] === fy);
+                    const cellPath = columnForFiscalYear + rowForInput.row;
+
+                    this.workbook.Sheets[MACHINE_READABLE_SHEET_NAME][cellPath].v = userValue;
+                }
+
+            }
+
+            XLSX_CALC(this.workbook);
         },
 
         async loadWorkbook(file) {
