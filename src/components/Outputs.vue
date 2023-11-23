@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 mt-4">
         <!-- General Outputs -->
 
         <section class="flex flex-col divide-y divide-gray-300 ">

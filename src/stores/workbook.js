@@ -226,7 +226,6 @@ export const useWorkbookStore = defineStore('workbook', {
             this.instanciateUserValues();
             this.loading = false;
 
-
         }
 
 
