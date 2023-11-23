@@ -6,7 +6,7 @@
 
             <h3 class="p-2 -mx-2 text-xl font-light">{{ strings.ouputsTitle }}</h3>
 
-            <Output v-for="output in workbookStore.outputs" :key="output.id" :row="output"></Output>
+            <Output v-for="output in workbookStore.outputs" :key="output.id" :row="output" :round-to="roundTo"></Output>
         </section>
 
 
@@ -23,7 +23,7 @@
             }}
             </h3>
 
-            <Output v-for="output in outputGroup.rows" :key="output.id" :row="output"></Output>
+            <Output v-for="output in outputGroup.rows" :key="output.id" :row="output" :round-to="roundTo"></Output>
 
         </section>
 

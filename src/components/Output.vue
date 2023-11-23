@@ -10,9 +10,11 @@
         </template>
         <template #years>
             <div v-for="(valueForFiscalYear, fiscalYear) in row.fiscalYears">
-                <Field :label="fiscalYear" :model-value="valueForFiscalYear.toFixed(roundTo)" readonly
+                <Field :label="fiscalYear"
+                    :model-value="valueForFiscalYear !== null ? valueForFiscalYear.toFixed(roundTo) : false" readonly
                     :is-static="row.is_static">
                 </Field>
+
             </div>
         </template>
     </FlexibleRow>

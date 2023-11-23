@@ -125,7 +125,7 @@ export const useWorkbookStore = defineStore('workbook', {
 
                 for (const fyCol in fiscalYears) {
                     const fiscalYear = fiscalYears[fyCol];
-                    row.fiscalYears[fiscalYear] = sheet[fyCol + rowNumber].v;
+                    row.fiscalYears[fiscalYear] = sheet[fyCol + rowNumber]?.v ?? null;
                 }
 
                 rows.push(row);
