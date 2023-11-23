@@ -10,8 +10,7 @@
         </template>
         <template #years>
             <div v-for="(valueForFiscalYear, fiscalYear) in row.fiscalYears">
-                <Field :label="fiscalYear"
-                    :model-value="valueForFiscalYear !== null ? valueForFiscalYear.toFixed(roundTo) : false" readonly
+                <Field :label="fiscalYear" :model-value="formatValueForFiscalYear(valueForFiscalYear)" readonly
                     :is-static="row.is_static">
                 </Field>
 
@@ -47,6 +46,16 @@ export default {
     },
     computed: {
         ...mapState(useLocalizationsStore, ['strings', 'language']),
+
+    },
+    methods: {
+        formatValueForFiscalYear(valueForFiscalYear) {
+            if (valueForFiscalYear === null) {
+                return false
+            }
+
+            return (this.row.unit === 'percents' ? valueForFiscalYear * 100 : valueForFiscalYear).toFixed(this.roundTo)
+        }
     }
 }
 
