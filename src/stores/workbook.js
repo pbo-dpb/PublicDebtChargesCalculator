@@ -4,6 +4,14 @@ import { read } from "xlsx";
 import XLSX_CALC from "xlsx-calc";
 import Row from "../models/Row";
 
+const storedUserValuesStorageKey = 'pdcc-user-input';
+let storedUserValues = {};
+try {
+    const rawUserValues = localStorage.getItem(storedUserValuesStorageKey);
+    storedUserValues = JSON.parse(rawUserValues);
+} catch (error) {
+}
+
 const MACHINE_READABLE_SHEET_NAME = "machine_readable"
 
 export const useWorkbookStore = defineStore('workbook', {
@@ -11,7 +19,8 @@ export const useWorkbookStore = defineStore('workbook', {
         loading: true,
         error: null,
         workbook: null,
-        userValues: {}
+        userValues: {},
+        isDirty: false
     }),
 
     getters: {
@@ -181,9 +190,20 @@ export const useWorkbookStore = defineStore('workbook', {
             let userValues = {};
 
             this.inputs.forEach(input => {
+
                 userValues[input.id] = {};
                 for (const fy in input.fiscalYears) {
-                    userValues[input.id][fy] = { value: 0 };
+                    let storedUserValue;
+                    try {
+                        storedUserValue = storedUserValues?.[input.getUserValueStorageKeyForFiscalYear(fy)] ?? 0;
+                        if (storedUserValue) {
+                            this.isDirty = true;
+                        }
+                    } catch (error) {
+
+                    }
+
+                    userValues[input.id][fy] = { value: storedUserValue ? storedUserValue : 0 };
                 }
             });
 
@@ -194,21 +214,41 @@ export const useWorkbookStore = defineStore('workbook', {
         updateSheet(workbook) {
 
             // Update the sheet with the user values
+
+            const userStoragePayload = {
+                last_updated: new Date().toISOString(),
+            }
             for (const inputRowId in this.userValues) {
 
                 const rowForInput = this.rows.find(row => row.id === inputRowId);
 
                 for (const fy in this.userValues[inputRowId]) {
-                    const userValue = this.userValues[inputRowId][fy].value;
+                    let userValue = this.userValues[inputRowId][fy].value;
+                    if (!userValue) userValue = 0;
                     const columnForFiscalYear = Object.keys(this.fiscalYears).find(col => this.fiscalYears[col] === fy);
                     const cellPath = columnForFiscalYear + rowForInput.row;
 
-                    this.workbook.Sheets[MACHINE_READABLE_SHEET_NAME][cellPath].v = userValue;
+                    const parsedUserValue = parseFloat(userValue);
+                    this.workbook.Sheets[MACHINE_READABLE_SHEET_NAME][cellPath].v = parsedUserValue
+                    if (parsedUserValue)
+                        userStoragePayload[rowForInput.getUserValueStorageKeyForFiscalYear(fy)] = parsedUserValue;
+                    else
+                        delete userStoragePayload[rowForInput.getUserValueStorageKeyForFiscalYear(fy)];
                 }
 
             }
 
             XLSX_CALC(this.workbook);
+
+            window.localStorage.setItem(storedUserValuesStorageKey, JSON.stringify(userStoragePayload));
+        },
+
+        clearUserInput() {
+            storedUserValues = {};
+            localStorage.removeItem(storedUserValuesStorageKey);
+            this.isDirty = false;
+            this.instanciateUserValues();
+            this.updateSheet();
         },
 
         async loadWorkbook(file) {
@@ -224,9 +264,16 @@ export const useWorkbookStore = defineStore('workbook', {
             }
 
             this.instanciateUserValues();
+
+            if (this.isDirty) {
+                this.updateSheet();
+            }
+
             this.loading = false;
 
-        }
+        },
+
+
 
 
     }

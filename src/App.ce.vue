@@ -7,7 +7,7 @@
 
         <nav class="flex print:hidden flex-row justify-end items-center gap-4">
 
-            <Button type="negative" @click="clear" :disabled="!isDirty">{{ strings.clearUserInput
+            <Button type="negative" @click="clear" :disabled="!workbookStore.isDirty">{{ strings.clearUserInput
             }}</Button>
 
         </nav>
@@ -95,12 +95,6 @@ export default {
         Button
     },
 
-    data() {
-        return {
-            isDirty: window.localStorage.getItem("pdcc-user-input")
-        };
-
-    },
     setup() {
         const workbookStore = useWorkbookStore()
         return { workbookStore }
@@ -129,22 +123,13 @@ export default {
         },
 
         clear() {
-            window.localStorage.removeItem("pdcc-user-input");
-            location.reload();
+            this.workbookStore.clearUserInput();
         },
 
 
         handleUpdatedUserInput() {
-            this.isDirty = true;
+            this.workbookStore.isDirty = true;
             this.workbookStore.updateSheet();
-
-            // Save user input
-            /*window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.fiscalYearsStore.displayYears).mapWithKeys(year => {
-                return [year.label, {
-                    totalRevenueMeasures: parseFloat(year.totalRevenueMeasures),
-                    totalProgramSpendingMeasures: parseFloat(year.totalProgramSpendingMeasures)
-                }];
-            }).items))*/
         }
     },
 
