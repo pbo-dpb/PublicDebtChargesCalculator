@@ -65,6 +65,7 @@ export const useWorkbookStore = defineStore('workbook', {
                 warning_en: null,
                 warning_fr: null,
                 unit: null,
+                is_static: null,
             };
 
             for (const property in sheet) {
@@ -119,7 +120,7 @@ export const useWorkbookStore = defineStore('workbook', {
                 row.warning.en = sheet[attributesColumns.warning_en + rowNumber]?.v ?? null;
                 row.warning.fr = sheet[attributesColumns.warning_fr + rowNumber]?.v ?? null;
                 row.unit = sheet[attributesColumns.unit + rowNumber]?.v ?? null;
-                row.is_static = (sheet[attributesColumns.is_static + rowNumber]?.v ?? null) === 'TRUE';
+                row.is_static = (sheet[attributesColumns.is_static + rowNumber]?.v ?? null);
 
 
                 for (const fyCol in fiscalYears) {
@@ -141,6 +142,21 @@ export const useWorkbookStore = defineStore('workbook', {
 
         outputs() {
             return this.rows.filter(row => row.type === 'outputs');
+        },
+
+        backend() {
+            let groups = {};
+            this.rows.filter(row => row.type === 'backend').forEach(row => {
+                if (groups[row.groupName.en]) {
+                    groups[row.groupName.en].rows.push(row);
+                } else {
+                    groups[row.groupName.en] = {
+                        rows: [row],
+                        label: row.groupName
+                    }
+                }
+            });
+            return groups;
         }
 
 
@@ -209,6 +225,8 @@ export const useWorkbookStore = defineStore('workbook', {
 
             this.instanciateUserValues();
             this.loading = false;
+
+
         }
 
 
