@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import worksheetUrl from "../assets/payload.xlsx?url";
 import { read } from "xlsx";
 import XLSX_CALC from "xlsx-calc";
-import Row from "../models/row";
+import Row from "../models/Row";
 
 const MACHINE_READABLE_SHEET_NAME = "machine_readable"
 
@@ -11,6 +11,7 @@ export const useWorkbookStore = defineStore('workbook', {
         loading: true,
         error: null,
         workbook: null,
+        userValues: {}
     }),
 
     getters: {
@@ -131,6 +132,14 @@ export const useWorkbookStore = defineStore('workbook', {
 
             return rows;
 
+        },
+
+        inputs() {
+            return this.rows.filter(row => row.type === 'input');
+        },
+
+        outputs() {
+            return this.rows.filter(row => row.type === 'outputs');
         }
 
 
@@ -150,6 +159,20 @@ export const useWorkbookStore = defineStore('workbook', {
             this.workbook = workbook;
         },
 
+        instanciateUserValues() {
+
+            let userValues = {};
+
+            this.inputs.forEach(input => {
+                userValues[input.id] = {};
+                for (const fy in input.fiscalYears) {
+                    userValues[input.id][fy] = { value: 0 };
+                }
+            });
+
+            this.userValues = userValues;
+
+        },
 
         updateSheet(workbook) {
             XLSX_CALC(workbook);
@@ -167,10 +190,7 @@ export const useWorkbookStore = defineStore('workbook', {
                 return;
             }
 
-            const sheet = this.sheet;
-            const rows = this.rows;
-            debugger
-
+            this.instanciateUserValues();
             this.loading = false;
         }
 

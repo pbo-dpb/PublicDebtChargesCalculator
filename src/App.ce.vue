@@ -7,25 +7,23 @@
 
         <nav class="flex print:hidden flex-row justify-end items-center gap-4">
 
-            <button
-                class="text-sm font-semibold px-4 py-2 text-red-900 dark:text-red-100 bg-red-100 dark:bg-red-800 rounded "
-                :class="{ 'opacity-75': !isDirty, 'hover:bg-red-200 dark:hover:bg-red-700': isDirty }" @click="clear"
-                :disabled="!isDirty">{{ strings.clearUserInput
-                }}</button>
+            <Button type="negative" @click="clear" :disabled="!isDirty">{{ strings.clearUserInput
+            }}</Button>
 
         </nav>
 
         <LoadingIndicator class="w-8 h-8" v-if="workbookStore.loading"></LoadingIndicator>
         <ErrorBlock v-if="workbookStore.error"></ErrorBlock>
-        <main v-if="!workbookStore.loading && workbookStore.error">
+        <main v-if="!workbookStore.loading && !workbookStore.error">
             <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
                 aria-hidden="true">
                 <template #title>
 
                 </template>
                 <template #years>
-                    <!--<div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
-                </div>-->
+                    <div v-for="(year, column) in workbookStore.fiscalYears" v-text="year"
+                        class="print:text-xs font-semibold text-right">
+                    </div>
                 </template>
             </FlexibleRow>
 
@@ -35,37 +33,20 @@
             <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800 ">
 
 
-                <!--<FlexibleRow :editable="true">
-                <template #title>
-                    {{ strings.totalRevenuesMeasures }}
-                    <Unit>{{ strings.units.millions }}</Unit>
-                </template>
-                <template #years>
-                    <div v-for="year in fiscalYearsStore.displayYears">
-                        <Field v-model="year.totalRevenueMeasures" :label="year.label" @input="handleUpdatedUserInput"
-                            @change="handleUpdatedUserInput">
-                        </Field>
+                <FlexibleRow :editable="true" v-for="input in workbookStore.inputs">
+                    <template #title>
+                        {{ input.label[language] }}
+                        <Unit v-if="input.unit">{{ strings[`units_${input.unit}`] }}</Unit>
+                    </template>
+                    <template #years>
+                        <div v-for="(userValue, fiscalYear) in workbookStore.userValues[input.id]">
+                            <Field v-model="userValue.value" :label="fiscalYear" @input="handleUpdatedUserInput"
+                                @change="handleUpdatedUserInput">
+                            </Field>
 
-                    </div>
-                </template>
-            </FlexibleRow>-->
-
-
-                <!--<FlexibleRow :editable="true">
-                <template #title>
-                    {{ strings.totalProgramSpendingMeasures }}
-                    <Unit>{{ strings.units.millions }}</Unit>
-                </template>
-                <template #years>
-                    <div v-for="year in fiscalYearsStore.displayYears">
-                        <Field v-model="year.totalProgramSpendingMeasures" :label="year.label"
-                            @input="handleUpdatedUserInput" @change="handleUpdatedUserInput">
-                        </Field>
-
-                    </div>
-                </template>
-            </FlexibleRow>-->
-
+                        </div>
+                    </template>
+                </FlexibleRow>
 
             </section>
 
@@ -84,7 +65,7 @@ import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
 import CollapsibleIntro from "./components/CollapsibleIntro.vue";
 import Outputs from "./components/Outputs.vue";
 import Unit from "./components/Unit.vue";
-
+import Button from "./components/Button.vue";
 import { mapState } from 'pinia'
 import { useLocalizationsStore } from './stores/localizations.js'
 import { useWorkbookStore } from "./stores/workbook.js"
@@ -110,7 +91,8 @@ export default {
         CollapsibleIntro,
         Outputs,
         LoadingIndicator,
-        ErrorBlock
+        ErrorBlock,
+        Button
     },
 
     data() {
@@ -153,8 +135,9 @@ export default {
 
 
         handleUpdatedUserInput() {
-            this.fiscalYearsStore.forget();
             this.isDirty = true;
+            //this.fiscalYearsStore.forget();
+
             // Save user input
             /*window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.fiscalYearsStore.displayYears).mapWithKeys(year => {
                 return [year.label, {
