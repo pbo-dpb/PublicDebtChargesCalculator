@@ -12,12 +12,11 @@ jobs:
             - name: Install dependencies
               run: |
                 mkdir python
-                pip install -r server/requirements.txt -t pylayer
-                pip install . -t  pylayer
-                zip --quiet -r pylayer.zip pylayer
+                pip install --platform manylinux2014_aarch64 --target=python --implementation cp --python-version 3.11 --only-binary=:all: --upgrade -r server/requirements.txt
+                zip --quiet -r python.zip python
             - name: Create artifact
               uses: actions/upload-artifact@v3
               with:
-                name: pylayer
-                path: pylayer.zip
+                name: python
+                path: python.zip
             
