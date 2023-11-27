@@ -6,5 +6,6 @@
     "clearUserInput": "Clear",
     "units_millions": "$M",
     "units_percents": "%",
-    "ouputsTitle": "Results"
+    "ouputsTitle": "Results",
+    "cta": "Calculate"
 }

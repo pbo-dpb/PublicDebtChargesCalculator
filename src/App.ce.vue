@@ -50,6 +50,14 @@
 
             </section>
 
+
+            <div class="w-full flex flex-row  justify-center pt-4">
+                <Button type="primary" @click="requestSheetUpdate" :disabled="!workbookStore.isDirty"
+                    :loading="workbookStore.loadingOutputsCells">
+                    {{ strings.cta }}
+                </Button>
+            </div>
+
             <Outputs></Outputs>
         </main>
 
@@ -129,8 +137,11 @@ export default {
 
         handleUpdatedUserInput() {
             this.workbookStore.isDirty = true;
+        },
+
+        requestSheetUpdate() {
             this.workbookStore.updateSheet();
-        }
+        },
     },
 
 

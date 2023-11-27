@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
+
 import worksheetUrl from "../assets/payload.xlsx?url";
 import { read } from "xlsx";
-import XLSX_CALC from "xlsx-calc";
 import Row from "../models/Row";
+const lambdaFunctionUrl = import.meta.env.VITE_LAMBDA_FUNCTION_URL;
+
 
 const storedUserValuesStorageKey = 'pdcc-user-input';
 let storedUserValues = {};
@@ -17,10 +19,12 @@ const MACHINE_READABLE_SHEET_NAME = "machine_readable"
 export const useWorkbookStore = defineStore('workbook', {
     state: () => ({
         loading: true,
+        loadingOutputsCells: false,
         error: null,
         workbook: null,
         userValues: {},
-        isDirty: false
+        isDirty: false,
+        processed: null,
     }),
 
     getters: {
@@ -145,6 +149,20 @@ export const useWorkbookStore = defineStore('workbook', {
 
         },
 
+        requestedCells() {
+
+            let requestedCells = [];
+            this.rows.filter(row => row.type !== 'input').forEach(row => {
+                for (const fy in row.fiscalYears) {
+                    const columnForFiscalYear = Object.keys(this.fiscalYears).find(col => this.fiscalYears[col] === fy);
+                    const cellPath = columnForFiscalYear + row.row;
+                    requestedCells.push(cellPath);
+                }
+            });
+            return requestedCells;
+
+        },
+
         inputs() {
             return this.rows.filter(row => row.type === 'input');
         },
@@ -166,9 +184,25 @@ export const useWorkbookStore = defineStore('workbook', {
                 }
             });
             return groups;
-        }
+        },
 
 
+        areCurrentUserInputsDifferentFromProcessed() {
+            if (!this.processed) return null;
+
+            for (const inputRowId in this.userValues) {
+
+                for (const fyId in this.userValues[inputRowId]) {
+                    if ((this.userValues[inputRowId][fyId]).value != (this.processed.inputs[inputRowId][fyId]).value) {
+                        return true;
+                    }
+
+                }
+
+            }
+
+            return false;
+        },
     },
 
     actions: {
@@ -211,13 +245,17 @@ export const useWorkbookStore = defineStore('workbook', {
 
         },
 
-        updateSheet(workbook) {
+        async updateSheet() {
 
+            if (this.loadingOutputsCells) return;
+
+            this.loadingOutputsCells = true;
             // Update the sheet with the user values
 
             const userStoragePayload = {
                 last_updated: new Date().toISOString(),
             }
+            const userValueCellValues = {};
             for (const inputRowId in this.userValues) {
 
                 const rowForInput = this.rows.find(row => row.id === inputRowId);
@@ -229,18 +267,44 @@ export const useWorkbookStore = defineStore('workbook', {
                     const cellPath = columnForFiscalYear + rowForInput.row;
 
                     const parsedUserValue = parseFloat(userValue);
-                    this.workbook.Sheets[MACHINE_READABLE_SHEET_NAME][cellPath].v = parsedUserValue
+                    userValueCellValues[cellPath] = parsedUserValue;
                     if (parsedUserValue)
                         userStoragePayload[rowForInput.getUserValueStorageKeyForFiscalYear(fy)] = parsedUserValue;
                     else
                         delete userStoragePayload[rowForInput.getUserValueStorageKeyForFiscalYear(fy)];
                 }
-
             }
 
-            XLSX_CALC(this.workbook);
-
             window.localStorage.setItem(storedUserValuesStorageKey, JSON.stringify(userStoragePayload));
+
+
+            // POST to AWS lambda function
+            const payload = JSON.stringify({
+                user_values: userValueCellValues,
+                requested_fields: this.requestedCells,
+            })
+
+            const response = await fetch(lambdaFunctionUrl, {
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                this.error = "Error while updating the sheet. Please try again later.";
+            }
+
+
+            const responseBody = await response.json();
+            this.processed = {
+                inputs: JSON.parse(JSON.stringify(this.userValues)),
+                outputs: responseBody
+            };
+            this.loadingOutputsCells = false;
+
         },
 
         clearUserInput() {
@@ -248,7 +312,7 @@ export const useWorkbookStore = defineStore('workbook', {
             localStorage.removeItem(storedUserValuesStorageKey);
             this.isDirty = false;
             this.instanciateUserValues();
-            this.updateSheet();
+            this.outputs = null;
         },
 
         async loadWorkbook(file) {
@@ -264,13 +328,7 @@ export const useWorkbookStore = defineStore('workbook', {
             }
 
             this.instanciateUserValues();
-
-            if (this.isDirty) {
-                this.updateSheet();
-            }
-
             this.loading = false;
-
         },
 
 

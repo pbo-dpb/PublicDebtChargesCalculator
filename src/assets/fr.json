@@ -6,5 +6,6 @@
     "clearUserInput": "Remettre à zéro",
     "units_millions": "En million de $",
     "units_percents": "%",
-    "ouputsTitle": "Résultats"
+    "ouputsTitle": "Résultats",
+    "cta": "Calculer"
 }

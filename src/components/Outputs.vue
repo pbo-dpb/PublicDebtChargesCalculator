@@ -1,5 +1,7 @@
 <template>
-    <div class="flex flex-col gap-4 mt-4">
+    <div class="flex flex-col gap-4 mt-4 transition-all" :inert="shouldHide"
+        :class="{ blur: shouldHide, 'opacity-60 grayscale': workbookStore.areCurrentUserInputsDifferentFromProcessed }"
+        aria-live="assertive">
         <!-- General Outputs -->
 
         <section class="flex flex-col divide-y divide-gray-300 ">
@@ -55,6 +57,9 @@ export default {
         ...mapState(useLocalizationsStore, ['strings', 'language']),
         roundTo() {
             return this.showBackEnd ? 1 : 0
+        },
+        shouldHide() {
+            return this.workbookStore.loadingOutputsCells || !this.workbookStore.processed
         }
     },
     methods: {
