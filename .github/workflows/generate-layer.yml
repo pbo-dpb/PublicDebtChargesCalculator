@@ -1,0 +1,23 @@
+name: generate-lambda-layer
+on: [workflow_dispatch]
+jobs:
+    build-layer-zip:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup Python 3.11
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.11
+            - name: Install dependencies
+              run: |
+                mkdir python
+                pip install -r server/requirements.txt -t pylayer
+                pip install . -t  pylayer
+                zip --quiet -r pylayer.zip pylayer
+            - name: Create artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: pylayer
+                path: pylayer.zip
+            
