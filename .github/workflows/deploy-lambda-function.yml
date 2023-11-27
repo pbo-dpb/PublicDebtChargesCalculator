@@ -1,0 +1,45 @@
+name: deploy-lambda-function
+on: 
+    workflow_dispatch:
+        inputs:
+            deploy_to_production:
+                description: 'Set to `true` to deploy in production.'
+                required: false
+                default: 'false'
+jobs:
+    build-layer-zip:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup Python 3.11
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.11
+            - name: Bundle payload with function
+              run: |
+                cp ./src/assets/payload.xlsx ./server/payload.xlsx
+                rm ./server/requirements.txt
+                zip -j --quiet -r lambda.zip server
+            - name: Create artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: lambda
+                path: lambda.zip
+            - name: Deploy to Lambda Production
+              if: github.event.inputs.deploy_to_production == 'true'
+              uses: appleboy/lambda-action@master
+              with:
+                aws_access_key_id: ${{ secrets.AWS_PROD_KEY_ID }}
+                aws_secret_access_key: ${{ secrets.AWS_PROD_SECRET_ACCESS_KEY }}
+                aws_region: ca-central-1
+                function_name: public-debt-charges-calculator-prod
+                zip_file: lambda.zip
+            - name: Deploy to Lambda Devlopment
+              if: github.event.inputs.deploy_to_production == 'true'
+              uses: appleboy/lambda-action@master
+              with:
+                  aws_access_key_id: ${{ secrets.AWS_DEV_KEY_ID }}
+                  aws_secret_access_key: ${{ secrets.AWS_DEV_KEY_ID }}
+                  aws_region: ca-central-1
+                  function_name: public-debt-charges-calculator-dev
+                  zip_file: lambda.zip
