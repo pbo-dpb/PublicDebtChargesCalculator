@@ -1,4 +1,4 @@
-name: deploy-lambda-function
+name: deploy
 on: 
     workflow_dispatch:
         inputs:
@@ -7,7 +7,31 @@ on:
                 required: false
                 default: 'false'
 jobs:
-    build-layer-zip:
+    compile-and-deploy-frontend:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: '18'
+        - run: npm ci
+        - run: echo "VITE_DEPLOYMENT_ID=${{ github.run_id }}${{ github.run_attempt }}" >> .env
+        - if: github.event.inputs.deploy_to_production == 'true'
+          run: echo "VITE_LAMBDA_FUNCTION_URL=${{ secrets.lambda_function_url_prod }}" >> .env
+        - if: github.event.inputs.deploy_to_production != 'true'
+          run: echo "VITE_LAMBDA_FUNCTION_URL=${{ secrets.lambda_function_url_dev }}" >> .env
+        - run: npm run build
+        - uses: montudor/action-zip@v1
+          with:
+            args: zip -qq -r dist.zip dist
+        - uses: "marvinpinto/action-automatic-releases@latest"
+          with:
+            repo_token: "${{ secrets.GITHUB_TOKEN }}"
+            automatic_release_tag: "latest"
+            prerelease: false
+            files: |
+              dist.zip
+    deploy-lambda-function:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -43,3 +67,4 @@ jobs:
                   aws_region: ca-central-1
                   function_name: public-debt-charges-calculator-dev
                   zip_file: lambda.zip
+                  environment: deploymentid=${{ github.run_id }}${{ github.run_attempt }}
