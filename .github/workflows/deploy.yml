@@ -21,8 +21,6 @@ jobs:
         - if: github.event.inputs.deployment_environment != 'prod'
           run: echo "VITE_LAMBDA_FUNCTION_URL=${{ secrets.LAMBDA_FUNCTION_URL_DEV }}" >> .env
         - run: npm run build
-        - name: Copy manifest.json to ensure backwards compatibility with pre Vite 5
-          run: cp dist/.vite/manifest.json dist/manifest.json
         - uses: montudor/action-zip@v1
           with:
             args: zip -qq -r dist.zip dist
