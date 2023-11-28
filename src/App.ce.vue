@@ -1,6 +1,6 @@
 <template>
-    <div id="app" class="flex flex-col gap-4" v-cloak>
-        <DebugBar></DebugBar>
+    <div id="app" class="flex flex-col gap-4 pt-4" v-cloak>
+        <DebugBar v-if="$root.debug"></DebugBar>
 
 
         <CollapsibleIntro></CollapsibleIntro>
