@@ -43,3 +43,7 @@ npm run build
 4. Créer une nouvelle fonction Lambda qui utilise la couche créée à l'étape 1 et le fichier zip créé à l'étape 3.
 
 5. Définir la variable d'environnement `VITE_LAMBDA_FUNCTION_URL` sur l'URL de la fonction Lambda créée à l'étape 4.
+
+## Déploiement
+
+Une action GitHub est utilisée pour générer automatiquement les ressources du côté client et déployer la fonction Lambda. Cette action peut être déclenchée manuellement à la demande. Voir `.github/workflows/deploy.yml`.

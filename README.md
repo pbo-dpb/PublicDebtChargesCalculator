@@ -42,3 +42,7 @@ npm run build
 4. Create a new Lambda function that uses the layer created in step 1 and the zip file created in step 3.
 
 5. Set the `VITE_LAMBDA_FUNCTION_URL` environment variable to the URL of the Lambda function created in step 4.
+
+## Deployment
+
+A GitHub action is used to automatically generate the frontend assets and deploy the Lambda function. This action can be triggered manually on demand. See `.github/workflows/deploy.yml`.
