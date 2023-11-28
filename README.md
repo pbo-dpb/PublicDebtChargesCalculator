@@ -12,7 +12,9 @@ The tool has been updated to reflect the new interest rate projections from our 
 
 ---
 
-## Project setup
+## Frontend setup
+
+### Project setup
 ```
 npm install
 ```
@@ -27,31 +29,20 @@ npm run dev
 npm run build
 ```
 
-# Calculateur des frais sur la dette publique
+## Backend setup
 
-Cet outil est conçu de manière à fournir une estimation des coûts d'intérêt résultant des nouvelles propositions politiques et des mesures budgétaires.
+### AWS Lambda
 
-Afin d'utiliser l'outil, il suffit de saisir les montants des recettes et des dépenses attendues de la proposition ou de la mesure. Les taux d'intérêt projetés par le DPB sont ensuite appliqués à la différence entre les revenus et les dépenses. Vous pourrez ainsi voir le surplus/déficit cumulatif incluant les frais d'intérêt sur la dette publique provenant d'une ou de plusieurs mesures. Les résultats sont reportés sur un horizon de 5 ans.
+1. Create a new layer with the dependencies located in `server/requirements.txt`. The layer can also be generated using a GitHub Action (see `.github/workflows/generate-lambda-layer.yml`).
 
-Par exemple, si une mesure est proposée et son coût est financé par la dette publique, alors des frais d'intérêt s'ajouteront au coût total de ladite mesure. De même, si une mesure est proposée et permet d'engranger de nouveaux revenus, alors ceux-ci permettront de réduire la dette publique et ainsi de réduire les frais d'intérêt payés sur celle-ci.
+2. Copy ./src/assets/payload.xlsx into the ./server directory.
 
-L'outil a été mis à jour afin de tenir compte des nouvelles projections des taux d'intérêt tirées de nos Perspectives économiques et financières (PEF).
+3. Zip the contents of the ./server directory.
 
-[Version en ligne](https://www.pbo-dpb.ca/fr/research--recherches/tools--outils/public-debt-charges-calculator--calculateur-frais-dette-publique)
+4. Create a new Lambda function that uses the layer created in step 1 and the zip file created in step 3.
 
----
+5. Set the `VITE_LAMBDA_FUNCTION_URL` environment variable to the URL of the Lambda function created in step 4.
 
-## Installation du projet
-```
-npm install
-```
+## Deployment
 
-### Compilations et recharges à chaud pour le développement
-```
-npm run dev
-```
-
-### Compilation et miniaturisation pour la production
-```
-npm run build
-```
+A GitHub action is used to automatically generate the frontend assets and deploy the Lambda function. This action can be triggered manually on demand. See `.github/workflows/deploy.yml`.

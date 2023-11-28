@@ -1,0 +1,11 @@
+{
+    "title": "Public debt charges calculator",
+    "updatedOn": "Updated:",
+    "showBackEnd": "Show details",
+    "collapsible_component_handle": "About this tool",
+    "clearUserInput": "Clear",
+    "units_millions": "$M",
+    "units_percents": "%",
+    "ouputsTitle": "Results",
+    "cta": "Calculate"
+}

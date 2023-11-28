@@ -1,264 +1,149 @@
 <template>
-    <main id="app" class="flex flex-col gap-4" v-cloak>
+    <div id="app" class="flex flex-col gap-4" v-cloak>
+        <DebugBar></DebugBar>
 
-        <header class="print:hidden prose dark:prose-invert max-w-none flex flex-col gap-4">
-            <div v-html="descriptionHtml"></div>
-            <small>{{ strings.updatedOn }} {{ lastUpdated }}</small>
-        </header>
+
+        <CollapsibleIntro></CollapsibleIntro>
 
         <nav class="flex print:hidden flex-row justify-end items-center gap-4">
 
-            <button
-                class="text-sm font-semibold px-4 py-2 text-red-900 dark:text-red-100 bg-red-100 dark:bg-red-800 rounded "
-                :class="{ 'opacity-75': !isDirty, 'hover:bg-red-200 dark:hover:bg-red-700': isDirty }" @click="clear"
-                :disabled="!isDirty">{{ strings.clearUserInput
-                }}</button>
-            <button
-                class="hidden lg:block text-sm font-semibold px-4 py-2 text-blue-900 dark:text-blue-100 bg-blue-100 dark:bg-blue-800 rounded hover:bg-blue-200 dark:hover:bg-blue-700"
-                @click="print">{{ strings.printPage
-                }}</button>
+            <Button type="negative" @click="clear" :disabled="!workbookStore.isDirty">{{ strings.clearUserInput
+            }}</Button>
+
         </nav>
 
-        <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
-            aria-hidden="true">
-            <template #title>
+        <LoadingIndicator class="w-8 h-8" v-if="workbookStore.loading"></LoadingIndicator>
+        <ErrorBlock v-if="workbookStore.error"></ErrorBlock>
+        <main v-if="!workbookStore.loading && !workbookStore.error">
+            <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
+                aria-hidden="true">
+                <template #title>
 
-            </template>
-            <template #years>
-                <div v-for="year in yearsLabels" v-text="year" class="print:text-xs font-semibold text-right">
-                </div>
-            </template>
-        </FlexibleRow>
+                </template>
+                <template #years>
+                    <div v-for="(year, column) in workbookStore.fiscalYears" v-text="year"
+                        class="print:text-xs font-semibold text-right">
+                    </div>
+                </template>
+            </FlexibleRow>
 
-        <!-- 
+            <!-- 
             Inputs
         -->
-        <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800 ">
+            <section class="flex flex-col divide-y divide-blue-100 dark:divide-blue-800 ">
 
 
-            <FlexibleRow :editable="true">
-                <template #title>
-                    {{ strings.totalRevenuesMeasures }}
-                    <Unit>{{ strings.units.millions }}</Unit>
-                </template>
-                <template #years>
-                    <div v-for="year in years.displayYears">
-                        <Field v-model="year.totalRevenueMeasures" :label="year.label" @input="handleUpdatedUserInput"
-                            @change="handleUpdatedUserInput">
-                        </Field>
+                <FlexibleRow :editable="true" v-for="input in workbookStore.inputs">
+                    <template #title>
+                        {{ input.label[language] }}
+                        <Unit v-if="input.unit">{{ strings[`units_${input.unit}`] }}</Unit>
+                    </template>
+                    <template #years>
+                        <div v-for="(userValue, fiscalYear) in workbookStore.userValues[input.id]">
+                            <Field v-model="userValue.value" :label="fiscalYear" @input="handleUpdatedUserInput"
+                                @change="handleUpdatedUserInput">
+                            </Field>
 
-                    </div>
-                </template>
-            </FlexibleRow>
+                        </div>
+                    </template>
+                </FlexibleRow>
 
-
-            <FlexibleRow :editable="true">
-                <template #title>
-                    {{ strings.totalProgramSpendingMeasures }}
-                    <Unit>{{ strings.units.millions }}</Unit>
-                </template>
-                <template #years>
-                    <div v-for="year in years.displayYears">
-                        <Field v-model="year.totalProgramSpendingMeasures" :label="year.label"
-                            @input="handleUpdatedUserInput" @change="handleUpdatedUserInput">
-                        </Field>
-
-                    </div>
-                </template>
-            </FlexibleRow>
+            </section>
 
 
-        </section>
+            <div class="w-full flex flex-row  justify-center pt-4">
+                <Button type="primary" @click="requestSheetUpdate" :disabled="!workbookStore.isDirty"
+                    :loading="workbookStore.loadingOutputsCells">
+                    {{ strings.cta }}
+                </Button>
+            </div>
 
-        <!-- 
-            General Outputs
-        -->
+            <Outputs></Outputs>
+        </main>
 
-
-        <section class="flex flex-col divide-y divide-gray-300 ">
-
-
-            <h3 class="p-2 -mx-2 text-xl font-light">{{ strings.ouputsTitle }}</h3>
-
-            <FlexibleRow v-for="output in generalOutputs">
-                <template #title>
-                    {{ output.label }}
-                    <Unit v-if="output.unit">{{ output.unit }}</Unit>
-                    <ValueWarning v-if="output.warning">{{ output.warning }}</ValueWarning>
-                </template>
-                <template #years>
-                    <div v-for="year in years.displayYears">
-                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly>
-                        </Field>
-                    </div>
-                </template>
-            </FlexibleRow>
-        </section>
-
-        <!-- 
-            Backend Outputs
-         -->
-
-
-        <div class="flex flex-row justify-center">
-            <BackendToggle :label="strings.showBackEnd" v-model="showBackEnd"></BackendToggle>
-        </div>
-
-
-        <section v-if="showBackEnd" v-for="(outputGroup, outputGroupLabel) in backendOutputs"
-            class="flex flex-col divide-y divide-gray-300">
-
-            <h3 class="p-2 -mx-2 text-xl font-light" v-if="outputGroupLabel">{{ outputGroupLabel }}</h3>
-
-
-            <FlexibleRow v-for="output in outputGroup">
-                <template #title>
-                    {{ output.label }}
-                    <Unit>{{ output.unit }}</Unit>
-
-                </template>
-                <template #years>
-                    <div v-for="year in years.displayYears">
-                        <Field :model-value="retrieveValueForOutputYear(output, year)" :label="year.label" readonly
-                            :is-static="output.isStatic">
-                        </Field>
-                    </div>
-                </template>
-            </FlexibleRow>
-        </section>
-
-
-
-
-
-    </main>
+    </div>
 </template>
 
 <script>
-import collect from "collect.js";
-import { generalOutputs, backendOutputs } from "./outputs.js"
-import { Year } from "./year.js"
-import { FiscalYears } from "./years.js"
-import { lastUpdated, staticYears } from "./static-variables.js"
-import { localizedStrings } from "./strings.js"
-import { marked } from "marked"
-import FlexibleRow from "./FlexibleRow.vue"
-import Field from "./Field.vue"
-import BackendToggle from "./BackendToggle.vue"
-import Unit from "./Unit.vue"
-import ValueWarning from "./ValueWarning.vue"
+
+import { defineAsyncComponent } from 'vue'
+import FlexibleRow from "./components/FlexibleRow.vue"
+import Field from "./components/Field.vue"
+import WrapperEventDispatcher from "./WrapperEventDispatcher.js"
+import CollapsibleIntro from "./components/CollapsibleIntro.vue";
+import Outputs from "./components/Outputs.vue";
+import Unit from "./components/Unit.vue";
+import Button from "./components/Button.vue";
+import { mapState } from 'pinia'
+import { useLocalizationsStore } from './stores/localizations.js'
+import { useWorkbookStore } from "./stores/workbook.js"
+import LoadingIndicator from "./components/LoadingIndicator.vue";
+
+
+const DebugBar = defineAsyncComponent(() =>
+    import("./components/DebugBar.vue")
+);
+
+
+const ErrorBlock = defineAsyncComponent(() =>
+    import("./components/ErrorBlock.vue")
+);
 
 export default {
 
     components: {
         FlexibleRow,
         Field,
-        BackendToggle,
         Unit,
-        ValueWarning
+        DebugBar,
+        CollapsibleIntro,
+        Outputs,
+        LoadingIndicator,
+        ErrorBlock,
+        Button
     },
 
-    props: {
-        publicPath: String
+    setup() {
+        const workbookStore = useWorkbookStore()
+        return { workbookStore }
     },
-    data() {
-        return {
-            years: new FiscalYears(),
-            showBackEnd: false,
-            lastUpdated: lastUpdated,
-            generalOutputs: generalOutputs,
-            isDirty: window.localStorage.getItem("pdcc-user-input")
-        };
-
-    },
-
-
-
     computed: {
-        /**
-         * Retrieve the currently selected language using a `lang` url parameter. If the language is not set
-         * or if the language is not supported (anything else but fr or en), just return null. When no
-         * language is set, only the page's header (with languager selector) will be displayed. 
-         */
-        selectedLanguage() {
-            return document.documentElement.lang;
-        },
+        ...mapState(useLocalizationsStore, ['strings', 'language']),
+    },
 
-        /**
-         * Retrieve a localized description for the tool. This markdown content is parsed to HTML.
-         */
-        descriptionHtml() {
-            return marked.parse(this.strings.description);
-        },
+    mounted() {
+        this.setPageTitle();
+        this.loadCustomWorksheet();
+    },
 
-        /**
-         * Return a nicely formatted list of years.
-         * in `static-variables.js`.
-         */
-        yearsLabels() {
-            return collect(this.years.displayYears).pluck("label").toArray();
-        },
-
-        /**
-         * Pick only the strings in the current locale. Used to avoid using `[selectedLanguage]` everywhere
-         * in our views.
-         */
-        strings() {
-            return collect(localizedStrings).map((locale) => {
-                return locale[this.selectedLanguage];
-            }).items;
-        },
-
-
-        backendOutputs() {
-            return collect(backendOutputs).groupBy('group').items;
-        },
-
-
+    watch: {
+        language() {
+            this.setPageTitle();
+        }
     },
 
     methods: {
-        print() {
-            window.print();
+        async loadCustomWorksheet() {
+            this.workbookStore.loadWorkbook();
+        },
+        setPageTitle() {
+            (new WrapperEventDispatcher(this.strings.title, null)).dispatch();
         },
 
         clear() {
-            window.localStorage.removeItem("pdcc-user-input");
-            location.reload();
+            this.workbookStore.clearUserInput();
         },
 
-        retrieveValueForOutputYear(output, year) {
-            const outVal = this.years[output.id + 'ForYear'](year);
-            if (typeof outVal === "number") {
-                return Number(outVal).toFixed(this.showBackEnd ? 1 : 0);
-            }
-
-
-            return outVal;
-        },
 
         handleUpdatedUserInput() {
-            this.years.forget();
-            this.isDirty = true;
-            // Save user input
-            window.localStorage.setItem("pdcc-user-input", JSON.stringify(collect(this.years.displayYears).mapWithKeys(year => {
-                return [year.label, {
-                    totalRevenueMeasures: parseFloat(year.totalRevenueMeasures),
-                    totalProgramSpendingMeasures: parseFloat(year.totalProgramSpendingMeasures)
-                }];
-            }).items))
-        }
-    }
-    ,
+            this.workbookStore.isDirty = true;
+        },
 
-    filters: {
-        percentage: function (percentage) {
-            percentage = Math.round(percentage * 100);
-            return this.selectedLanguage === "fr" ? `${percentage} %` : `${percentage}%`;
-        }
-    }
+        requestSheetUpdate() {
+            this.workbookStore.updateSheet();
+        },
+    },
+
+
 };
 </script>
-<style>
-@import "./index.css";
-</style>

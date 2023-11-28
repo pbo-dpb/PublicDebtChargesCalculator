@@ -1,0 +1,8 @@
+schedula>=1.4.1
+numpy>=1.15
+dictdiffer
+openpyxl==3.1.2
+formulas==1.2.7
+regex
+python-dateutil
+numpy-financial
