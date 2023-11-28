@@ -10,7 +10,7 @@
         </template>
         <template #years>
             <div v-for="(valueForFiscalYear, fiscalYear) in row.fiscalYears">
-                <Field :label="fiscalYear" :model-value="formatValueForFiscalYear(valueForFiscalYear)" readonly
+                <Field :label="fiscalYear" :model-value="formatValueForFiscalYear(valueForFiscalYear, fiscalYear)" readonly
                     :is-static="row.is_static">
                 </Field>
 
@@ -26,6 +26,7 @@ import RowDescription from './RowDescription.vue';
 import Field from './Field.vue';
 import { mapState } from 'pinia'
 import { useLocalizationsStore } from '../stores/localizations.js'
+import { useWorkbookStore } from "../stores/workbook.js"
 
 export default {
     props: {
@@ -44,17 +45,34 @@ export default {
         RowDescription,
         Field
     },
+    setup() {
+        const workbookStore = useWorkbookStore()
+        return { workbookStore }
+    },
     computed: {
         ...mapState(useLocalizationsStore, ['strings', 'language']),
 
     },
     methods: {
-        formatValueForFiscalYear(valueForFiscalYear) {
+        formatValueForFiscalYear(valueForFiscalYear, fiscalYear) {
+
             if (valueForFiscalYear === null) {
                 return false
             }
 
-            return (this.row.unit === 'percents' ? valueForFiscalYear * 100 : valueForFiscalYear).toFixed(this.roundTo)
+            if (this.row.type === 'input') {
+                return valueForFiscalYear
+            }
+
+            const column = Object.keys(this.workbookStore.fiscalYears).find(col => this.workbookStore.fiscalYears[col] === fiscalYear);
+            const row = this.row.row;
+
+            const cell = `${column}${row}`;
+
+            const outputValue = this.workbookStore?.processed?.outputs?.[cell] ?? 0;
+
+            return (this.row.unit === 'percents' ? outputValue * 100 : outputValue).toFixed(this.roundTo)
+
         }
     }
 }
