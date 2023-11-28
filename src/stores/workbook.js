@@ -4,6 +4,7 @@ import worksheetUrl from "../assets/payload.xlsx?url";
 import { read } from "xlsx";
 import Row from "../models/Row";
 const lambdaFunctionUrl = import.meta.env.VITE_LAMBDA_FUNCTION_URL;
+const viteDeploymentId = import.meta.env.VITE_DEPLOYMENT_ID;
 
 
 const storedUserValuesStorageKey = 'pdcc-user-input';
@@ -25,9 +26,19 @@ export const useWorkbookStore = defineStore('workbook', {
         userValues: {},
         isDirty: false,
         processed: null,
+        versions: {
+            input: viteDeploymentId,
+            output: null
+        }
     }),
 
     getters: {
+
+        isBeingMaintained() {
+            if (!this.versions.input) return null;
+            if (this.versions.output === null) return null;
+            return this.versions.input !== this.versions.output;
+        },
 
         sheet: (state) => {
             const machineReadableSheet = state.workbook.Sheets[MACHINE_READABLE_SHEET_NAME];
@@ -331,6 +342,25 @@ export const useWorkbookStore = defineStore('workbook', {
             this.loading = false;
         },
 
+
+        async retrieveCurrentLambdaWorkbookId() {
+            if (this.versions.output) return;
+
+            const response = await fetch(lambdaFunctionUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'text/plain'
+                }
+            });
+
+            if (!response.ok) {
+                this.versions.output = false
+            }
+
+            const responseBody = await response.text();
+            this.versions.output = responseBody;
+
+        },
 
 
 

@@ -14,7 +14,9 @@
 
         <LoadingIndicator class="w-8 h-8" v-if="workbookStore.loading"></LoadingIndicator>
         <ErrorBlock v-if="workbookStore.error"></ErrorBlock>
-        <main v-if="!workbookStore.loading && !workbookStore.error">
+        <ErrorBlock v-if="workbookStore.isBeingMaintained"></ErrorBlock>
+        <main v-if="!workbookStore.loading && !workbookStore.error && !workbookStore.isBeingMaintained">
+
             <FlexibleRow class="hidden md:grid sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-300"
                 aria-hidden="true">
                 <template #title>
@@ -114,6 +116,7 @@ export default {
     mounted() {
         this.setPageTitle();
         this.loadCustomWorksheet();
+        this.workbookStore.retrieveCurrentLambdaWorkbookId();
     },
 
     watch: {

@@ -1,9 +1,15 @@
 <template>
-    <div role="alert" class="bg-red-100 p-4 text-red-800 rounded font-semibold prose max-w-none" v-html="error">
+    <div role="alert" class=" p-4  rounded font-semibold prose max-w-none" v-html="error ? error : message" :class="{
+        'bg-red-100 text-red-800': error, 'bg-orange-100 text-orange-800': !error
+    }">
     </div>
 </template>
 <script>
+import { mapState } from 'pinia'
+
 import { useWorkbookStore } from "../stores/workbook.js"
+import { useLocalizationsStore } from '../stores/localizations.js'
+
 import { marked } from 'marked';
 
 export default {
@@ -15,8 +21,12 @@ export default {
     },
 
     computed: {
+        ...mapState(useLocalizationsStore, ['strings']),
         error() {
-            return marked.parse(`⚠️ ${this.workbookStore.error}`)
+            return this.workbookStore.error ? marked.parse(`⚠️ ${this.workbookStore.error}`) : null
+        },
+        message() {
+            return marked.parse(`🚧 ${this.strings.maintenance}`)
         }
     }
 

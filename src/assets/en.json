@@ -7,5 +7,6 @@
     "units_millions": "$M",
     "units_percents": "%",
     "ouputsTitle": "Results",
-    "cta": "Calculate"
+    "cta": "Calculate",
+    "maintenance": "Maintenance in progress. Please try again later."
 }
