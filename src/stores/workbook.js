@@ -312,7 +312,7 @@ export const useWorkbookStore = defineStore('workbook', {
             localStorage.removeItem(storedUserValuesStorageKey);
             this.isDirty = false;
             this.instanciateUserValues();
-            this.outputs = null;
+            this.processed = null;
         },
 
         async loadWorkbook(file) {
