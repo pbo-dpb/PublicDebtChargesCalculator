@@ -33,6 +33,16 @@ def validate_input(user_cell_values, requested_fields):
 def lambda_handler(event, context):
     
     try:
+        request_method = event["requestContext"]["http"]["method"]
+        if (request_method == "GET"):
+            return {
+                'statusCode': 200,
+                'body': os.environ['deploymentid']
+            }
+    except (KeyError, NameError, AttributeError) as e:
+        pass
+    
+    try:
         payload = json.loads(event["body"])
         user_cell_values = payload["user_values"]
         requested_fields = payload["requested_fields"]

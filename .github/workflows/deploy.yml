@@ -2,10 +2,10 @@ name: deploy
 on: 
     workflow_dispatch:
         inputs:
-            deploy_to_production:
-                description: 'Set to `true` to deploy in production.'
-                required: false
-                default: 'false'
+            deployment_environment:
+                description: 'Set to `prod` to deploy in production.'
+                required: true
+                default: 'dev'
 jobs:
     compile-and-deploy-frontend:
       runs-on: ubuntu-latest
@@ -16,21 +16,32 @@ jobs:
             node-version: '18'
         - run: npm ci
         - run: echo "VITE_DEPLOYMENT_ID=${{ github.run_id }}${{ github.run_attempt }}" >> .env
-        - if: github.event.inputs.deploy_to_production == 'true'
-          run: echo "VITE_LAMBDA_FUNCTION_URL=${{ secrets.lambda_function_url_prod }}" >> .env
-        - if: github.event.inputs.deploy_to_production != 'true'
-          run: echo "VITE_LAMBDA_FUNCTION_URL=${{ secrets.lambda_function_url_dev }}" >> .env
+        - if: github.event.inputs.deployment_environment == 'prod'
+          run: echo "VITE_LAMBDA_FUNCTION_URL=${{ secrets.LAMBDA_FUNCTION_URL_PROD }}" >> .env
+        - if: github.event.inputs.deployment_environment != 'prod'
+          run: echo "VITE_LAMBDA_FUNCTION_URL=${{ secrets.LAMBDA_FUNCTION_URL_DEV }}" >> .env
         - run: npm run build
         - uses: montudor/action-zip@v1
           with:
             args: zip -qq -r dist.zip dist
-        - uses: "marvinpinto/action-automatic-releases@latest"
+        - if: github.event.inputs.deployment_environment == 'prod'
+          uses: "marvinpinto/action-automatic-releases@latest"
           with:
             repo_token: "${{ secrets.GITHUB_TOKEN }}"
             automatic_release_tag: "latest"
             prerelease: false
             files: |
               dist.zip
+        - if: github.event.inputs.deployment_environment != 'prod'
+          uses: shallwefootball/s3-upload-action@master
+          name: Upload to S3 dev preview
+          with:
+            aws_key_id: ${{ secrets.AWS_KEY_ID }}
+            aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_bucket: ${{ secrets.AWS_S3_DEV_BUCKET }}
+            source_dir: 'dist'
+            destination_dir: 'dev/'
+            endpoint: https://s3.ca-central-1.amazonaws.com
     deploy-lambda-function:
         runs-on: ubuntu-latest
         steps:
@@ -50,21 +61,22 @@ jobs:
                 name: lambda
                 path: lambda.zip
             - name: Deploy to Lambda Production
-              if: github.event.inputs.deploy_to_production == 'true'
+              if: github.event.inputs.deployment_environment == 'prod'
               uses: appleboy/lambda-action@master
               with:
-                aws_access_key_id: ${{ secrets.AWS_PROD_KEY_ID }}
-                aws_secret_access_key: ${{ secrets.AWS_PROD_SECRET_ACCESS_KEY }}
+                aws_access_key_id: ${{ secrets.AWS_KEY_ID }}
+                aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 aws_region: ca-central-1
-                function_name: public-debt-charges-calculator-prod
+                function_name: ${{ secrets.AWS_LAMBDA_FUNCTION_NAME_PROD }}
                 zip_file: lambda.zip
+                environment: deploymentid=${{ github.run_id }}${{ github.run_attempt }}
             - name: Deploy to Lambda Devlopment
-              if: github.event.inputs.deploy_to_production == 'true'
+              if: github.event.inputs.deployment_environment != 'prod'
               uses: appleboy/lambda-action@master
               with:
-                  aws_access_key_id: ${{ secrets.AWS_DEV_KEY_ID }}
-                  aws_secret_access_key: ${{ secrets.AWS_DEV_KEY_ID }}
+                  aws_access_key_id: ${{ secrets.AWS_KEY_ID }}
+                  aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws_region: ca-central-1
-                  function_name: public-debt-charges-calculator-dev
+                  function_name: ${{ secrets.AWS_LAMBDA_FUNCTION_NAME_DEV }}
                   zip_file: lambda.zip
                   environment: deploymentid=${{ github.run_id }}${{ github.run_attempt }}
