@@ -9,20 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.1.3",
+    "@heroicons/vue": "^2.1.4",
     "collect.js": "^4.36.1",
     "lodash.uniqueid": "^4.0.1",
-    "marked": "^12.0.1",
+    "marked": "^13.0.1",
     "pinia": "^2.1.7",
-    "vue": "^3.4.21",
+    "vue": "^3.4.30",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.12",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@tailwindcss/typography": "^0.5.13",
+    "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3",
-    "vite": "^5.2.8"
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.3.1"
   }
 }
