@@ -2,6 +2,6 @@
  * Last update. Is used to update user facing label. 
  * YYYY-MM-DD
  */
-export const lastUpdated = "2024-11-05";
+export const lastUpdated = "2024-11-06";
 
 
